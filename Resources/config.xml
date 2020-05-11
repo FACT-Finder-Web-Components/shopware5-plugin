@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
+
+    <elements>
+        <element type="boolean">
+            <name>ffEnabled</name>
+            <label>Enable FACT-Finder® Web Components?</label>
+            <label lang="de">FACT-Finder® Web Components aktivieren?</label>
+            <value>false</value>
+        </element>
+
+        <element>
+            <name>ffServerUrl</name>
+            <label>Server URL</label>
+            <label lang="de">Server URL</label>
+        </element>
+
+        <element>
+            <name>ffChannel</name>
+            <label>Channel</label>
+            <label lang="de">Channel</label>
+        </element>
+
+        <element type="select">
+            <name>ffVersion</name>
+            <label>FACT-Finder® Version</label>
+            <label lang="de">Version von FACT-Finder®</label>
+            <value>ng</value>
+            <store>
+                <option>
+                    <value>ng</value>
+                    <label>NG</label>
+                </option>
+                <option>
+                    <value>7.3</value>
+                    <label>7.3</label>
+                </option>
+                <option>
+                    <value>7.2</value>
+                    <label>7.2</label>
+                </option>
+            </store>
+        </element>
+    </elements>
+</config>

@@ -1,0 +1,125 @@
+ff-asn-group {
+  &, &-slider {
+    position: relative;
+    min-width: auto;
+    max-width: none;
+
+    .ffw-wrapper {
+      width: 100%;
+      .border-radius();
+      .transition-duration(0ms);
+    }
+
+    &[opened] {
+      height: auto;
+
+      &, &:hover {
+        border: 0;
+        .reset-border-radius();
+      }
+
+      .filter-panel--title {
+        margin: 0;
+        border: 1px solid @brand-primary;
+        border-bottom: 0;
+        .border-radius-multi(3px, 3px);
+        background: #fff;
+        color: @brand-primary;
+      }
+
+      .ffw-wrapper {
+        .unitize-padding(10);
+        border: 1px solid @brand-primary;
+        border-top: 0;
+        .border-radius-multi(0, 0, 3px, 3px);
+        background: #fff;
+      }
+
+      .filter-panel--icon:before {
+        color: @brand-primary;
+        content: @sw-icon-arrow-up;
+      }
+    }
+
+    [data-container="showMore"],
+    [data-container="showLess"],
+    [data-container="removeFilter"] {
+      .unitize-padding(4, 0);
+      cursor: pointer;
+    }
+  }
+
+  .option--container {
+    position: relative;
+  }
+
+  .clusterLevel1, .clusterLevel2, .clusterLevel3 {
+    .unitize(margin-left, 8);
+    .unitize(padding-left, 18);
+    border-left: 1px solid @border-color;
+  }
+
+  .clusterLevel2 {
+    .unitize(margin-left, 35);
+  }
+
+  .clusterLevel3 {
+    .unitize(margin-left, 62);
+  }
+}
+
+ff-slider {
+  [slot^=slider] {
+    .unitize(height, 20);
+    .unitize(width, 20);
+    border-color: @border-color;
+  }
+
+  &-control {
+    opacity: 1;
+    padding: 0;
+    .unitize-margin(0, 10);
+    text-align: center;
+
+    .filter-panel--range-info {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .unitize-margin(10, 0);
+
+      > div {
+        flex: 0 1 45%;
+      }
+    }
+
+    input[data-control] {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+[data-container="removeFilter"] {
+  color: @brand-primary;
+}
+
+@media screen and(min-width: @tabletViewportWidth) {
+  .content ff-asn-group {
+    &, &-slider {
+      &[opened]{
+        .unitize-height(38);
+      }
+
+      .ffw-wrapper {
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: @zindex-filter-panel-flyout-collapsed;
+        .unitize-max-height(200);
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    }
+  }
+}

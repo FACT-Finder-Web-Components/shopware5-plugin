@@ -1,0 +1,24 @@
+ff-products-per-page-select {
+  &.per-page--select select {
+    text-align: center;
+    .unitize(line-height, 20);
+  }
+}
+
+ff-paging {
+  &-item {
+    .panel--paging &.paging--link {
+      padding: 0;
+    }
+
+    .ffw-cursor {
+      .unitize-padding(0, 10);
+    }
+  }
+
+  .ffw-selected {
+    &.paging--first, &.paging--last {
+      display: none;
+    }
+  }
+}

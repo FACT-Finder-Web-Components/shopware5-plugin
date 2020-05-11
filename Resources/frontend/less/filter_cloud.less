@@ -1,0 +1,13 @@
+ff-filter-cloud {
+  display: block;
+}
+
+.filter-cloud-container {
+  .unitize-padding(10, 10, 0);
+  .unitize-margin(0, -10);
+  border-top: 1px solid @border-color;
+
+  .is--collapsed &, .is--open & {
+    border: 0;
+  }
+}
