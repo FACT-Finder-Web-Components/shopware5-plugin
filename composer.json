@@ -1,0 +1,19 @@
+{
+  "name": "omikron/shopware5-factfinder",
+  "description": "FACT-Finder® Web Components for Shopware 5",
+  "type": "shopware-plugin",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Omikron Data Quality GmbH",
+      "homepage": "https://web-components.fact-finder.de/"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "composer/installers": "^1.8"
+  },
+  "extra": {
+    "installer-name": "OmikronFactfinder"
+  }
+}
