@@ -1,0 +1,23 @@
+ff-suggest {
+  &.main-search--results {
+    display: block;
+  }
+
+  &-item {
+    cursor: pointer;
+
+    .results--list & .list--entry:last-child {
+      border-bottom: 1px solid @border-color;
+    }
+
+    .results--list &:last-child {
+      .list--entry {
+        border: 0;
+
+        .search-result--link {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}

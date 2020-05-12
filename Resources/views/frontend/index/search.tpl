@@ -20,4 +20,10 @@
       </button>
     </ff-searchbutton>
   </div>
+
+  {block name='frontend_factfinder_suggest_overlay'}
+    <ff-suggest class="main-search--results" unresolved>
+      {include file='frontend/factfinder/suggest.tpl'}
+    </ff-suggest>
+  {/block}
 {/block}
