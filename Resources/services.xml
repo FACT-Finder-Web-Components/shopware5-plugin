@@ -3,6 +3,22 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="omikron_factfinder.export.articles.columns" type="collection">
+            <parameter key="ProductNumber">ProductNumber</parameter>
+            <parameter key="Master">Master</parameter>
+            <parameter key="Name">Name</parameter>
+            <parameter key="Description">Description</parameter>
+            <parameter key="ImageUrl">ImageUrl</parameter>
+            <parameter key="Price">Price</parameter>
+            <parameter key="Brand">Brand</parameter>
+            <parameter key="Availability">Availability</parameter>
+            <parameter key="ShopwareId">ShopwareId</parameter>
+            <parameter key="CategoryPath">CategoryPath</parameter>
+            <parameter key="Attributes">Attributes</parameter>
+        </parameter>
+    </parameters>
+
     <services>
         <service id="omikron_factfinder.models.config" class="OmikronFactfinder\Models\Configuration">
             <argument>%omikron_factfinder.plugin_name%</argument>
@@ -30,6 +46,20 @@
             <argument type="service" id="omikron_factfinder.models.config" />
             <argument type="service" id="omikron_factfinder.models.category_filter" />
             <tag name="shopware.event_subscriber" />
+        </service>
+
+        <service id="omikron_factfinder.commands.export.articles"
+                 class="OmikronFactfinder\Commands\ExportArticlesCommand">
+            <tag name="console.command" command="factfinder:export:articles"/>
+        </service>
+
+        <service id="omikron_factfinder.articles" class="OmikronFactfinder\Components\Data\Article\Articles" autowire="true"/>
+        <service id="omikron_factfinder.article_data_provider" class="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" autowire="true"/>
+        <service id="omikron_factfinder.export.text_filter" class="OmikronFactfinder\Components\Filter\TextFilter" autowire="true"/>
+        <service id="omikron_factfinder.export_service" class="OmikronFactfinder\Components\Service\ExportService">
+            <argument type="service" id="omikron_factfinder.article_data_provider"/>
+            <argument type="service" id="omikron_factfinder.export.text_filter"/>
+            <argument>%omikron_factfinder.export.articles.columns%</argument>
         </service>
     </services>
 </container>
