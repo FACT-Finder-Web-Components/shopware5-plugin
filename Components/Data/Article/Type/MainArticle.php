@@ -41,7 +41,7 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
     public function toArray(): array
     {
         $data = [
-            'ProductNumber' => (string)$this->article->getMainDetail()->getArticleId(),
+            'ProductNumber' => (string)$this->article->getMainDetail()->getNumber(),
             'Master' => (string)$this->article->getMainDetail()->getNumber(),
             'Name' => (string)$this->article->getName(),
             'Description' => (string)$this->article->getDescriptionLong(),
@@ -62,7 +62,6 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
 
     public function getEntities(): iterable
     {
-        yield from [$this];
         yield from array_map($this->articleVariant(), $this->article->getDetails()->toArray());
     }
 

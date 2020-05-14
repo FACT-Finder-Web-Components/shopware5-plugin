@@ -34,6 +34,7 @@ class ExportService implements ExportServiceInterface
 //            $entityData = array_merge($emptyRecord, array_intersect_key($entity->toArray(), $emptyRecord));
 //            $stream->addEntity($this->prepare($entityData));
         };
+        return;
     }
 
     private function prepare(array $data): array
