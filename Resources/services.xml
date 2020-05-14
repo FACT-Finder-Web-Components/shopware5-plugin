@@ -53,9 +53,23 @@
             <tag name="console.command" command="factfinder:export:articles"/>
         </service>
 
+
         <service id="omikron_factfinder.articles" class="OmikronFactfinder\Components\Data\Article\Articles" autowire="true"/>
         <service id="omikron_factfinder.article_data_provider" class="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" autowire="true"/>
         <service id="omikron_factfinder.export.text_filter" class="OmikronFactfinder\Components\Filter\TextFilter" autowire="true"/>
+        <service id="omikron_factfinder.number_formatter" class="OmikronFactfinder\Components\Formatter\NumberFormatter" autowire="true"/>
+        <service id="omikron_factfinder.articles" class="OmikronFactfinder\Components\Data\Article\Articles" autowire="true"/>
+
+        <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory" autowire="true"/>
+        <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticle">
+            <factory service="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory" method="create"/>
+        </service>
+
+        <service id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" autowire="true"/>
+        <service id="OmikronFactfinder\Components\Data\Article\Type\Variant">
+            <factory service="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" method="create"/>
+        </service>
+
         <service id="omikron_factfinder.export_service" class="OmikronFactfinder\Components\Service\ExportService">
             <argument type="service" id="omikron_factfinder.article_data_provider"/>
             <argument type="service" id="omikron_factfinder.export.text_filter"/>

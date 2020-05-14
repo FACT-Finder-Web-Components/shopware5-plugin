@@ -4,17 +4,7 @@ namespace OmikronFactfinder\Components\Data;
 
 interface ExportEntityInterface
 {
-    /**
-     * Get entity ID
-     *
-     * @return int
-     */
-    public function getId();
+    public function getId(): int;
 
-    /**
-     * Convert entity data to associative array
-     *
-     * @return array
-     */
-    public function toArray();
+    public function toArray(): array;
 }

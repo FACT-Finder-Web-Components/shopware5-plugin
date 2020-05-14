@@ -15,7 +15,7 @@ class Articles implements \IteratorAggregate
     /** @var int */
     private $batchSize;
 
-    public function __construct(ArticleResource $articleResource, int $batchSize = 3)
+    public function __construct(ArticleResource $articleResource, int $batchSize = 100)
     {
         $this->articleResource = $articleResource;
         $this->batchSize = $batchSize;
@@ -25,7 +25,7 @@ class Articles implements \IteratorAggregate
     {
         $this->articleResource->setResultMode(Resource::HYDRATE_OBJECT);
         for ($offset = 0; $list = $this->articleResource->getList($offset, $this->batchSize); $offset += $this->batchSize) {
-            foreach ($list as $product) yield $product;
+            foreach ($list['data'] as $product) yield $product;
         }
     }
 }
