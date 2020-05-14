@@ -63,8 +63,7 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
     public function getEntities(): iterable
     {
         yield from [$this];
-        //@todo yield from getVariants()
-        yield from array_map($this->articleVariant(), $this->article->getDetails());
+        yield from array_map($this->articleVariant(), $this->article->getDetails()->toArray());
     }
 
     private function articleVariant(): callable

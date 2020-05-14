@@ -27,15 +27,6 @@ class ArticleDataProvider implements DataProviderInterface
         yield from []; // init generator: Prevent errors in case of an empty product collection
         /** @var Article $article */
         foreach ($this->articles as $article) {
-//            var_dump($article->getMainDetail()->getNumber());
-            /** @var Detail $detail */
-            foreach ($article->getDetails() as $detail) {
-
-                var_dump($detail->getNumber());
-                var_dump($detail->getArticle()->getMainDetail()->getNumber());
-                var_dump($detail->getArticle()->getDescriptionLong());
-                var_dump($detail->getKind());
-            }
             yield from $this->mainArticleFactory->create($article)->getEntities();
         }
     }
