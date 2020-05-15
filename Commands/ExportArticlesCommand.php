@@ -24,7 +24,7 @@ class ExportArticlesCommand extends ShopwareCommand
     {
         $this->registerErrorHandler($output);
         /** @var ExportService $exportService */
-        $exportService = $this->getContainer()->get('omikron_factfinder.export_service');
+        $exportService = $this->getContainer()->get('OmikronFactfinder\Components\Service\ExportService');
         $exportService->generate(new Csv());
         return 0;
     }
