@@ -39,7 +39,7 @@ class Variant implements ExportEntityInterface, DataProviderInterface
 
     public function getId(): int
     {
-        // TODO: Implement getId() method.
+        return (int)$this->detail->getId();
     }
 
     public function toArray(): array

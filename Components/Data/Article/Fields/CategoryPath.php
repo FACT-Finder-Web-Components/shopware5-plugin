@@ -19,6 +19,6 @@ class CategoryPath implements ArticleFieldInterface
     {
         return array_reduce($article->getAllCategories(), function ($acc, Category $curr) {
             return $acc . '|' . $curr->getName();
-        });
+        }, '');
     }
 }

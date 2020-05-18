@@ -14,6 +14,8 @@ use IteratorAggregate;
 
 class MainArticle implements DataProviderInterface, ExportEntityInterface
 {
+    private const  MAIN_ARTICLE_KIND = 1;
+
     /** @var Article */
     protected $article;
 
@@ -71,7 +73,22 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
     {
         $data = $this->toArray();
         return function (Detail $variant) use ($data) : ExportEntityInterface {
+            if ($variant->getKind() == self::MAIN_ARTICLE_KIND) {
+                return $this;
+            }
             return $this->variantFactory->create($variant, $data);
         };
+    }
+
+    //@todo poc how to obtain configurable attributes
+    private function getConfigurableAttributes()
+    {
+        $groups = [];
+        foreach ($this->article->getDetails() as $detail) {
+            foreach ($detail->getConfiguratorOptions() as $option) {
+                $groups[$option->getGroup()->getName()][] = $option->getName();
+            }
+        }
+        return $groups;
     }
 }
