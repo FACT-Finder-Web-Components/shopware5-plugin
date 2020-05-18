@@ -8,6 +8,8 @@
             <parameter key="ProductNumber">ProductNumber</parameter>
             <parameter key="Master">Master</parameter>
             <parameter key="Name">Name</parameter>
+            <parameter key="EAN">EAN</parameter>
+            <parameter key="Weight">Weight</parameter>
             <parameter key="Description">Description</parameter>
             <parameter key="ImageUrl">ImageUrl</parameter>
             <parameter key="Price">Price</parameter>
@@ -59,13 +61,19 @@
         <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" autowire="true"/>
         <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true"/>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath"/>
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath">
+            <tag name="omikron_factfinder.export_articles_fields"/>
+        </service>
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\Url">
+            <argument type="service" id="router"/>
+            <argument type="service" id="OmikronFactfinder\Components\Service\ShopEmulationService"/>
+            <tag name="omikron_factfinder.export_articles_fields"/>
+        </service>
+
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory" >
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory"/>
             <argument type="service" id="OmikronFactfinder\Components\Formatter\NumberFormatter"/>
-            <argument type="collection">
-                <argument type="service" key="categoryPath" id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath"/>
-            </argument>
+            <argument type="tagged" tag="omikron_factfinder.export_articles_fields"/>
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticle">
@@ -75,6 +83,12 @@
         <service id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" autowire="true"/>
         <service id="OmikronFactfinder\Components\Data\Article\Type\Variant">
             <factory service="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" method="create"/>
+        </service>
+
+        <service id="OmikronFactfinder\Components\Service\ShopEmulationService" shared="true">
+            <argument type="service" id="models"/>
+            <argument type="service" id="shopware.components.shop_registration_service"/>
+            <argument type="service" id="config"/>
         </service>
 
         <service id="OmikronFactfinder\Components\Service\ExportService" autowire="true">

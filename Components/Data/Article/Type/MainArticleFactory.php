@@ -6,6 +6,7 @@ namespace OmikronFactfinder\Components\Data\Article\Type;
 
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
+use IteratorAggregate;
 
 class MainArticleFactory
 {
@@ -18,7 +19,7 @@ class MainArticleFactory
     /** @var array */
     private $articleFields;
 
-    public function __construct(VariantFactory $variantFactory, NumberFormatter $numberFormatter, array $articleFields = [])
+    public function __construct(VariantFactory $variantFactory, NumberFormatter $numberFormatter, IteratorAggregate $articleFields)
     {
         $this->variantFactory = $variantFactory;
         $this->numberFormatter = $numberFormatter;

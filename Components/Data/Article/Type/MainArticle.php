@@ -10,6 +10,7 @@ use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
+use IteratorAggregate;
 
 class MainArticle implements DataProviderInterface, ExportEntityInterface
 {
@@ -22,10 +23,10 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
     /** @var NumberFormatter */
     protected $numberFormatter;
 
-    /** @var array */
+    /** @var IteratorAggregate */
     protected $articleFields;
 
-    public function __construct(Article $article, VariantFactory $variantFactory, NumberFormatter $numberFormatter, array $articleFields = [])
+    public function __construct(Article $article, VariantFactory $variantFactory, NumberFormatter $numberFormatter, IteratorAggregate $articleFields)
     {
         $this->article = $article;
         $this->variantFactory = $variantFactory;
@@ -44,9 +45,10 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
             'ProductNumber' => (string)$this->article->getMainDetail()->getNumber(),
             'Master' => (string)$this->article->getMainDetail()->getNumber(),
             'Name' => (string)$this->article->getName(),
+            'EAN' => (string)$this->article->getMainDetail()->getEan(),
+            'Weight' => (float) $this->article->getMainDetail()->getWeight(),
             'Description' => (string)$this->article->getDescriptionLong(),
             'Short' => (string)$this->article->getDescription(),
-            'ProductURL' => (string)'', //@todo
             'Price' => $this->numberFormatter->format((float)$this->article->getMainDetail()->getPrices()[0]->getPrice()),
             'Brand' => (string)$this->article->getSupplier()->getName(),
             'Availability' => (int)$this->article->getMainDetail()->getActive(),
@@ -56,8 +58,7 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
 
         return array_merge($data, array_map(function (ArticleFieldInterface $field): string {
             return $field->getValue($this->article);
-        }, $this->articleFields));
-
+        }, iterator_to_array($this->articleFields)));
     }
 
     public function getEntities(): iterable
