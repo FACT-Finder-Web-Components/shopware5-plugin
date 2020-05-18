@@ -46,7 +46,7 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
             'Master' => (string)$this->article->getMainDetail()->getNumber(),
             'Name' => (string)$this->article->getName(),
             'EAN' => (string)$this->article->getMainDetail()->getEan(),
-            'Weight' => (float) $this->article->getMainDetail()->getWeight(),
+            'Weight' => (float)$this->article->getMainDetail()->getWeight(),
             'Description' => (string)$this->article->getDescriptionLong(),
             'Short' => (string)$this->article->getDescription(),
             'Price' => $this->numberFormatter->format((float)$this->article->getMainDetail()->getPrices()[0]->getPrice()),
@@ -56,9 +56,10 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
             'ShopwareId' => (string)$this->article->getId(),
         ];
 
-        return array_merge($data, array_map(function (ArticleFieldInterface $field): string {
-            return $field->getValue($this->article);
-        }, iterator_to_array($this->articleFields)));
+        return array_reduce(iterator_to_array($this->articleFields), function (array $fields, ArticleFieldInterface $field) {
+            $fields[$field->getName()] = $field->getValue($this->article);
+            return $fields;
+        }, $data);
     }
 
     public function getEntities(): iterable

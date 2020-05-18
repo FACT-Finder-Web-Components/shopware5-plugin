@@ -30,7 +30,8 @@ class ExportService implements ExportServiceInterface
     {
         $emptyRecord = array_combine($this->columns, array_fill(0, count($this->columns), ''));
         foreach ($this->dataProvider->getEntities() as $entity) {
-            var_dump($entity->toArray());
+            $entityData = array_merge($emptyRecord, array_intersect_key($entity->toArray(), $emptyRecord));
+            var_dump($entityData);
 //            $entityData = array_merge($emptyRecord, array_intersect_key($entity->toArray(), $emptyRecord));
 //            $stream->addEntity($this->prepare($entityData));
         };

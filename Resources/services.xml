@@ -17,6 +17,7 @@
             <parameter key="Availability">Availability</parameter>
             <parameter key="ShopwareId">ShopwareId</parameter>
             <parameter key="CategoryPath">CategoryPath</parameter>
+            <parameter key="Url">Url</parameter>
             <parameter key="Attributes">Attributes</parameter>
         </parameter>
     </parameters>

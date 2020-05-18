@@ -22,6 +22,11 @@ class Url implements ArticleFieldInterface
         $this->shopEmulation = $shopEmulation;
     }
 
+    public function getName(): string
+    {
+        return 'Url';
+    }
+
     public function getValue(Article $article): string
     {
         $context = $this->shopEmulation->getContext();
