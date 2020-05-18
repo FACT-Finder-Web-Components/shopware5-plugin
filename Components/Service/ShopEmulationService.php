@@ -22,9 +22,14 @@ class ShopEmulationService
     /** @var Config */
     private $config;
 
+    /** @var null|Shop */
     private $shop;
 
+    /** @var null|context */
     private $context;
+
+    /** @var bool */
+    private $startedEmulation = false;
 
     public function __construct(ModelManager $modelManager, ShopRegistrationServiceInterface $registrationService, Config $config)
     {
@@ -40,15 +45,27 @@ class ShopEmulationService
         $this->shop = $repository->getActiveById($shopId);
         $this->registrationService->registerShop($this->shop);
         $this->context = Context::createFromShop($this->shop, $this->config);
+        $this->startedEmulation = true;
     }
 
-    public function getShop()
+    public function getShop(): Shop
     {
+        if (!$this->startedEmulation) {
+            $this->noShopEmulatedException();
+        }
         return $this->shop;
     }
 
-    public function getContext()
+    public function getContext(): Context
     {
+        if (!$this->startedEmulation) {
+            $this->noShopEmulatedException();
+        }
         return $this->context;
+    }
+
+    private function noShopEmulatedException()
+    {
+        throw new \BadMethodCallException('No shop emulated. Please use `emulateShop` before');
     }
 }
