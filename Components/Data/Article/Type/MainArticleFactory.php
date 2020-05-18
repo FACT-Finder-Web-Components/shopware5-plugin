@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
+use IteratorAggregate;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
-use IteratorAggregate;
 
 class MainArticleFactory
 {

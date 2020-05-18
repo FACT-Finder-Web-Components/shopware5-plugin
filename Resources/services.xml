@@ -52,49 +52,47 @@
         </service>
 
         <service id="OmikronFactfinder\Commands\ExportArticlesCommand">
-            <tag name="console.command" command="factfinder:export:articles"/>
+            <tag name="console.command" command="factfinder:export:articles" />
         </service>
 
-
-        <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true"/>
-        <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" autowire="true"/>
-        <service id="OmikronFactfinder\Components\Filter\TextFilter" autowire="true"/>
-        <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" autowire="true"/>
-        <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true"/>
+        <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true" />
+        <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" autowire="true" />
+        <service id="OmikronFactfinder\Components\Filter\TextFilter" autowire="true" />
+        <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" autowire="true" />
 
         <service id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath">
-            <tag name="omikron_factfinder.export_articles_fields"/>
+            <tag name="omikron_factfinder.export_articles_fields" />
         </service>
         <service id="OmikronFactfinder\Components\Data\Article\Fields\Url">
-            <argument type="service" id="router"/>
-            <argument type="service" id="OmikronFactfinder\Components\Service\ShopEmulationService"/>
-            <tag name="omikron_factfinder.export_articles_fields"/>
+            <argument type="service" id="router" />
+            <argument type="service" id="OmikronFactfinder\Components\Service\ShopEmulationService" />
+            <tag name="omikron_factfinder.export_articles_fields" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory" >
-            <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory"/>
-            <argument type="service" id="OmikronFactfinder\Components\Formatter\NumberFormatter"/>
-            <argument type="tagged" tag="omikron_factfinder.export_articles_fields"/>
+        <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory">
+            <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" />
+            <argument type="service" id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+            <argument type="tagged" tag="omikron_factfinder.export_articles_fields" />
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticle">
-            <factory service="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory" method="create"/>
+            <factory service="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory" method="create" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" autowire="true"/>
+        <service id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" autowire="true" />
         <service id="OmikronFactfinder\Components\Data\Article\Type\Variant">
-            <factory service="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" method="create"/>
+            <factory service="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" method="create" />
         </service>
 
         <service id="OmikronFactfinder\Components\Service\ShopEmulationService" shared="true">
-            <argument type="service" id="models"/>
-            <argument type="service" id="shopware.components.shop_registration_service"/>
-            <argument type="service" id="config"/>
+            <argument type="service" id="models" />
+            <argument type="service" id="shopware.components.shop_registration_service" />
+            <argument type="service" id="config" />
         </service>
 
         <service id="OmikronFactfinder\Components\Service\ExportService" autowire="true">
-            <argument type="service" id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider"/>
-            <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter"/>
+            <argument type="service" id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
+            <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter" />
             <argument>%omikron_factfinder.export.articles.columns%</argument>
         </service>
     </services>

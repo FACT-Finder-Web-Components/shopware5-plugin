@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Service;
 
 use Shopware\Components\Model\ModelManager;
+use Shopware\Components\Routing\Context;
 use Shopware\Components\ShopRegistrationServiceInterface;
 use Shopware\Models\Shop\Repository;
 use Shopware\Models\Shop\Shop;
-use Shopware\Components\Routing\Context;
 use Shopware_Components_Config as Config;
 
 class ShopEmulationService

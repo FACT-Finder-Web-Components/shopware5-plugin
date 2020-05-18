@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
+use IteratorAggregate;
 use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
-use IteratorAggregate;
 
 class MainArticle implements DataProviderInterface, ExportEntityInterface
 {

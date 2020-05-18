@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
-use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
 
 class VariantFactory

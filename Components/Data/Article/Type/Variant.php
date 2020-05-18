@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
-use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;

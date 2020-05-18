@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Service;
 
-use OmikronFactfinder\Components\Filter\FilterInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
+use OmikronFactfinder\Components\Filter\FilterInterface;
 use OmikronFactfinder\Components\Output\StreamInterface;
 
 class ExportService implements ExportServiceInterface
