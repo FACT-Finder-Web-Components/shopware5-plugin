@@ -18,7 +18,7 @@
 
   {block name='frontend_factfinder_campaign_pushed_products'}
     <ff-campaign-pushed-products unresolved>
-      {include file='frontend/factfinder/record_list.tpl'}
+      {include file='frontend/factfinder/content/record_list.tpl'}
     </ff-campaign-pushed-products>
   {/block}
 {/block}

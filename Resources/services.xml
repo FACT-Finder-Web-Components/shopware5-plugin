@@ -4,11 +4,31 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="omikron_factfinder.subscriber.frontend" class="OmikronFactfinder\Subscriber\Frontend">
+        <service id="omikron_factfinder.models.config" class="OmikronFactfinder\Models\Configuration">
             <argument>%omikron_factfinder.plugin_name%</argument>
-            <argument>%omikron_factfinder.plugin_dir%</argument>
             <argument type="service" id="shopware.plugin.cached_config_reader" />
+        </service>
 
+        <service id="omikron_factfinder.models.category_filter" class="OmikronFactfinder\Models\CategoryFilter">
+            <argument type="service">
+                <service class="Shopware\Models\Category\Repository">
+                    <factory service="models" method="getRepository" />
+                    <argument type="string">Shopware\Models\Category\Category</argument>
+                </service>
+            </argument>
+            <argument type="string">Category</argument>
+        </service>
+
+        <service id="omikron_factfinder.subscriber.frontend" class="OmikronFactfinder\Subscriber\TemplateRegistration">
+            <argument type="service" id="omikron_factfinder.models.config" />
+            <argument type="service" id="template" />
+            <argument>%omikron_factfinder.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber" />
+        </service>
+
+        <service id="omikron_factfinder.subscriber.category" class="OmikronFactfinder\Subscriber\CategoryView">
+            <argument type="service" id="omikron_factfinder.models.config" />
+            <argument type="service" id="omikron_factfinder.models.category_filter" />
             <tag name="shopware.event_subscriber" />
         </service>
     </services>

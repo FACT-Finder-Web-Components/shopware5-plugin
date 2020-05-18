@@ -42,5 +42,12 @@
                 </option>
             </store>
         </element>
+
+        <element type="boolean">
+            <name>ffUseForCategories</name>
+            <label>Use FACT-Finder® on category pages?</label>
+            <label lang="de">Kategorieseiten mit FACT-Finder® rendern?</label>
+            <value>true</value>
+        </element>
     </elements>
 </config>
