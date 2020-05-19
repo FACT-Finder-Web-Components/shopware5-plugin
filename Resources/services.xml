@@ -23,12 +23,12 @@
     </parameters>
 
     <services>
-        <service id="omikron_factfinder.models.config" class="OmikronFactfinder\Models\Configuration">
+        <service id="omikron_factfinder.components.config" class="OmikronFactfinder\Components\Configuration">
             <argument>%omikron_factfinder.plugin_name%</argument>
             <argument type="service" id="shopware.plugin.cached_config_reader" />
         </service>
 
-        <service id="omikron_factfinder.models.category_filter" class="OmikronFactfinder\Models\CategoryFilter">
+        <service id="omikron_factfinder.components.category_filter" class="OmikronFactfinder\Components\CategoryFilter">
             <argument type="service">
                 <service class="Shopware\Models\Category\Repository">
                     <factory service="models" method="getRepository" />
@@ -39,15 +39,15 @@
         </service>
 
         <service id="omikron_factfinder.subscriber.frontend" class="OmikronFactfinder\Subscriber\TemplateRegistration">
-            <argument type="service" id="omikron_factfinder.models.config" />
+            <argument type="service" id="omikron_factfinder.components.config" />
             <argument type="service" id="template" />
             <argument>%omikron_factfinder.plugin_dir%</argument>
             <tag name="shopware.event_subscriber" />
         </service>
 
         <service id="omikron_factfinder.subscriber.category" class="OmikronFactfinder\Subscriber\CategoryView">
-            <argument type="service" id="omikron_factfinder.models.config" />
-            <argument type="service" id="omikron_factfinder.models.category_filter" />
+            <argument type="service" id="omikron_factfinder.components.config" />
+            <argument type="service" id="omikron_factfinder.components.category_filter" />
             <tag name="shopware.event_subscriber" />
         </service>
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OmikronFactfinder\Models;
+namespace OmikronFactfinder\Components;
 
 use Shopware\Components\Plugin\ConfigReader;
 
