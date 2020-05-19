@@ -18,14 +18,19 @@ class Articles implements \IteratorAggregate
     public function __construct(ArticleResource $articleResource, int $batchSize = 100)
     {
         $this->articleResource = $articleResource;
-        $this->batchSize = $batchSize;
+        $this->batchSize       = $batchSize;
     }
 
     public function getIterator()
     {
         $this->articleResource->setResultMode(Resource::HYDRATE_OBJECT);
-        for ($offset = 0; $list = $this->articleResource->getList($offset, $this->batchSize); $offset += $this->batchSize) {
-            foreach ($list['data'] as $product) yield $product;
+        for ($page = 0; $list = $this->getArticles($page, $this->batchSize); $page++) {
+            yield from $list;
         }
+    }
+
+    private function getArticles(int $page, int $pageSize): iterable
+    {
+        return $this->articleResource->getList($page * $pageSize, $pageSize)['data'];
     }
 }
