@@ -55,10 +55,11 @@
             <tag name="console.command" command="factfinder:export:articles" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true" />
         <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" autowire="true" />
-        <service id="OmikronFactfinder\Components\Filter\TextFilter" autowire="true" />
-        <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" autowire="true" />
+        <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true" />
+        <service id="OmikronFactfinder\Components\Filter\TextFilter" />
+        <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+
 
         <service id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath">
             <tag name="omikron_factfinder.export_articles_fields" />
@@ -66,6 +67,9 @@
         <service id="OmikronFactfinder\Components\Data\Article\Fields\Url">
             <argument type="service" id="router" />
             <argument type="service" id="OmikronFactfinder\Components\Service\ShopEmulationService" />
+            <tag name="omikron_factfinder.export_articles_fields" />
+        </service>
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\Attributes" autowire="true">
             <tag name="omikron_factfinder.export_articles_fields" />
         </service>
 
@@ -90,7 +94,7 @@
             <argument type="service" id="config" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Service\ExportService" autowire="true">
+        <service id="OmikronFactfinder\Components\Service\ExportService">
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
             <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter" />
             <argument>%omikron_factfinder.export.articles.columns%</argument>
