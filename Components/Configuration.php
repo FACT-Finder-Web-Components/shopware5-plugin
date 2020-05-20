@@ -32,6 +32,6 @@ class Configuration
 
     public function getChannel(): string
     {
-       return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
+        return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
     }
 }

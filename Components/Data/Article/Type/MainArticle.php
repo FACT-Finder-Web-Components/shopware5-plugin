@@ -66,7 +66,7 @@ class MainArticle extends BaseArticle implements DataProviderInterface
         $options = $this->getConfigurableOptions();
 
         return function (Detail $variant) use ($options): ExportEntityInterface {
-            if (self::MAIN_ARTICLE_KIND == $variant->getKind()) {
+            if ($variant->getKind() === self::MAIN_ARTICLE_KIND) {
                 return $this;
             }
             return $this->variantFactory->create(

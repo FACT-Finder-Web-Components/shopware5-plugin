@@ -3,26 +3,11 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="omikron_factfinder.export.articles.columns" type="collection">
-            <parameter key="ProductNumber">ProductNumber</parameter>
-            <parameter key="Master">Master</parameter>
-            <parameter key="Name">Name</parameter>
-            <parameter key="EAN">EAN</parameter>
-            <parameter key="Weight">Weight</parameter>
-            <parameter key="Description">Description</parameter>
-            <parameter key="ImageUrl">ImageUrl</parameter>
-            <parameter key="Price">Price</parameter>
-            <parameter key="Brand">Brand</parameter>
-            <parameter key="Availability">Availability</parameter>
-            <parameter key="ShopwareId">ShopwareId</parameter>
-            <parameter key="CategoryPath">CategoryPath</parameter>
-            <parameter key="Url">Url</parameter>
-            <parameter key="Attributes">Attributes</parameter>
-        </parameter>
-
-        <parameter key="omikron_factfinder.export.delimiter" type="string">;</parameter>
-    </parameters>
+    <imports>
+        <import resource="services/export_fields.xml" />
+        <import resource="services/parameters.xml" />
+        <import resource="services/subscribers.xml" />
+    </imports>
 
     <services>
         <service id="omikron_factfinder.components.config" class="OmikronFactfinder\Components\Configuration">
@@ -40,19 +25,6 @@
             <argument type="string">Category</argument>
         </service>
 
-        <service id="omikron_factfinder.subscriber.frontend" class="OmikronFactfinder\Subscriber\TemplateRegistration">
-            <argument type="service" id="omikron_factfinder.components.config" />
-            <argument type="service" id="template" />
-            <argument>%omikron_factfinder.plugin_dir%</argument>
-            <tag name="shopware.event_subscriber" />
-        </service>
-
-        <service id="omikron_factfinder.subscriber.category" class="OmikronFactfinder\Subscriber\CategoryView">
-            <argument type="service" id="omikron_factfinder.components.config" />
-            <argument type="service" id="omikron_factfinder.components.category_filter" />
-            <tag name="shopware.event_subscriber" />
-        </service>
-
         <service id="OmikronFactfinder\Commands\ExportArticlesCommand">
             <tag name="console.command" command="factfinder:export:articles" />
         </service>
@@ -64,19 +36,6 @@
         <service id="OmikronFactfinder\Components\Output\Csv">
             <argument type="expression">service('omikron_factfinder.components.config').getChannel()</argument>
             <argument>%omikron_factfinder.export.delimiter%</argument>
-
-        </service>
-
-
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath">
-            <tag name="omikron_factfinder.export_articles_fields" />
-        </service>
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Url">
-            <argument type="service" id="router" />
-            <tag name="omikron_factfinder.export_articles_fields" />
-        </service>
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Attributes" autowire="true">
-            <tag name="omikron_factfinder.export_articles_fields" />
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory">

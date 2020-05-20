@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Commands;
 
-use OmikronFactfinder\Components\Output\Csv;
 use OmikronFactfinder\Components\Service\ExportService;
 use OmikronFactfinder\Components\Service\ShopEmulationService;
 use Shopware\Commands\ShopwareCommand;
@@ -29,7 +28,7 @@ class ExportArticlesCommand extends ShopwareCommand
         $shopEmulation = $this->getContainer()->get(ShopEmulationService::class);
         $shopEmulation->emulateShop((int) $input->getArgument(self::SHOP_ID_ARGUMENT), function () {
             $exportService = $this->getContainer()->get(ExportService::class);
-            $exportService->generate( $this->getContainer()->get('OmikronFactfinder\Components\Output\Csv'));
+            $exportService->generate($this->getContainer()->get('OmikronFactfinder\Components\Output\Csv'));
         });
     }
 }

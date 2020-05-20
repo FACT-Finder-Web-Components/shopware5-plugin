@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="OmikronFactfinder\Subscriber\TemplateRegistration">
+            <argument type="service" id="omikron_factfinder.components.config" />
+            <argument type="service" id="template" />
+            <argument>%omikron_factfinder.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber" />
+        </service>
+
+        <service id="OmikronFactfinder\Subscriber\CategoryView">
+            <argument type="service" id="omikron_factfinder.components.config" />
+            <argument type="service" id="omikron_factfinder.components.category_filter" />
+            <tag name="shopware.event_subscriber" />
+        </service>
+    </services>
+</container>

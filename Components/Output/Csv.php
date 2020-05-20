@@ -8,15 +8,16 @@ use SplFileObject as File;
 
 class Csv implements StreamInterface
 {
-    /** File */
+    /** @var File */
     private $handle;
 
-    /** @var string  */
+    /** @var string */
     private $delimiter;
 
-    public function __construct(string $fileName, string $delimiter) {
-        $this->delimiter     = $delimiter;
-        $this->handle        = new File($fileName . '.csv', 'wr+');
+    public function __construct(string $fileName, string $delimiter)
+    {
+        $this->handle    = new File($fileName . '.csv', 'wr+');
+        $this->delimiter = $delimiter;
     }
 
     public function addEntity(array $entity): void

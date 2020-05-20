@@ -23,6 +23,7 @@ class Articles implements \IteratorAggregate
 
     public function getIterator()
     {
+        yield from [];
         $this->articleResource->setResultMode(Resource::HYDRATE_OBJECT);
         for ($page = 0; $list = $this->getArticles($page, $this->batchSize); $page++) {
             yield from $list;
