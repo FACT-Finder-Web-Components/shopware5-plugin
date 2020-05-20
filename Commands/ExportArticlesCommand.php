@@ -29,7 +29,7 @@ class ExportArticlesCommand extends ShopwareCommand
         $shopEmulation = $this->getContainer()->get(ShopEmulationService::class);
         $shopEmulation->emulateShop((int) $input->getArgument(self::SHOP_ID_ARGUMENT), function () {
             $exportService = $this->getContainer()->get(ExportService::class);
-            $exportService->generate(new Csv());
+            $exportService->generate( $this->getContainer()->get('OmikronFactfinder\Components\Output\Csv'));
         });
     }
 }

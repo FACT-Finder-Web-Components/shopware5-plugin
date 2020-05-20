@@ -20,6 +20,8 @@
             <parameter key="Url">Url</parameter>
             <parameter key="Attributes">Attributes</parameter>
         </parameter>
+
+        <parameter key="omikron_factfinder.export.delimiter" type="string">;</parameter>
     </parameters>
 
     <services>
@@ -59,6 +61,11 @@
         <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true" />
         <service id="OmikronFactfinder\Components\Filter\TextFilter" />
         <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+        <service id="OmikronFactfinder\Components\Output\Csv">
+            <argument type="expression">service('omikron_factfinder.components.config').getChannel()</argument>
+            <argument>%omikron_factfinder.export.delimiter%</argument>
+
+        </service>
 
 
         <service id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath">

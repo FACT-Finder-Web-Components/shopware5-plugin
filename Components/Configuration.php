@@ -29,4 +29,9 @@ class Configuration
     {
         return $this->isEnabled() && $this->configReader->getByPluginName($this->pluginName)['ffUseForCategories'];
     }
+
+    public function getChannel(): string
+    {
+       return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
+    }
 }
