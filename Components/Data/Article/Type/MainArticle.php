@@ -18,17 +18,8 @@ class MainArticle extends BaseArticle implements DataProviderInterface
 {
     private const  MAIN_ARTICLE_KIND = 1;
 
-    /** @var Article */
-    protected $article;
-
     /** @var VariantFactory */
     private $variantFactory;
-
-    /** @var NumberFormatter */
-    protected $numberFormatter;
-
-    /** @var TextFilter */
-    protected $textFilter;
 
     /** @var IteratorAggregate */
     protected $articleFields;
