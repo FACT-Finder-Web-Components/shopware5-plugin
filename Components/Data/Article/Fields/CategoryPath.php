@@ -16,8 +16,33 @@ class CategoryPath implements ArticleFieldInterface
 
     public function getValue(Article $article): string
     {
-        return array_reduce($article->getAllCategories(), function ($acc, Category $curr) {
-            return $acc . '|' . $curr->getName();
-        }, '');
+        $categories   = $article->getAllCategories();
+        $categoryName = $this->categoryName($categories);
+        return implode('|', array_map(function (Category $category) use ($categoryName) {
+            return implode('/', array_map($categoryName, $this->getPath($category)));
+        }, array_filter($categories, $this->isLeaf())));
+    }
+
+    private function categoryName(array $allCategories): callable
+    {
+        $names = array_reduce($allCategories, function (array $result, Category $category) {
+            return $result + [$category->getId() => $category->getName()];
+        }, []);
+
+        return function (int $categoryId) use ($names): string {
+            return urlencode($names[$categoryId] ?? '');
+        };
+    }
+
+    private function getPath(Category $category): array
+    {
+        return array_reverse(array_slice(explode('|', $category->getId() . $category->getPath()), 0, -2));
+    }
+
+    private function isLeaf(): callable
+    {
+        return function (Category $category): bool {
+            return $category->isLeaf();
+        };
     }
 }
