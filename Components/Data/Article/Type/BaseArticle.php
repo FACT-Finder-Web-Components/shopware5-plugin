@@ -42,7 +42,7 @@ abstract class BaseArticle implements ExportEntityInterface
             'Weight'        => (float) $this->article->getMainDetail()->getWeight(),
             'Description'   => (string) $this->article->getDescriptionLong(),
             'Short'         => (string) $this->article->getDescription(),
-            'Price'         => $this->numberFormatter->format((float)$this->article->getMainDetail()->getPrices()[0]->getPrice()),
+            'Price'         => $this->numberFormatter->format((float) $this->article->getMainDetail()->getPrices()[0]->getPrice()),
             'Brand'         => (string) $this->article->getSupplier()->getName(),
             'Availability'  => (int) $this->article->getMainDetail()->getActive(),
             'HasVariants'   => $this->article->getDetails()->count() ? 1 : 0,

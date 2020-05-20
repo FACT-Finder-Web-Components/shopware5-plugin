@@ -4,68 +4,50 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Service;
 
-use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Routing\Context;
+use Shopware\Components\Routing\Router;
 use Shopware\Components\ShopRegistrationServiceInterface;
-use Shopware\Models\Shop\Repository;
-use Shopware\Models\Shop\Shop;
+use Shopware\Models\Shop\Repository as ShopRepository;
 use Shopware_Components_Config as Config;
 
 class ShopEmulationService
 {
-    /** @var ModelManager */
-    private $modelManager;
-
     /** @var ShopRegistrationServiceInterface */
-    private $registrationService;
+    private $shopRegistration;
 
     /** @var Config */
     private $config;
 
-    /** @var Shop|null */
-    private $shop;
+    /** @var ShopRepository */
+    private $repository;
 
-    /** @var context|null */
-    private $context;
+    /** @var Router */
+    private $router;
 
-    /** @var bool */
-    private $startedEmulation = false;
-
-    public function __construct(ModelManager $modelManager, ShopRegistrationServiceInterface $registrationService, Config $config)
-    {
-        $this->modelManager        = $modelManager;
-        $this->registrationService = $registrationService;
-        $this->config              = $config;
+    public function __construct(
+        ShopRepository $repository,
+        ShopRegistrationServiceInterface $shopRegistration,
+        Router $router,
+        Config $config
+    ) {
+        $this->repository       = $repository;
+        $this->shopRegistration = $shopRegistration;
+        $this->config           = $config;
+        $this->router           = $router;
     }
 
-    public function emulateShop(int $shopId)
+    public function emulateShop(int $shopId, callable $proceed)
     {
-        /** @var Repository $repository */
-        $repository = $this->modelManager->getRepository(Shop::class);
-        $this->shop = $repository->getActiveById($shopId);
-        $this->registrationService->registerShop($this->shop);
-        $this->context          = Context::createFromShop($this->shop, $this->config);
-        $this->startedEmulation = true;
-    }
+        $context = $this->router->getContext();
 
-    public function getShop(): Shop
-    {
-        if (!$this->startedEmulation) {
-            $this->noShopEmulatedException();
+        try {
+            $shop = $this->repository->getActiveById($shopId);
+            $this->router->setContext(Context::createFromShop($shop, $this->config));
+            $this->shopRegistration->registerShop($shop);
+
+            $proceed();
+        } finally {
+            $this->router->setContext($context);
         }
-        return $this->shop;
-    }
-
-    public function getContext(): Context
-    {
-        if (!$this->startedEmulation) {
-            $this->noShopEmulatedException();
-        }
-        return $this->context;
-    }
-
-    private function noShopEmulatedException()
-    {
-        throw new \BadMethodCallException('No shop emulated. Please use `emulateShop` before');
     }
 }

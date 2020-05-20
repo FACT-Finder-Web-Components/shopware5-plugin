@@ -24,14 +24,12 @@ class ExportArticlesCommand extends ShopwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var ShopEmulationService $shopEmulation */
-        $shopEmulation = $this->getContainer()->get('OmikronFactfinder\Components\Service\ShopEmulationService');
-        $shopEmulation->emulateShop((int) $input->getArgument(self::SHOP_ID_ARGUMENT));
-
         $this->registerErrorHandler($output);
 
-        /** @var ExportService $exportService */
-        $exportService = $this->getContainer()->get('OmikronFactfinder\Components\Service\ExportService');
-        $exportService->generate(new Csv());
+        $shopEmulation = $this->getContainer()->get(ShopEmulationService::class);
+        $shopEmulation->emulateShop((int) $input->getArgument(self::SHOP_ID_ARGUMENT), function () {
+            $exportService = $this->getContainer()->get(ExportService::class);
+            $exportService->generate(new Csv());
+        });
     }
 }

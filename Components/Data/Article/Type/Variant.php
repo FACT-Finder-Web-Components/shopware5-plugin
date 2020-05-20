@@ -7,8 +7,8 @@ namespace OmikronFactfinder\Components\Data\Article\Type;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Filter\TextFilter;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
-use Shopware\Models\Article\Detail;
 use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Detail;
 
 class Variant extends BaseArticle implements DataProviderInterface
 {

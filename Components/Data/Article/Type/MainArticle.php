@@ -11,18 +11,17 @@ use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use OmikronFactfinder\Components\Filter\TextFilter;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
-use Shopware\Models\Article\Configurator\Option;
 use Shopware\Models\Article\Detail;
 
 class MainArticle extends BaseArticle implements DataProviderInterface
 {
     private const  MAIN_ARTICLE_KIND = 1;
 
-    /** @var VariantFactory */
-    private $variantFactory;
-
     /** @var IteratorAggregate */
     protected $articleFields;
+
+    /** @var VariantFactory */
+    private $variantFactory;
 
     public function __construct(
         Article $article,
@@ -49,7 +48,7 @@ class MainArticle extends BaseArticle implements DataProviderInterface
             return $fields;
         }, parent::toArray());
 
-        $options = array_merge([], ...array_values( $this->getConfigurableOptions()));
+        $options = array_merge([], ...array_values($this->getConfigurableOptions()));
         if ($options) {
             $data = ['Attributes' => ($data['Attributes'] ?? '|') . implode('|', $options) . '|'] + $data;
         }
@@ -66,8 +65,8 @@ class MainArticle extends BaseArticle implements DataProviderInterface
     {
         $options = $this->getConfigurableOptions();
 
-        return function (Detail $variant) use ($options) : ExportEntityInterface {
-            if ($variant->getKind() == self::MAIN_ARTICLE_KIND) {
+        return function (Detail $variant) use ($options): ExportEntityInterface {
+            if (self::MAIN_ARTICLE_KIND == $variant->getKind()) {
                 return $this;
             }
             return $this->variantFactory->create(
