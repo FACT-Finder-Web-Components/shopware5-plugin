@@ -5,34 +5,30 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
 use OmikronFactfinder\Components\Data\DataProviderInterface;
-use OmikronFactfinder\Components\Data\ExportEntityInterface;
+use OmikronFactfinder\Components\Filter\TextFilter;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
-use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
+use Shopware\Models\Article\Article;
 
-class Variant implements ExportEntityInterface, DataProviderInterface
+class Variant extends BaseArticle implements DataProviderInterface
 {
     /** @var Detail */
     private $detail;
 
-    /** @var Article */
-    private $article;
-
     /** @var array */
     private $data;
 
-    /** @var NumberFormatter */
-    private $numberFormatter;
-
     public function __construct(
+        NumberFormatter $numberFormatter,
+        TextFilter $textFilter,
+        Article $article,
         Detail $detail,
-        array $data,
-        NumberFormatter $numberFormatter
+        array $data
     ) {
-        $this->detail          = $detail;
-        $this->article         = $this->detail->getArticle();
-        $this->data            = $data;
-        $this->numberFormatter = $numberFormatter;
+        parent::__construct($article, $numberFormatter, $textFilter);
+
+        $this->detail  = $detail;
+        $this->data    = $data;
     }
 
     public function getId(): int
@@ -47,7 +43,7 @@ class Variant implements ExportEntityInterface, DataProviderInterface
                 'Availability'  => (int) $this->detail->getActive(),
                 'HasVariants'   => 0,
                 'ShopwareId'    => (string) $this->detail->getArticleId(),
-            ] + $this->data;
+            ] + $this->data + parent::toArray();
     }
 
     public function getEntities(): iterable

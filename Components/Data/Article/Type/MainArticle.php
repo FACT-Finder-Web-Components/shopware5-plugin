@@ -8,32 +8,42 @@ use IteratorAggregate;
 use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
+use OmikronFactfinder\Components\Filter\TextFilter;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Configurator\Option;
 use Shopware\Models\Article\Detail;
 
-class MainArticle implements DataProviderInterface, ExportEntityInterface
+class MainArticle extends BaseArticle implements DataProviderInterface
 {
     private const  MAIN_ARTICLE_KIND = 1;
 
     /** @var Article */
     protected $article;
 
+    /** @var VariantFactory */
+    private $variantFactory;
+
     /** @var NumberFormatter */
     protected $numberFormatter;
+
+    /** @var TextFilter */
+    protected $textFilter;
 
     /** @var IteratorAggregate */
     protected $articleFields;
 
-    /** @var VariantFactory */
-    private $variantFactory;
+    public function __construct(
+        Article $article,
+        NumberFormatter $numberFormatter,
+        VariantFactory $variantFactory,
+        TextFilter $textFilter,
+        IteratorAggregate $articleFields
+    ) {
+        parent::__construct($article, $numberFormatter, $textFilter);
 
-    public function __construct(Article $article, VariantFactory $variantFactory, NumberFormatter $numberFormatter, IteratorAggregate $articleFields)
-    {
-        $this->article         = $article;
-        $this->variantFactory  = $variantFactory;
-        $this->numberFormatter = $numberFormatter;
-        $this->articleFields   = $articleFields;
+        $this->variantFactory = $variantFactory;
+        $this->articleFields  = $articleFields;
     }
 
     public function getId(): int
@@ -43,25 +53,17 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
 
     public function toArray(): array
     {
-        $data = [
-            'ProductNumber' => (string) $this->article->getMainDetail()->getNumber(),
-            'Master'        => (string) $this->article->getMainDetail()->getNumber(),
-            'Name'          => (string) $this->article->getName(),
-            'EAN'           => (string) $this->article->getMainDetail()->getEan(),
-            'Weight'        => (float) $this->article->getMainDetail()->getWeight(),
-            'Description'   => (string) $this->article->getDescriptionLong(),
-            'Short'         => (string) $this->article->getDescription(),
-            'Price'         => $this->numberFormatter->format((float) $this->article->getMainDetail()->getPrices()[0]->getPrice()),
-            'Brand'         => (string) $this->article->getSupplier()->getName(),
-            'Availability'  => (int) $this->article->getMainDetail()->getActive(),
-            'HasVariants'   => $this->article->getDetails()->count() ? 1 : 0,
-            'ShopwareId'    => (string) $this->article->getId(),
-        ];
-
-        return array_reduce(iterator_to_array($this->articleFields), function (array $fields, ArticleFieldInterface $field) {
+        $data = array_reduce(iterator_to_array($this->articleFields), function (array $fields, ArticleFieldInterface $field) {
             $fields[$field->getName()] = $field->getValue($this->article);
             return $fields;
-        }, $data);
+        }, parent::toArray());
+
+        $options = array_merge([], ...array_values( $this->getConfigurableOptions()));
+        if ($options) {
+            $data = ['Attributes' => ($data['Attributes'] ?? '|') . implode('|', $options) . '|'] + $data;
+        }
+
+        return $data;
     }
 
     public function getEntities(): iterable
@@ -71,24 +73,26 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
 
     private function articleVariant(): callable
     {
-        $data = $this->toArray();
-        return function (Detail $variant) use ($data): ExportEntityInterface {
-            if (self::MAIN_ARTICLE_KIND == $variant->getKind()) {
+        $options = $this->getConfigurableOptions();
+
+        return function (Detail $variant) use ($options) : ExportEntityInterface {
+            if ($variant->getKind() == self::MAIN_ARTICLE_KIND) {
                 return $this;
             }
-            return $this->variantFactory->create($variant, $data);
+            return $this->variantFactory->create(
+                $variant,
+                ['Attributes' => '|' . implode('|', $options[$variant->getNumber()] ?? []) . '|']
+            );
         };
     }
 
-    //@todo poc how to obtain configurable attributes
-    private function getConfigurableAttributes()
+    private function getConfigurableOptions()
     {
-        $groups = [];
-        foreach ($this->article->getDetails() as $detail) {
-            foreach ($detail->getConfiguratorOptions() as $option) {
-                $groups[$option->getGroup()->getName()][] = $option->getName();
+        return array_reduce($this->article->getDetails()->toArray(), function (array $attributes, Detail $detail) {
+            foreach ($detail->getConfiguratorOptions()->getValues() as $value) {
+                $attributes[$detail->getNumber()][] = "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
             }
-        }
-        return $groups;
+            return $attributes;
+        }, []);
     }
 }

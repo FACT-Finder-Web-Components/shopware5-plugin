@@ -33,7 +33,7 @@ class Attributes implements ArticleFieldInterface
         return $attributes ? '|' . implode('|', $attributes) . '|' : '';
     }
 
-    private function formatAttribute($name, $value)
+    private function formatAttribute($name, $value): string
     {
         return "{$this->filter->filterValue($name)}={$this->filter->filterValue($value)}";
     }

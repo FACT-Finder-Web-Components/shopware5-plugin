@@ -6,10 +6,10 @@ namespace OmikronFactfinder\Components\Data\Article;
 
 use OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
+use Shopware\Models\Article\Article;
 
 class ArticleDataProvider implements DataProviderInterface
 {
-    /** @var Articles[] */
     private $articles;
 
     /** @var MainArticleFactory */
@@ -24,6 +24,7 @@ class ArticleDataProvider implements DataProviderInterface
     public function getEntities(): iterable
     {
         yield from []; // init generator: Prevent errors in case of an empty product collection
+        /** @var Article $article */
         foreach ($this->articles as $article) {
             yield from $this->mainArticleFactory->create($article)->getEntities();
         }

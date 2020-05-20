@@ -13,12 +13,12 @@ class Url implements ArticleFieldInterface
     /** @var Router */
     private $router;
 
-    /** @var ShopEmulationService */
+    /** @var ShopEmulationService  */
     private $shopEmulation;
 
     public function __construct(Router $router, ShopEmulationService $shopEmulation)
     {
-        $this->router        = $router;
+        $this->router = $router;
         $this->shopEmulation = $shopEmulation;
     }
 
@@ -29,10 +29,13 @@ class Url implements ArticleFieldInterface
 
     public function getValue(Article $article): string
     {
-        return $this->router->assemble([
-            'module'     => 'frontend',
-            'controller' => 'detail',
-            'sArticle'   => $article->getMainDetail()->getArticleId(),
-        ], $this->shopEmulation->getContext());
+        $context = $this->shopEmulation->getContext();
+        return $this->router->assemble(
+            [
+                'module' => 'frontend',
+                'controller' => 'detail',
+                'sArticle' => $article->getMainDetail()->getArticleId(),
+            ], $context
+        );
     }
 }

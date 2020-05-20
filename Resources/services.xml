@@ -76,6 +76,7 @@
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory">
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\VariantFactory" />
             <argument type="service" id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+            <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter" />
             <argument type="tagged" tag="omikron_factfinder.export_articles_fields" />
         </service>
 
