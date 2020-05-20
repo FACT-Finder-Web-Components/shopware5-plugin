@@ -21,9 +21,9 @@ class MainArticleFactory
 
     public function __construct(VariantFactory $variantFactory, NumberFormatter $numberFormatter, IteratorAggregate $articleFields)
     {
-        $this->variantFactory = $variantFactory;
+        $this->variantFactory  = $variantFactory;
         $this->numberFormatter = $numberFormatter;
-        $this->articleFields = $articleFields;
+        $this->articleFields   = $articleFields;
     }
 
     public function create(Article $article)

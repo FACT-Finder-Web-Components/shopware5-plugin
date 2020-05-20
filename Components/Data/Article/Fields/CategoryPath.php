@@ -9,7 +9,6 @@ use Shopware\Models\Category\Category;
 
 class CategoryPath implements ArticleFieldInterface
 {
-
     public function getName(): string
     {
         return 'CategoryPath';

@@ -22,10 +22,10 @@ class ShopEmulationService
     /** @var Config */
     private $config;
 
-    /** @var null|Shop */
+    /** @var Shop|null */
     private $shop;
 
-    /** @var null|context */
+    /** @var context|null */
     private $context;
 
     /** @var bool */
@@ -33,9 +33,9 @@ class ShopEmulationService
 
     public function __construct(ModelManager $modelManager, ShopRegistrationServiceInterface $registrationService, Config $config)
     {
-        $this->modelManager = $modelManager;
+        $this->modelManager        = $modelManager;
         $this->registrationService = $registrationService;
-        $this->config = $config;
+        $this->config              = $config;
     }
 
     public function emulateShop(int $shopId)
@@ -44,7 +44,7 @@ class ShopEmulationService
         $repository = $this->modelManager->getRepository(Shop::class);
         $this->shop = $repository->getActiveById($shopId);
         $this->registrationService->registerShop($this->shop);
-        $this->context = Context::createFromShop($this->shop, $this->config);
+        $this->context          = Context::createFromShop($this->shop, $this->config);
         $this->startedEmulation = true;
     }
 

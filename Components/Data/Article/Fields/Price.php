@@ -10,7 +10,7 @@ class Price implements ArticleFieldInterface
 {
     public function getName(): string
     {
-      return 'Price';
+        return 'Price';
     }
 
     public function getValue(Article $article): string

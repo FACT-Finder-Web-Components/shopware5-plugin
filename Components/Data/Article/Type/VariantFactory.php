@@ -18,7 +18,7 @@ class VariantFactory
     public function __construct(NumberFormatter $numberFormatter, array $articleFields = [])
     {
         $this->numberFormatter = $numberFormatter;
-        $this->articleFields = $articleFields;
+        $this->articleFields   = $articleFields;
     }
 
     public function create(Detail $detail, array $data = [])

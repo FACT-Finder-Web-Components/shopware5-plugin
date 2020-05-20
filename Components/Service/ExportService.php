@@ -22,8 +22,8 @@ class ExportService implements ExportServiceInterface
     public function __construct(DataProviderInterface $dataProvider, FilterInterface $filter, array $columns)
     {
         $this->dataProvider = $dataProvider;
-        $this->filter = $filter;
-        $this->columns = $columns;
+        $this->filter       = $filter;
+        $this->columns      = $columns;
     }
 
     public function generate(StreamInterface $stream): void
@@ -34,8 +34,7 @@ class ExportService implements ExportServiceInterface
             var_dump($entityData);
 //            $entityData = array_merge($emptyRecord, array_intersect_key($entity->toArray(), $emptyRecord));
 //            $stream->addEntity($this->prepare($entityData));
-        };
-        return;
+        }
     }
 
     private function prepare(array $data): array

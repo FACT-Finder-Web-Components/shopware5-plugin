@@ -10,7 +10,7 @@ class ImageUrl implements ArticleFieldInterface
 {
     public function getName(): string
     {
-      return 'ImageUrl';
+        return 'ImageUrl';
     }
 
     public function getValue(Article $article): string

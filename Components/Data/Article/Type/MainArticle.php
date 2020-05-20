@@ -19,43 +19,43 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
     /** @var Article */
     protected $article;
 
-    /** @var VariantFactory */
-    private $variantFactory;
-
     /** @var NumberFormatter */
     protected $numberFormatter;
 
     /** @var IteratorAggregate */
     protected $articleFields;
 
+    /** @var VariantFactory */
+    private $variantFactory;
+
     public function __construct(Article $article, VariantFactory $variantFactory, NumberFormatter $numberFormatter, IteratorAggregate $articleFields)
     {
-        $this->article = $article;
-        $this->variantFactory = $variantFactory;
+        $this->article         = $article;
+        $this->variantFactory  = $variantFactory;
         $this->numberFormatter = $numberFormatter;
-        $this->articleFields = $articleFields;
+        $this->articleFields   = $articleFields;
     }
 
     public function getId(): int
     {
-        return (int)$this->article->getId();
+        return (int) $this->article->getId();
     }
 
     public function toArray(): array
     {
         $data = [
-            'ProductNumber' => (string)$this->article->getMainDetail()->getNumber(),
-            'Master' => (string)$this->article->getMainDetail()->getNumber(),
-            'Name' => (string)$this->article->getName(),
-            'EAN' => (string)$this->article->getMainDetail()->getEan(),
-            'Weight' => (float)$this->article->getMainDetail()->getWeight(),
-            'Description' => (string)$this->article->getDescriptionLong(),
-            'Short' => (string)$this->article->getDescription(),
-            'Price' => $this->numberFormatter->format((float)$this->article->getMainDetail()->getPrices()[0]->getPrice()),
-            'Brand' => (string)$this->article->getSupplier()->getName(),
-            'Availability' => (int)$this->article->getMainDetail()->getActive(),
-            'HasVariants' => $this->article->getDetails()->count() ? 1 : 0,
-            'ShopwareId' => (string)$this->article->getId(),
+            'ProductNumber' => (string) $this->article->getMainDetail()->getNumber(),
+            'Master'        => (string) $this->article->getMainDetail()->getNumber(),
+            'Name'          => (string) $this->article->getName(),
+            'EAN'           => (string) $this->article->getMainDetail()->getEan(),
+            'Weight'        => (float) $this->article->getMainDetail()->getWeight(),
+            'Description'   => (string) $this->article->getDescriptionLong(),
+            'Short'         => (string) $this->article->getDescription(),
+            'Price'         => $this->numberFormatter->format((float) $this->article->getMainDetail()->getPrices()[0]->getPrice()),
+            'Brand'         => (string) $this->article->getSupplier()->getName(),
+            'Availability'  => (int) $this->article->getMainDetail()->getActive(),
+            'HasVariants'   => $this->article->getDetails()->count() ? 1 : 0,
+            'ShopwareId'    => (string) $this->article->getId(),
         ];
 
         return array_reduce(iterator_to_array($this->articleFields), function (array $fields, ArticleFieldInterface $field) {
@@ -72,8 +72,8 @@ class MainArticle implements DataProviderInterface, ExportEntityInterface
     private function articleVariant(): callable
     {
         $data = $this->toArray();
-        return function (Detail $variant) use ($data) : ExportEntityInterface {
-            if ($variant->getKind() == self::MAIN_ARTICLE_KIND) {
+        return function (Detail $variant) use ($data): ExportEntityInterface {
+            if (self::MAIN_ARTICLE_KIND == $variant->getKind()) {
                 return $this;
             }
             return $this->variantFactory->create($variant, $data);

@@ -28,26 +28,25 @@ class Variant implements ExportEntityInterface, DataProviderInterface
         Detail $detail,
         array $data,
         NumberFormatter $numberFormatter
-    )
-    {
-        $this->detail = $detail;
-        $this->article = $this->detail->getArticle();
-        $this->data = $data;
+    ) {
+        $this->detail          = $detail;
+        $this->article         = $this->detail->getArticle();
+        $this->data            = $data;
         $this->numberFormatter = $numberFormatter;
     }
 
     public function getId(): int
     {
-        return (int)$this->detail->getId();
+        return (int) $this->detail->getId();
     }
 
     public function toArray(): array
     {
         return [
-                'ProductNumber' => (string)$this->detail->getNumber(),
-                'Availability' => (int)$this->detail->getActive(),
-                'HasVariants' => 0,
-                'ShopwareId' => (string)$this->detail->getArticleId(),
+                'ProductNumber' => (string) $this->detail->getNumber(),
+                'Availability'  => (int) $this->detail->getActive(),
+                'HasVariants'   => 0,
+                'ShopwareId'    => (string) $this->detail->getArticleId(),
             ] + $this->data;
     }
 

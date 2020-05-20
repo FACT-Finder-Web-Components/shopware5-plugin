@@ -13,19 +13,19 @@ class CategoryFilterTest extends TestCase
     /** @var MockObject|CategoryRepository */
     private $repository;
 
-    public function test_calculates_the_category_filter()
-    {
-        $categoryPath = new CategoryFilter($this->repository, 'Category');
-        $this->repository->method('getPathById')->willReturn(['ROOT', 'Ausrüstung', 'Bücher & Karten']);
-
-        $this->assertSame($categoryPath->getValue(42), ['filter=Category:Ausr%C3%BCstung%2FB%C3%BCcher+%26+Karten']);
-    }
-
     protected function setUp()
     {
         $this->repository = $this->getMockBuilder(CategoryRepository::class)
             ->disableOriginalConstructor()
             ->setMethods(['getPathById'])
             ->getMock();
+    }
+
+    public function test_calculates_the_category_filter()
+    {
+        $categoryPath = new CategoryFilter($this->repository, 'Category');
+        $this->repository->method('getPathById')->willReturn(['ROOT', 'Ausrüstung', 'Bücher & Karten']);
+
+        $this->assertSame($categoryPath->getValue(42), ['filter=Category:Ausr%C3%BCstung%2FB%C3%BCcher+%26+Karten']);
     }
 }
