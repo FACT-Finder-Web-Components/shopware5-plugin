@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article;
 
-use OmikronFactfinder\Components\Data\Article\Type\MainArticleFactory;
+use OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use Shopware\Models\Article\Article;
 
 class ArticleDataProvider implements DataProviderInterface
 {
+    /** @var Articles */
     private $articles;
 
-    /** @var MainArticleFactory */
-    private $mainArticleFactory;
+    /** @var ArticleProviderFactory */
+    private $providerFactory;
 
-    public function __construct(Articles $articles, MainArticleFactory $mainArticleFactory)
+    public function __construct(Articles $articles, ArticleProviderFactory $articleProviderFactory)
     {
-        $this->articles           = $articles;
-        $this->mainArticleFactory = $mainArticleFactory;
+        $this->articles        = $articles;
+        $this->providerFactory = $articleProviderFactory;
     }
 
     public function getEntities(): iterable
@@ -26,7 +27,7 @@ class ArticleDataProvider implements DataProviderInterface
         yield from []; // init generator: Prevent errors in case of an empty product collection
         /** @var Article $article */
         foreach ($this->articles as $article) {
-            yield from $this->mainArticleFactory->create($article)->getEntities();
+            yield from $this->providerFactory->create($article->getMainDetail())->getEntities();
         }
     }
 }

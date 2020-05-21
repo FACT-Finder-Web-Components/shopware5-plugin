@@ -5,26 +5,43 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
-use OmikronFactfinder\Components\Filter\TextFilter;
+use OmikronFactfinder\Components\Filter\ExtendedTextFilter;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Detail;
 
 abstract class BaseArticle implements ExportEntityInterface
 {
     /** @var Article */
     protected $article;
 
+    /** @var Detail */
+    protected $detail;
+
     /** @var NumberFormatter */
     protected $numberFormatter;
 
-    /** @var TextFilter */
+    /** @var ExtendedTextFilter */
     protected $filter;
 
-    public function __construct(Article $article, NumberFormatter $numberFormatter, TextFilter $textFilter)
+    public function setDetail(Detail $detail)
     {
-        $this->article         = $article;
+        $this->detail = $detail;
+    }
+
+    public function setArticle(Article $article)
+    {
+        $this->article = $article;
+    }
+
+    public function setNumberFormatter(NumberFormatter $numberFormatter)
+    {
         $this->numberFormatter = $numberFormatter;
-        $this->filter          = $textFilter;
+    }
+
+    public function setTextFilter(ExtendedTextFilter $textFilter)
+    {
+        $this->filter = $textFilter;
     }
 
     public function getId(): int
@@ -45,7 +62,6 @@ abstract class BaseArticle implements ExportEntityInterface
             'Price'         => $this->numberFormatter->format((float) $this->article->getMainDetail()->getPrices()[0]->getPrice()),
             'Brand'         => (string) $this->article->getSupplier()->getName(),
             'Availability'  => (int) $this->article->getMainDetail()->getActive(),
-            'HasVariants'   => $this->article->getDetails()->count() ? 1 : 0,
             'ShopwareId'    => (string) $this->article->getId(),
         ];
     }

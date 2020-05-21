@@ -8,32 +8,20 @@ use IteratorAggregate;
 use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
-use OmikronFactfinder\Components\Filter\TextFilter;
-use OmikronFactfinder\Components\Formatter\NumberFormatter;
-use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
 
-class MainArticle extends BaseArticle implements DataProviderInterface
+class MainArticleProvider extends BaseArticle implements DataProviderInterface
 {
-    private const  MAIN_ARTICLE_KIND = 1;
+    /** @var ArticleProviderFactory  */
+    private $providerFactory;
 
     /** @var IteratorAggregate */
-    protected $articleFields;
+    private $articleFields;
 
-    /** @var VariantFactory */
-    private $variantFactory;
-
-    public function __construct(
-        Article $article,
-        NumberFormatter $numberFormatter,
-        VariantFactory $variantFactory,
-        TextFilter $textFilter,
-        IteratorAggregate $articleFields
-    ) {
-        parent::__construct($article, $numberFormatter, $textFilter);
-
-        $this->variantFactory = $variantFactory;
-        $this->articleFields  = $articleFields;
+    public function __construct(ArticleProviderFactory $articleProviderFactory, IteratorAggregate $articleFields)
+    {
+        $this->providerFactory = $articleProviderFactory;
+        $this->articleFields   = $articleFields;
     }
 
     public function getId(): int
@@ -66,13 +54,11 @@ class MainArticle extends BaseArticle implements DataProviderInterface
         $options = $this->getConfigurableOptions();
 
         return function (Detail $variant) use ($options): ExportEntityInterface {
-            if ($variant->getKind() === self::MAIN_ARTICLE_KIND) {
+            if ($variant->getNumber() === $this->article->getMainDetail()->getNumber()) {
                 return $this;
             }
-            return $this->variantFactory->create(
-                $variant,
-                ['Attributes' => '|' . implode('|', $options[$variant->getNumber()] ?? []) . '|']
-            );
+            //@todo don't pass data as additional argument?
+            return $this->providerFactory->create($variant, ['Attributes' => '|' . implode('|', $options[$variant->getNumber()] ?? []) . '|']);
         };
     }
 
