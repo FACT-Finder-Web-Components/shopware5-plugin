@@ -26,10 +26,10 @@ class Attributes implements ArticleFieldInterface
     public function getValue(Article $article): string
     {
         $attributes = array_reduce($article->getPropertyValues()->toArray(), function (array $attrs, Value $value) {
-            return $attrs + [$this->formatAttribute($value->getOption()->getName(), $value->getValue())];
+            return $attrs + [$value->getId() => $this->formatAttribute($value->getOption()->getName(), $value->getValue())];
         }, []);
 
-        return $attributes ? '|' . implode('|', $attributes) . '|' : '';
+        return $attributes ? '|' . implode('|', array_values($attributes)) . '|' : '';
     }
 
     private function formatAttribute($name, $value): string

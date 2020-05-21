@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
+use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use Shopware\Models\Article\Detail;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -13,12 +14,12 @@ class ArticleProviderFactory
 
     private const MAIN_ARTICLE_KIND = 1;
 
-    public function create(Detail $detail, array $data = [])
+    public function create(Detail $detail, array $data = []): ExportEntityInterface
     {
         if ($detail->getKind() == self::MAIN_ARTICLE_KIND) {
-            $article = $this->container->get('OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider');
+            $article = clone $this->container->get('OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider');
         } else {
-            $article = $this->container->get('OmikronFactfinder\Components\Data\Article\Type\VariantProvider');
+            $article = clone $this->container->get('OmikronFactfinder\Components\Data\Article\Type\VariantProvider');
             $article->setData($data);
         }
 
