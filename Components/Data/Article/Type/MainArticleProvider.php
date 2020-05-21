@@ -12,7 +12,7 @@ use Shopware\Models\Article\Detail;
 
 class MainArticleProvider extends BaseArticle implements DataProviderInterface
 {
-    /** @var ArticleProviderFactory  */
+    /** @var ArticleProviderFactory */
     private $providerFactory;
 
     /** @var IteratorAggregate */
@@ -26,19 +26,18 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function getId(): int
     {
-        return (int) $this->article->getId();
+        return (int)$this->article->getId();
     }
 
     public function toArray(): array
     {
         $data = array_reduce(iterator_to_array($this->articleFields), function (array $fields, ArticleFieldInterface $field) {
-            $fields[$field->getName()] = $field->getValue($this->article);
-            return $fields;
+            return $fields + [$field->getName() => $field->getValue($this->article)];
         }, parent::toArray());
 
         $options = array_merge([], ...array_values($this->getConfigurableOptions()));
         if ($options) {
-            $data = ['Attributes' => ($data['Attributes'] ?? '|') . implode('|', $options) . '|'] + $data;
+            $data = ['Attributes' => ($data['Attributes'] ?? '|') . implode('|', array_unique($options)) . '|'] + $data;
         }
 
         return $data;
@@ -46,7 +45,10 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function getEntities(): iterable
     {
-        yield from array_map($this->articleVariant(), $this->article->getDetails()->toArray());
+        yield from [$this];
+        yield from array_map($this->articleVariant(), array_filter($this->article->getDetails()->toArray(), function (Detail $detail) {
+            return $detail->getNumber() !== $detail->getArticle()->getMainDetail()->getNumber();
+        }));
     }
 
     private function articleVariant(): callable
@@ -54,21 +56,18 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
         $options = $this->getConfigurableOptions();
 
         return function (Detail $variant) use ($options): ExportEntityInterface {
-            if ($variant->getNumber() === $this->article->getMainDetail()->getNumber()) {
-                return $this;
-            }
             //@todo don't pass data as additional argument?
             return $this->providerFactory->create($variant, ['Attributes' => '|' . implode('|', $options[$variant->getNumber()] ?? []) . '|']);
         };
     }
 
-    private function getConfigurableOptions()
+    private function getConfigurableOptions(): array
     {
         return array_reduce($this->article->getDetails()->toArray(), function (array $attributes, Detail $detail) {
-            foreach ($detail->getConfiguratorOptions()->getValues() as $value) {
-                $attributes[$detail->getNumber()][] = "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
-            }
-            return $attributes;
+            return $attributes + [$detail->getNumber() => array_map(function ($value) {
+                    return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
+                }, $detail->getConfiguratorOptions()->getValues())
+                ];
         }, []);
     }
 }
