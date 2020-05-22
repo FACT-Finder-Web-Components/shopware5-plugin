@@ -50,9 +50,6 @@
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\BaseArticle" abstract="true">
-            <call method="setNumberFormatter">
-                <argument type="service" id="OmikronFactfinder\Components\Formatter\NumberFormatter"/>
-            </call>
             <call method="setTextFilter">
                 <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter"/>
             </call>

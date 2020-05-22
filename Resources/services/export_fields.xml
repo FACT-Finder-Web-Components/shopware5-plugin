@@ -22,5 +22,9 @@
         <service id="OmikronFactfinder\Components\Data\Article\Fields\Attributes" autowire="true">
             <tag name="omikron_factfinder.export_articles_fields" />
         </service>
+
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\Price" autowire="true" >
+            <tag name="omikron_factfinder.export_articles_fields" />
+        </service>
     </services>
 </container>

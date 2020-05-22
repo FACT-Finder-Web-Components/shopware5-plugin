@@ -6,7 +6,6 @@ namespace OmikronFactfinder\Components\Data\Article\Type;
 
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use OmikronFactfinder\Components\Filter\ExtendedTextFilter;
-use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
 
@@ -17,9 +16,6 @@ abstract class BaseArticle implements ExportEntityInterface
 
     /** @var Detail */
     protected $detail;
-
-    /** @var NumberFormatter */
-    protected $numberFormatter;
 
     /** @var ExtendedTextFilter */
     protected $filter;
@@ -32,11 +28,6 @@ abstract class BaseArticle implements ExportEntityInterface
     public function setArticle(Article $article)
     {
         $this->article = $article;
-    }
-
-    public function setNumberFormatter(NumberFormatter $numberFormatter)
-    {
-        $this->numberFormatter = $numberFormatter;
     }
 
     public function setTextFilter(ExtendedTextFilter $textFilter)
@@ -59,7 +50,6 @@ abstract class BaseArticle implements ExportEntityInterface
             'Weight'        => (float) $this->article->getMainDetail()->getWeight(),
             'Description'   => (string) $this->article->getDescriptionLong(),
             'Short'         => (string) $this->article->getDescription(),
-            'Price'         => $this->numberFormatter->format((float) $this->article->getMainDetail()->getPrices()[0]->getPrice()),
             'Brand'         => (string) $this->article->getSupplier()->getName(),
             'Availability'  => (int) $this->article->getMainDetail()->getActive(),
             'ShopwareId'    => (string) $this->article->getId(),
