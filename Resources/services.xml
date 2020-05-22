@@ -14,6 +14,10 @@
             <argument>%omikron_factfinder.plugin_name%</argument>
             <argument type="service" id="shopware.plugin.cached_config_reader" />
         </service>
+        <service id="OmikronFactfinder\Components\Upload\Configuration">
+            <argument>%omikron_factfinder.plugin_name%</argument>
+            <argument type="service" id="shopware.plugin.cached_config_reader" />
+        </service>
 
         <service id="omikron_factfinder.components.category_filter" class="OmikronFactfinder\Components\CategoryFilter">
             <argument type="service">
@@ -82,6 +86,11 @@
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
             <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter" />
             <argument>%omikron_factfinder.export.articles.columns%</argument>
+        </service>
+
+        <service id="OmikronFactfinder\Components\Service\UploadService">
+            <argument type="service" id="shopware.filesystem_factory" />
+            <argument type="service" id="OmikronFactfinder\Components\Upload\Configuration" />
         </service>
     </services>
 </container>

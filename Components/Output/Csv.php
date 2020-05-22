@@ -27,6 +27,13 @@ class Csv implements StreamInterface
 
     public function getContent(): string
     {
-        throw new \BadMethodCallException('Not implemented');
+        $this->handle->fpassthru();
+        $this->handle->rewind();
+        return $this->handle->fread($this->handle->getSize());
+    }
+
+    public function getFilename(): string
+    {
+        return $this->handle->getFilename();
     }
 }

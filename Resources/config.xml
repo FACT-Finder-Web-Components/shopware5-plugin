@@ -49,5 +49,24 @@
             <label lang="de">Kategorieseiten mit FACT-Finder® rendern?</label>
             <value>true</value>
         </element>
+
+        <element>
+            <name>ffFtpUrl</name>
+            <label>FTP URL</label>
+            <label lang="de">FTP URL</label>
+        </element>
+
+        <element>
+            <name>ffFtpUser</name>
+            <label>FTP User</label>
+            <label lang="de">FTP User</label>
+        </element>
+
+        <element type="password">
+            <name>ffFtpPassword</name>
+            <label>FTP Password</label>
+            <label lang="de">FTP Password</label>
+        </element>
+
     </elements>
 </config>

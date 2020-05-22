@@ -26,15 +26,17 @@ class ExportService implements ExportServiceInterface
         $this->columns      = $columns;
     }
 
-    public function generate(StreamInterface $stream): void
+    public function generate(StreamInterface $stream): StreamInterface
     {
         $emptyRecord = array_combine($this->columns, array_fill(0, count($this->columns), ''));
-//        $stream->addEntity($this->columns);
+        $stream->addEntity($this->columns);
         foreach ($this->dataProvider->getEntities() as $entity) {
             $entityData = array_merge($emptyRecord, array_intersect_key($entity->toArray(), $emptyRecord));
-            var_dump($entityData);
-//            $stream->addEntity($entityData);
+//            var_dump($entityData);
+            $stream->addEntity($this->prepare($entityData));
         }
+
+        return $stream;
     }
 
     private function prepare(array $data): array
