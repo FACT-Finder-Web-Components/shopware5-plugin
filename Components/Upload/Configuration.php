@@ -22,16 +22,16 @@ class Configuration
 
     public function getUrl(): string
     {
-        return $this->configReader->getByPluginName($this->pluginName)['ffFtpUrl'];
+        return (string) $this->configReader->getByPluginName($this->pluginName)['ffFtpUrl'];
     }
 
     public function getUserName(): string
     {
-        return $this->configReader->getByPluginName($this->pluginName)['ffFtpUser'];
+        return (string) $this->configReader->getByPluginName($this->pluginName)['ffFtpUser'];
     }
 
     public function getPassword(): string
     {
-        return $this->configReader->getByPluginName($this->pluginName)['ffFtpPassword'];
+        return (string) $this->configReader->getByPluginName($this->pluginName)['ffFtpPassword'];
     }
 }

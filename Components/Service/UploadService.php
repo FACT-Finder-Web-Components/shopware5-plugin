@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Service;
 
 use League\Flysystem\FilesystemInterface;
-use OmikronFactfinder\Components\Output\StreamInterface;
 use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
 use Shopware\Components\Filesystem\FilesystemFactory;
 
@@ -23,11 +22,11 @@ class UploadService
         $this->ftpConfig = $configuration;
     }
 
-    public function uploadFeed(StreamInterface $feed, string $fileName): void
+    public function uploadFeed(string $path, string $contents): void
     {
         /** @var FilesystemInterface $fs */
         $fs = $this->fsFactory->factory($this->config());
-        $fs->write($fileName, $feed->getContent());
+        $fs->write($path, $contents);
     }
 
     private function config()

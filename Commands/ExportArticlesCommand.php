@@ -38,7 +38,7 @@ class ExportArticlesCommand extends ShopwareCommand
 
             if ($input->getOption(self::UPLOAD_FEED_OPTION)) {
                 $uploadService = $this->getContainer()->get(UploadService::class);
-                $uploadService->uploadFeed($feed, $feed->getFilename());
+                $uploadService->uploadFeed($feed->getFilename(), $feed->getContent());
                 $output->writeln('<info>Feed has been uploaded</info>');
             }
         });
