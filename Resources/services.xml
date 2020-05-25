@@ -45,21 +45,21 @@
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory">
             <call method="setContainer">
-                <argument type="service" id="service_container"/>
+                <argument type="service" id="service_container" />
             </call>
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\BaseArticle" abstract="true">
             <call method="setTextFilter">
-                <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter"/>
+                <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
             </call>
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider"
                  parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
                  shared="false">
-            <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory"/>
-            <argument type="tagged" tag="omikron_factfinder.export_articles_fields"/>
+            <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
+            <argument type="tagged" tag="omikron_factfinder.export.article.field" />
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\VariantProvider"

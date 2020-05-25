@@ -4,27 +4,15 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\CategoryPath">
-            <tag name="omikron_factfinder.export_articles_fields" />
-        </service>
+        <defaults public="false" autoconfigure="true" autowire="true">
+            <bind key="$imageSize">%omikron_factfinder.export.thumbnail_size%</bind>
+        </defaults>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Deeplink">
-            <argument type="service" id="router" />
-            <tag name="omikron_factfinder.export_articles_fields" />
-        </service>
+        <instanceof id="OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface">
+            <tag name="omikron_factfinder.export.article.field" />
+        </instanceof>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\ImageUrl">
-            <argument type="service" id="shopware_media.media_service" />
-            <argument>%omikron_factfinder.export.thumbnail_size%</argument>
-            <tag name="omikron_factfinder.export_articles_fields" />
-        </service>
-
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Attributes" autowire="true">
-            <tag name="omikron_factfinder.export_articles_fields" />
-        </service>
-
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Price" autowire="true">
-            <tag name="omikron_factfinder.export_articles_fields" />
-        </service>
+        <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
+                   resource="../../Components/Data/Article/Fields" />
     </services>
 </container>

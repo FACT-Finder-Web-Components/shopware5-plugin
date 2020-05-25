@@ -36,7 +36,7 @@ class CategoryPath implements ArticleFieldInterface
 
     private function getPath(Category $category): array
     {
-        return array_reverse(array_slice(explode('|', $category->getId() . $category->getPath()), 0, -2));
+        return array_slice(array_reverse(explode('|', $category->getId() . $category->getPath())), 2);
     }
 
     private function isLeaf(): callable
