@@ -26,7 +26,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function getId(): int
     {
-        return (int)$this->article->getId();
+        return (int) $this->article->getId();
     }
 
     public function toArray(): array
@@ -65,8 +65,8 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
     {
         return array_reduce($this->article->getDetails()->toArray(), function (array $attributes, Detail $detail) {
             return $attributes + [$detail->getNumber() => array_map(function ($value) {
-                    return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
-                }, $detail->getConfiguratorOptions()->getValues())
+                return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
+            }, $detail->getConfiguratorOptions()->getValues()),
                 ];
         }, []);
     }

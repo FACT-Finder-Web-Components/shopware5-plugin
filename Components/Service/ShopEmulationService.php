@@ -36,7 +36,7 @@ class ShopEmulationService
         $this->router           = $router;
     }
 
-    public function emulateShop(int $shopId, int $customerGroupId, callable $proceed)
+    public function emulateShop(int $shopId, callable $proceed)
     {
         $context = $this->router->getContext();
 

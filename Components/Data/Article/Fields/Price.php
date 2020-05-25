@@ -24,12 +24,8 @@ class Price implements ArticleFieldInterface
 
     public function getValue(Article $article): string
     {
-        $prices  = $article->getMainDetail()->getPrices();
-        if (!$prices->count()) {
-            return '0';
-        }
-
+        $price   = $article->getMainDetail()->getPrices()->first();
         $taxRate = $article->getTax()->getTax();
-        return (string)$this->numberFormatter->format($prices[0]->getPrice() * (($taxRate + 100) / 100));
+        return (string) $this->numberFormatter->format(($price ? $price->getPrice() : 0) * (1 + $taxRate / 100));
     }
 }

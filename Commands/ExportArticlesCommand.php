@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ExportArticlesCommand extends ShopwareCommand
 {
-    private const SHOP_ID_ARGUMENT = 'shop_id';
+    private const SHOP_ID_ARGUMENT   = 'shop_id';
     private const UPLOAD_FEED_OPTION = 'upload';
 
     protected function configure()

@@ -37,7 +37,7 @@ class UploadService
                 'host'     => $this->ftpConfig->getUrl(),
                 'username' => $this->ftpConfig->getUserName(),
                 'password' => $this->ftpConfig->getPassword(),
-                'ssl'      => true
+                'ssl'      => true,
             ],
             'type'   => 'ftp',
         ];

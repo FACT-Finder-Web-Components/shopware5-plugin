@@ -8,7 +8,7 @@
             <tag name="omikron_factfinder.export_articles_fields" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Url">
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\Deeplink">
             <argument type="service" id="router" />
             <tag name="omikron_factfinder.export_articles_fields" />
         </service>
@@ -23,7 +23,7 @@
             <tag name="omikron_factfinder.export_articles_fields" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Price" autowire="true" >
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\Price" autowire="true">
             <tag name="omikron_factfinder.export_articles_fields" />
         </service>
     </services>
