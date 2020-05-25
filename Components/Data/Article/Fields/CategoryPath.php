@@ -30,7 +30,7 @@ class CategoryPath implements ArticleFieldInterface
         }, []);
 
         return function (int $categoryId) use ($names): string {
-            return urlencode($names[$categoryId] ?? '');
+            return rawurlencode($names[$categoryId] ?? '');
         };
     }
 
