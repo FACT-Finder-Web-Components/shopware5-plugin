@@ -6,19 +6,14 @@ namespace OmikronFactfinder\Components\Data\Article\Fields;
 
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Models\Article\Article;
-use Shopware\Components\Api\Resource\Article as ArticleResource;
 
 class Price implements ArticleFieldInterface
 {
-    /** @var ArticleResource */
-    private $articleResource;
-
     /** @var NumberFormatter */
     private $numberFormatter;
 
-    public function __construct(ArticleResource $articleResource, NumberFormatter $numberFormatter)
+    public function __construct(NumberFormatter $numberFormatter)
     {
-        $this->articleResource = $articleResource;
         $this->numberFormatter = $numberFormatter;
     }
 
