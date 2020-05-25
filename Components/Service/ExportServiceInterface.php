@@ -8,5 +8,5 @@ use OmikronFactfinder\Components\Output\StreamInterface;
 
 interface ExportServiceInterface
 {
-    public function generate(StreamInterface $stream): StreamInterface;
+    public function generate(StreamInterface $stream): void;
 }

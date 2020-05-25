@@ -27,7 +27,6 @@ class Csv implements StreamInterface
 
     public function getContent(): string
     {
-        $this->handle->fpassthru();
         $this->handle->rewind();
         return $this->handle->fread($this->handle->getSize());
     }

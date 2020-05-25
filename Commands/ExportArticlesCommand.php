@@ -32,8 +32,8 @@ class ExportArticlesCommand extends ShopwareCommand
 
         $shopEmulation = $this->getContainer()->get(ShopEmulationService::class);
         $shopEmulation->emulateShop((int) $input->getArgument(self::SHOP_ID_ARGUMENT), function () use ($input, $output) {
-            $exportService = $this->getContainer()->get(ExportService::class);
-            $feed          = $exportService->generate($this->getContainer()->get(Csv::class));
+            $feed = $this->getContainer()->get(Csv::class);
+            $this->getContainer()->get(ExportService::class)->generate($feed);
             $output->writeln('<info>Feed has been generated</info>');
 
             if ($input->getOption(self::UPLOAD_FEED_OPTION)) {

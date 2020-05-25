@@ -23,7 +23,7 @@ class UploadService
         $this->ftpConfig = $configuration;
     }
 
-    public function uploadFeed(StreamInterface $feed, string $fileName)
+    public function uploadFeed(StreamInterface $feed, string $fileName): void
     {
         /** @var FilesystemInterface $fs */
         $fs = $this->fsFactory->factory($this->config());
