@@ -4,17 +4,12 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="OmikronFactfinder\Subscriber\TemplateRegistration">
-            <argument type="service" id="omikron_factfinder.components.config" />
-            <argument type="service" id="template" />
-            <argument>%omikron_factfinder.plugin_dir%</argument>
-            <tag name="shopware.event_subscriber" />
-        </service>
+        <defaults>
+            <bind key="$pluginDirectory">%omikron_factfinder.plugin_dir%</bind>
+        </defaults>
 
-        <service id="OmikronFactfinder\Subscriber\CategoryView">
-            <argument type="service" id="omikron_factfinder.components.config" />
-            <argument type="service" id="omikron_factfinder.components.category_filter" />
+        <prototype namespace="OmikronFactfinder\Subscriber\" resource="../../Subscriber" autowire="true" public="true">
             <tag name="shopware.event_subscriber" />
-        </service>
+        </prototype>
     </services>
 </container>

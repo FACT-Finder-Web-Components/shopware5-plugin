@@ -67,6 +67,5 @@
             <label>FTP Password</label>
             <label lang="de">FTP Password</label>
         </element>
-
     </elements>
 </config>
