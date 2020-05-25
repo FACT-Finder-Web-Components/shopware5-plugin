@@ -75,7 +75,6 @@
                 </service>
             </argument>
             <argument type="service" id="shopware.components.shop_registration_service" />
-            <argument type="service" id="shopware.api.customer_group" />
             <argument type="service" id="router" />
             <argument type="service" id="config" />
         </service>
