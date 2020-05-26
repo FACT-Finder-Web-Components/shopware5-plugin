@@ -24,7 +24,6 @@ class Articles implements \IteratorAggregate
     public function getIterator()
     {
         yield from [];
-        $this->articleResource->setResultMode(Resource::HYDRATE_OBJECT);
         for ($page = 0; $list = $this->getArticles($page, $this->batchSize); $page++) {
             yield from $list;
         }
@@ -32,6 +31,7 @@ class Articles implements \IteratorAggregate
 
     private function getArticles(int $page, int $pageSize): iterable
     {
+        $this->articleResource->setResultMode(Resource::HYDRATE_OBJECT);
         return $this->articleResource->getList($page * $pageSize, $pageSize)['data'];
     }
 }

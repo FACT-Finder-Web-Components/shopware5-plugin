@@ -16,11 +16,10 @@ class CategoryPath implements ArticleFieldInterface
 
     public function getValue(Article $article): string
     {
-        $categories   = $article->getAllCategories();
-        $categoryName = $this->categoryName($categories);
-        return implode('|', array_map(function (Category $category) use ($categoryName) {
+        $categoryName = $this->categoryName($article->getAllCategories());
+        return implode('|', $article->getCategories()->map(function (Category $category) use ($categoryName) {
             return implode('/', array_map($categoryName, $this->getPath($category)));
-        }, array_filter($categories, $this->isLeaf())));
+        })->toArray());
     }
 
     private function categoryName(array $allCategories): callable
@@ -37,12 +36,5 @@ class CategoryPath implements ArticleFieldInterface
     private function getPath(Category $category): array
     {
         return array_slice(array_reverse(explode('|', $category->getId() . $category->getPath())), 2);
-    }
-
-    private function isLeaf(): callable
-    {
-        return function (Category $category): bool {
-            return $category->isLeaf();
-        };
     }
 }
