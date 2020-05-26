@@ -6,9 +6,10 @@ namespace OmikronFactfinder\Components\Data\Article\Type;
 
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use Shopware\Models\Article\Detail;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class ArticleProviderFactory
+class ArticleProviderFactory implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
