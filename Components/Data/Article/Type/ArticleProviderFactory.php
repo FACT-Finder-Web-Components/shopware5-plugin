@@ -16,10 +16,10 @@ class ArticleProviderFactory
 
     public function create(Detail $detail, array $data = []): ExportEntityInterface
     {
-        if ($detail->getKind() == self::MAIN_ARTICLE_KIND) {
-            $article = clone $this->container->get('OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider');
+        if ($detail->getKind() === self::MAIN_ARTICLE_KIND) {
+            $article = clone $this->container->get(MainArticleProvider::class);
         } else {
-            $article = clone $this->container->get('OmikronFactfinder\Components\Data\Article\Type\VariantProvider');
+            $article = clone $this->container->get(VariantProvider::class);
             $article->setData($data);
         }
 

@@ -15,13 +15,13 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
     /** @var ArticleProviderFactory */
     private $providerFactory;
 
-    /** @var IteratorAggregate */
+    /** @var ArticleFieldInterface[] */
     private $articleFields;
 
     public function __construct(ArticleProviderFactory $articleProviderFactory, IteratorAggregate $articleFields)
     {
         $this->providerFactory = $articleProviderFactory;
-        $this->articleFields   = $articleFields;
+        $this->articleFields   = iterator_to_array($articleFields);
     }
 
     public function getId(): int
@@ -31,7 +31,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function toArray(): array
     {
-        $data = array_reduce(iterator_to_array($this->articleFields), function (array $fields, ArticleFieldInterface $field) {
+        $data = array_reduce($this->articleFields, function (array $fields, ArticleFieldInterface $field) {
             return $fields + [$field->getName() => $field->getValue($this->article)];
         }, parent::toArray());
 
@@ -66,8 +66,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
         return array_reduce($this->article->getDetails()->toArray(), function (array $attributes, Detail $detail) {
             return $attributes + [$detail->getNumber() => array_map(function ($value) {
                 return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
-            }, $detail->getConfiguratorOptions()->getValues()),
-                ];
+            }, $detail->getConfiguratorOptions()->getValues())];
         }, []);
     }
 }
