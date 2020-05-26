@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults>
+            <bind key="$pluginDirectory">%omikron_factfinder.plugin_dir%</bind>
+        </defaults>
+
+        <prototype namespace="OmikronFactfinder\Subscriber\" resource="../../Subscriber" autowire="true" public="true">
+            <tag name="shopware.event_subscriber" />
+        </prototype>
+    </services>
+</container>

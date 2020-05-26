@@ -6,8 +6,8 @@ namespace OmikronFactfinder\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_ActionEventArgs as EventArgs;
-use OmikronFactfinder\Models\CategoryFilter;
-use OmikronFactfinder\Models\Configuration;
+use OmikronFactfinder\Components\CategoryFilter;
+use OmikronFactfinder\Components\Configuration;
 
 class CategoryView implements SubscriberInterface
 {

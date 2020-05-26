@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OmikronFactfinder\Models;
+namespace OmikronFactfinder\Components;
 
 use Shopware\Components\Plugin\ConfigReader;
 
@@ -28,5 +28,10 @@ class Configuration
     public function useForCategories(): bool
     {
         return $this->isEnabled() && $this->configReader->getByPluginName($this->pluginName)['ffUseForCategories'];
+    }
+
+    public function getChannel(): string
+    {
+        return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
     }
 }

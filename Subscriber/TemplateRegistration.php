@@ -6,7 +6,7 @@ namespace OmikronFactfinder\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager as TemplateManager;
-use OmikronFactfinder\Models\Configuration;
+use OmikronFactfinder\Components\Configuration;
 
 class TemplateRegistration implements SubscriberInterface
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OmikronFactfinder\Models;
+namespace OmikronFactfinder\Components;
 
 use Shopware\Models\Category\Repository as CategoryRepository;
 
@@ -22,7 +22,8 @@ class CategoryFilter
 
     public function getValue(int $categoryId): array
     {
-        return (array) sprintf('filter=%s:%s', $this->fieldName, urlencode(implode('/', $this->getPath($categoryId))));
+        $path = implode('/', array_map('rawurlencode', $this->getPath($categoryId)));
+        return ['filter=' . rawurlencode(sprintf('%s:%s', $this->fieldName, $path))];
     }
 
     private function getPath(int $id): array
