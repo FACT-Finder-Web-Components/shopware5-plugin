@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
-use IteratorAggregate;
 use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
@@ -18,7 +17,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
     /** @var ArticleFieldInterface[] */
     private $articleFields;
 
-    public function __construct(ArticleProviderFactory $articleProviderFactory, IteratorAggregate $articleFields)
+    public function __construct(ArticleProviderFactory $articleProviderFactory, \Traversable $articleFields)
     {
         $this->providerFactory = $articleProviderFactory;
         $this->articleFields   = iterator_to_array($articleFields);
@@ -46,9 +45,14 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
     public function getEntities(): iterable
     {
         yield from [$this];
-        yield from array_map($this->articleVariant(), array_filter($this->article->getDetails()->toArray(), function (Detail $detail) {
-            return $detail->getNumber() !== $detail->getArticle()->getMainDetail()->getNumber();
-        }));
+        yield from $this->article->getDetails()->filter($this->isVariant())->map($this->articleVariant());
+    }
+
+    private function isVariant(): callable
+    {
+        return function (Detail $detail): bool {
+            return $detail->getKind() !== 1;
+        };
     }
 
     private function articleVariant(): callable
