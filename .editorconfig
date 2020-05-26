@@ -11,5 +11,5 @@ insert_final_newline = true
 [*.{json,less,tpl,yml}]
 indent_size = 2
 
-[*.{md,txt}]
+[*.md]
 trim_trailing_whitespace = false
