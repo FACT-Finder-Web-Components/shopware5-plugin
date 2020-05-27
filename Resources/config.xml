@@ -43,6 +43,48 @@
             </store>
         </element>
 
+        <element>
+            <name>ffUser</name>
+            <label>Username</label>
+            <label lang="de">Benutzername</label>
+        </element>
+
+        <element>
+            <name>ffPassword</name>
+            <label>Password</label>
+            <label lang="de">Passwort</label>
+        </element>
+
+        <element type="button">
+            <name>ffTestconnection</name>
+            <label>Test Connection</label>
+            <label lang="de">Test-Verbindung</label>
+            <options>
+                <cls>primary</cls>
+                <handler>
+                    <![CDATA[
+                        function (button) {
+                            console.log(document);
+                            xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4) {
+                                     Shopware.Notification.createGrowlMessage(xhr.responseText);
+                                }
+                            }
+                             var formData =  button.isContained.items.items
+                                .map(element => encodeURIComponent(element.elementName) + '=' + encodeURIComponent(element.value))
+                                .join('&')
+                                .replace(/%20/g, '+');
+
+                            xhr.open("POST", "testConnection", true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.send(formData);
+                        }
+                    ]]>
+                </handler>
+            </options>
+        </element>
+
         <element type="boolean">
             <name>ffUseForCategories</name>
             <label>Use FACT-Finder® on category pages?</label>
@@ -59,13 +101,13 @@
         <element>
             <name>ffFtpUser</name>
             <label>FTP User</label>
-            <label lang="de">FTP User</label>
+            <label lang="de">FTP Benutzer</label>
         </element>
 
         <element type="password">
             <name>ffFtpPassword</name>
             <label>FTP Password</label>
-            <label lang="de">FTP Password</label>
+            <label lang="de">FTP Passwort</label>
         </element>
     </elements>
 </config>
