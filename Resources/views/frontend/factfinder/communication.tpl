@@ -10,3 +10,17 @@
                   only-search-params="true"
                   currency-code="{0|currency:use_shortname:left|substr:0:3}"
                   currency-country-code="{$Locale|replace:"_":"-"}"></ff-communication>
+
+{literal}
+  <script type="text/javascript">
+    document.addEventListener('WebComponentsReady', function () {
+        factfinder.communication.ResultDispatcher.addCallback('asn', function (resultData) {
+            resultData.forEach(function (group) {
+                group.selectedElements.forEach(function (element) {
+                    element.name = factfinder.common.fixedDecodeURIComponent(element.name);
+                });
+            });
+        });
+    });
+  </script>
+{/literal}
