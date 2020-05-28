@@ -79,5 +79,35 @@
             <label>FTP Password</label>
             <label lang="de">FTP Passwort</label>
         </element>
+
+        <element type="boolean">
+            <name>ffAutomaticPushImport</name>
+            <label>Import data after export?</label>
+            <label lang="de">Daten nach dem Export importieren?</label>
+            <value>true</value>
+        </element>
+
+        <element type="combo">
+            <name>ffImportDataTypes</name>
+            <label>Import data types</label>
+            <label lang="de">Import data types</label>
+            <store>
+                <option>
+                    <value>suggest</value>
+                    <label>Suggest</label>
+                </option>
+                <option>
+                    <value>search</value>
+                    <label>Search</label>
+                </option>
+                <option>
+                    <value>recommendation</value>
+                    <label>Recommendation</label>
+                </option>
+            </store>
+            <options>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
     </elements>
 </config>

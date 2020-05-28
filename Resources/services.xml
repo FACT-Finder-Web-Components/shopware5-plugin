@@ -70,5 +70,11 @@
             <argument type="service" id="shopware.filesystem_factory" />
             <argument type="service" id="OmikronFactfinder\Components\Upload\Configuration" />
         </service>
+
+        <service id="OmikronFactfinder\Components\Service\PushImportService">
+            <argument type="service" id="http_client"/>
+            <argument type="service" id="OmikronFactfinder\Components\Configuration"/>
+            <argument type="service" id="OmikronFactfinder\Components\PushImport\Configuration"/>
+        </service>
     </services>
 </container>

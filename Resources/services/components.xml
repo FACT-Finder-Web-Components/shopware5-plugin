@@ -19,6 +19,7 @@
 
         <service id="OmikronFactfinder\Components\Configuration" />
         <service id="OmikronFactfinder\Components\Upload\Configuration" />
+        <service id="OmikronFactfinder\Components\PushImport\Configuration" />
         <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
         <service id="OmikronFactfinder\Components\Data\Article\Articles" />
         <service id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
