@@ -4,22 +4,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <imports>
+        <import resource="services/components.xml" />
         <import resource="services/export_fields.xml" />
         <import resource="services/parameters.xml" />
         <import resource="services/subscribers.xml" />
     </imports>
 
     <services>
-        <service id="omikron_factfinder.components.config" class="OmikronFactfinder\Components\Configuration">
-            <argument>%omikron_factfinder.plugin_name%</argument>
-            <argument type="service" id="shopware.plugin.cached_config_reader" />
-        </service>
-
-        <service id="OmikronFactfinder\Components\Upload\Configuration">
-            <argument>%omikron_factfinder.plugin_name%</argument>
-            <argument type="service" id="shopware.plugin.cached_config_reader" />
-        </service>
-
         <service id="omikron_factfinder.components.category_filter" class="OmikronFactfinder\Components\CategoryFilter">
             <argument type="service">
                 <service class="Shopware\Models\Category\Repository">
@@ -34,20 +25,9 @@
             <tag name="console.command" command="factfinder:export:articles" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" autowire="true" />
-        <service id="OmikronFactfinder\Components\Data\Article\Articles" autowire="true" />
-        <service id="OmikronFactfinder\Components\Filter\TextFilter" />
-        <service id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
-        <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
         <service id="OmikronFactfinder\Components\Output\Csv">
-            <argument type="expression">service('omikron_factfinder.components.config').getChannel()</argument>
+            <argument type="expression">service('OmikronFactfinder\\Components\\Configuration').getChannel()</argument>
             <argument>%omikron_factfinder.export.delimiter%</argument>
-        </service>
-
-        <service id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\BaseArticle" abstract="true">

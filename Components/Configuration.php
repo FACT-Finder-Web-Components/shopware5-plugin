@@ -39,4 +39,10 @@ class Configuration
     {
         return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
     }
+
+    public function getAuthorization(): string
+    {
+        ['ffUser' => $user, 'ffPassword' => $password] = $this->configReader->getByPluginName($this->pluginName);
+        return 'Basic ' . base64_encode("{$user}:{$password}");
+    }
 }

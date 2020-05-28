@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true">
+            <bind key="$configReader" type="service" id="shopware.plugin.cached_config_reader" />
+            <bind key="$httpClient" type="service" id="http_client" />
+            <bind key="$logger" type="service" id="pluginlogger" />
+            <bind key="$pluginName">%omikron_factfinder.plugin_name%</bind>
+        </defaults>
+
+        <instanceof id="Symfony\Component\DependencyInjection\ContainerAwareInterface">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </instanceof>
+
+        <service id="OmikronFactfinder\Components\Configuration" />
+        <service id="OmikronFactfinder\Components\Upload\Configuration" />
+        <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
+        <service id="OmikronFactfinder\Components\Data\Article\Articles" />
+        <service id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
+        <service id="OmikronFactfinder\Components\Filter\TextFilter" />
+        <service id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
+        <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+        <service id="OmikronFactfinder\Components\Service\TrackingService" />
+    </services>
+</container>
