@@ -27,7 +27,7 @@
                     <argument type="string">Shopware\Models\Category\Category</argument>
                 </service>
             </argument>
-            <argument type="string">Category</argument>
+            <argument type="string">CategoryPath</argument>
         </service>
 
         <service id="OmikronFactfinder\Commands\ExportArticlesCommand">
@@ -60,7 +60,7 @@
                  parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
                  shared="false">
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
-            <argument type="tagged" tag="omikron_factfinder.export.article.field" />
+            <argument type="tagged" tag="factfinder.export.field" />
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\VariantProvider"
