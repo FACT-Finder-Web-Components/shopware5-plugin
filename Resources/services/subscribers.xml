@@ -5,7 +5,6 @@
 
     <services>
         <defaults>
-            <bind key="$logger" type="service" id="pluginlogger" />
             <bind key="$pluginDirectory">%omikron_factfinder.plugin_dir%</bind>
         </defaults>
 

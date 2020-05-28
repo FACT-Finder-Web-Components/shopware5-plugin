@@ -30,6 +30,11 @@ class Configuration
         return $this->isEnabled() && $this->configReader->getByPluginName($this->pluginName)['ffUseForCategories'];
     }
 
+    public function getServerUrl(): string
+    {
+        return rtrim($this->configReader->getByPluginName($this->pluginName)['ffServerUrl'], ' /');
+    }
+
     public function getChannel(): string
     {
         return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
