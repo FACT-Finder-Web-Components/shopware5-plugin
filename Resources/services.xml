@@ -70,9 +70,5 @@
             <argument type="service" id="shopware.filesystem_factory" />
             <argument type="service" id="OmikronFactfinder\Components\Upload\Configuration" />
         </service>
-
-        <service id="OmikronFactfinder\Components\Service\TestConnectionService">
-            <argument type="service" id="http_client"/>
-        </service>
     </services>
 </container>

@@ -76,7 +76,7 @@
                                 .join('&')
                                 .replace(/%20/g, '+');
 
-                            xhr.open("POST", "testConnection", true);
+                            xhr.open("POST", "factfinder/testConnection", true);
                             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                             xhr.send(formData);
                         }

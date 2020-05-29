@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 use OmikronFactfinder\Components\Api\Credentials;
 use OmikronFactfinder\Components\Service\TestConnectionService;
-use Shopware\Components\HttpClient\RequestException;
 use Shopware\Components\CSRFWhitelistAware;
+use Shopware\Components\HttpClient\RequestException;
 
-class Shopware_Controllers_Backend_TestConnection extends \Enlight_Controller_Action implements CSRFWhitelistAware
+class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action implements CSRFWhitelistAware
 {
+    private function __(string $text, string $namespace = 'backend/omikron/factfinder'): string
+    {
+        return $this->container->get('snippets')->getNamespace($namespace)->get($text);
+    }
+
     public function getWhitelistedCSRFActions(): array
     {
-        return ['index'];
+        return ['testConnection'];
     }
 
     public function preDispatch()
@@ -19,23 +24,22 @@ class Shopware_Controllers_Backend_TestConnection extends \Enlight_Controller_Ac
         $this->container->get('front')->Plugins()->ViewRenderer()->setNoRender();
     }
 
-    public function indexAction()
+    public function testConnectionAction()
     {
         $testConnection = $this->container->get(TestConnectionService::class);
-        $message        = 'Connection has been established';
         $params         = $this->request->getParams();
+        $message        = $this->__('connectionEstablished');
 
         try {
             $testConnection->execute($params['ffServerUrl'], $params['ffChannel'], $this->getCredentials($params));
         } catch (RequestException $e) {
-            if ($e->getCode() === 404 || $e->getCode() === 503) {
-                $message = $e->getBody();
-            } else {
-                $message = json_decode($e->getBody())->errorDescription;
+            $message = $e->getBody();
+            if ($e->getCode() !== 404 && $e->getCode() !== 503) {
+                $message = json_decode($message)->errorDescription;
             }
-        } finally {
-            $this->response->setBody($message);
         }
+
+        $this->response->setBody($message);
     }
 
     private function getCredentials(array $params): Credentials
