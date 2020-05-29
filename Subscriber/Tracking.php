@@ -9,6 +9,8 @@ use Enlight_Components_Session_Namespace as Session;
 use Enlight_Event_EventArgs as EventArgs;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use OmikronFactfinder\Components\Service\TrackingService;
+use Shopware\Bundle\StoreFrontBundle\Service\ProductNumberServiceInterface;
+use Shopware\Bundle\StoreFrontBundle\Struct\ListProduct;
 use Shopware\Components\Cart\Struct\CartItemStruct;
 
 class Tracking implements SubscriberInterface
@@ -25,11 +27,19 @@ class Tracking implements SubscriberInterface
     /** @var TrackingService */
     private $trackingService;
 
-    public function __construct(TrackingService $trackingService, Session $session, NumberFormatter $numberFormatter)
-    {
-        $this->session         = $session;
-        $this->numberFormatter = $numberFormatter;
-        $this->trackingService = $trackingService;
+    /** @var ProductNumberServiceInterface */
+    private $productNumberService;
+
+    public function __construct(
+        TrackingService $trackingService,
+        Session $session,
+        ProductNumberServiceInterface $productNumberService,
+        NumberFormatter $numberFormatter
+    ) {
+        $this->session              = $session;
+        $this->numberFormatter      = $numberFormatter;
+        $this->trackingService      = $trackingService;
+        $this->productNumberService = $productNumberService;
     }
 
     public static function getSubscribedEvents()
@@ -57,9 +67,10 @@ class Tracking implements SubscriberInterface
     public function trackOrder(EventArgs $arg): void
     {
         $this->trackingService->track('checkout', array_map(function (array $orderItem): array {
+            $product = $this->toListProduct($orderItem);
             return array_filter([
-                'id'       => $orderItem['ordernumber'],
-                'masterId' => $orderItem['ordernumber'], // @todo: Track master variant
+                'id'       => $product->getNumber(),
+                'masterId' => $this->getMasterProductNumber($product),
                 'count'    => $orderItem['quantity'],
                 'price'    => $this->numberFormatter->format((float) $orderItem['price']),
                 'sid'      => substr($orderItem['sessionID'], 0, 30),
@@ -70,14 +81,30 @@ class Tracking implements SubscriberInterface
 
     private function getCartEvent(CartItemStruct $cartItem): array
     {
+        $product = $cartItem->getAdditionalInfo()['product'];
+
         ['price' => $price, 'tax' => $tax] = $cartItem->getUpdatedPrice();
         return array_filter([
-            'id'       => $cartItem->getAdditionalInfo()['ordernumber'],
-            'masterId' => $cartItem->getAdditionalInfo()['ordernumber'], // @todo: Track master variant
+            'id'       => $product->getNumber(),
+            'masterId' => $this->getMasterProductNumber($product),
             'count'    => $cartItem->getQuantity(),
             'price'    => $this->numberFormatter->format($price * (1 + $tax / 100)),
             'sid'      => substr($this->session->get('sessionId'), 0, 30),
             'userId'   => (int) $this->session->get('sUserId', 0),
         ]);
+    }
+
+    private function getMasterProductNumber(ListProduct $product): string
+    {
+        return $product->isMainVariant() ?
+            $product->getNumber() :
+            $this->productNumberService->getMainProductNumberById($product->getId());
+    }
+
+    private function toListProduct(array $orderItem): ListProduct
+    {
+        $product = new ListProduct($orderItem['articleID'], $orderItem['articleDetailId'], $orderItem['ordernumber']);
+        $product->setMainVariantId($orderItem['mainDetailId']);
+        return $product;
     }
 }

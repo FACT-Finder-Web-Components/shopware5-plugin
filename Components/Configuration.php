@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components;
 
+use OmikronFactfinder\Components\Api\Credentials;
 use Shopware\Components\Plugin\ConfigReader;
 
 class Configuration
@@ -43,6 +44,6 @@ class Configuration
     public function getAuthorization(): string
     {
         ['ffUser' => $user, 'ffPassword' => $password] = $this->configReader->getByPluginName($this->pluginName);
-        return 'Basic ' . base64_encode("{$user}:{$password}");
+        return (string) new Credentials($user, $password);
     }
 }
