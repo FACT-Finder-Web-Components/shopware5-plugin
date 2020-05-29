@@ -6,12 +6,12 @@ namespace OmikronFactfinder\Components\Service;
 
 use OmikronFactfinder\Components\Configuration;
 use OmikronFactfinder\Components\PushImport\Configuration as PushImportConfiguration;
-use Shopware\Components\HttpClient\GuzzleHttpClient;
+use Shopware\Components\HttpClient\HttpClientInterface;
 use Shopware\Components\HttpClient\RequestException;
 
 class PushImportService
 {
-    /** @var GuzzleHttpClient */
+    /** @var HttpClientInterface */
     private $client;
 
     /** @var Configuration */
@@ -21,11 +21,11 @@ class PushImportService
     private $pushImportConfiguration;
 
     public function __construct(
-        GuzzleHttpClient $client,
+        HttpClientInterface $httpClient,
         Configuration $configuration,
         PushImportConfiguration $pushImportConfiguration
     ) {
-        $this->client                  = $client;
+        $this->client                  = $httpClient;
         $this->configuration           = $configuration;
         $this->pushImportConfiguration = $pushImportConfiguration;
     }
@@ -53,7 +53,7 @@ class PushImportService
             $this->client->post($this->getBaseEndpoint() . $type . '?' . http_build_query($params), [
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
-                'Authorization' => $this->configuration->getAuthorization()
+                'Authorization' => $this->configuration->getAuthorization(),
             ]);
         }
 
@@ -61,14 +61,14 @@ class PushImportService
     }
 
     /**
-     * @return bool
-     * @throws \Shopware\Components\HttpClient\RequestException
+     * @throws RequestException
      */
     private function isRunning(): bool
     {
-        $response = $this->client->get($this->getBaseEndpoint() . 'running?' . http_build_query(['channel' => $this->configuration->getChannel()]), [
+        $query    = http_build_query(['channel' => $this->configuration->getChannel()]);
+        $response = $this->client->get($this->getBaseEndpoint() . 'running?' . $query, [
             'Accept'        => 'application/json',
-            'Authorization' => $this->configuration->getAuthorization()
+            'Authorization' => $this->configuration->getAuthorization(),
         ]);
 
         return filter_var($response->getBody(), FILTER_VALIDATE_BOOLEAN);

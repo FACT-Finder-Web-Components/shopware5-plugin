@@ -22,7 +22,7 @@ class Configuration
 
     public function isPushImportEnabled(): bool
     {
-        return  (bool)  $this->configReader->getByPluginName($this->pluginName)['ffAutomaticPushImport'];
+        return  (bool) $this->configReader->getByPluginName($this->pluginName)['ffAutomaticPushImport'];
     }
 
     public function getImportTypes(): array

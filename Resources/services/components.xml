@@ -26,6 +26,7 @@
         <service id="OmikronFactfinder\Components\Filter\TextFilter" />
         <service id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
         <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+        <service id="OmikronFactfinder\Components\Service\PushImportService" />
         <service id="OmikronFactfinder\Components\Service\TestConnectionService" />
         <service id="OmikronFactfinder\Components\Service\TrackingService" />
     </services>
