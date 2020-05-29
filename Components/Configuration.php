@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components;
 
+use OmikronFactfinder\Components\Api\Credentials;
 use Shopware\Components\Plugin\ConfigReader;
 
 class Configuration
@@ -30,8 +31,19 @@ class Configuration
         return $this->isEnabled() && $this->configReader->getByPluginName($this->pluginName)['ffUseForCategories'];
     }
 
+    public function getServerUrl(): string
+    {
+        return rtrim($this->configReader->getByPluginName($this->pluginName)['ffServerUrl'], ' /');
+    }
+
     public function getChannel(): string
     {
         return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
+    }
+
+    public function getAuthorization(): Credentials
+    {
+        ['ffUser' => $user, 'ffPassword' => $password] = $this->configReader->getByPluginName($this->pluginName);
+        return new Credentials($user, $password);
     }
 }

@@ -16,17 +16,11 @@ class VariantProvider extends BaseArticle implements DataProviderInterface
         $this->data = $data;
     }
 
-    public function getId(): int
-    {
-        return (int) $this->detail->getId();
-    }
-
     public function toArray(): array
     {
         return [
                 'ProductNumber' => (string) $this->detail->getNumber(),
                 'Availability'  => (int) $this->detail->getActive(),
-                'ShopwareId'    => (string) $this->detail->getArticleId(),
             ] + $this->data + parent::toArray();
     }
 

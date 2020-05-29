@@ -4,13 +4,9 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults public="false" autowire="true">
+        <defaults public="false" autoconfigure="true" autowire="true">
             <bind key="$imageSize">%omikron_factfinder.export.thumbnail_size%</bind>
         </defaults>
-
-        <instanceof id="OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface">
-            <tag name="omikron_factfinder.export.article.field" />
-        </instanceof>
 
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
                    resource="../../Components/Data/Article/Fields" />
