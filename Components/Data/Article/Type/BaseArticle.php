@@ -37,7 +37,7 @@ abstract class BaseArticle implements ExportEntityInterface
 
     public function getId(): int
     {
-        return (int) $this->article->getId();
+        return (int) $this->detail->getId();
     }
 
     public function toArray(): array
@@ -52,7 +52,6 @@ abstract class BaseArticle implements ExportEntityInterface
             'Short'         => (string) $this->article->getDescription(),
             'Brand'         => (string) $this->article->getSupplier()->getName(),
             'Availability'  => (int) $this->article->getMainDetail()->getActive(),
-            'ShopwareId'    => (string) $this->article->getId(),
         ];
     }
 }

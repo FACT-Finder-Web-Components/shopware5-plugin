@@ -19,7 +19,6 @@
             <parameter key="CategoryPath">CategoryPath</parameter>
             <parameter key="Deeplink">Deeplink</parameter>
             <parameter key="Attributes">Attributes</parameter>
-            <parameter key="ShopwareId">ShopwareId</parameter>
         </parameter>
 
         <parameter key="omikron_factfinder.export.delimiter" type="string">;</parameter>
