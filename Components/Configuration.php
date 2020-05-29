@@ -33,7 +33,7 @@ class Configuration
 
     public function getServerUrl(): string
     {
-        return $this->configReader->getByPluginName($this->pluginName)['ffServerUrl'];
+        return rtrim($this->configReader->getByPluginName($this->pluginName)['ffServerUrl'], ' /');
     }
 
     public function getChannel(): string

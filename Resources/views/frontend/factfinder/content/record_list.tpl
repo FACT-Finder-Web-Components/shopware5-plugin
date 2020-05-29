@@ -5,26 +5,28 @@
         <div class="box--content is--rounded">
           <div class="product--info">
             <a class="product--image"
-               title="{{record.Title}}"
+               title="{{record.Name}}"
                data-redirect="{{record.Deeplink}}"
                data-anchor="{{record.Deeplink}}"
                data-redirect-target="_self">
               <span class="image--element">
                 <span class="image--media">
-                  <img data-image="{{record.ImageURL}}" alt="{{record.Title}}" title="{{record.Title}}" />
+                  <img data-image="{{record.ImageURL}}" alt="{{record.Name}}" title="{{record.Name}}" />
                 </span>
               </span>
             </a>
             <a class="product--title"
-               title="{{record.Title}}"
+               title="{{record.Name}}"
                data-redirect="{{record.Deeplink}}"
                data-anchor="{{record.Deeplink}}"
-               data-redirect-target="_self">{{record.Title}}</a>
-            <div class="product--description">{{record.VarColor}}</div>
+               data-redirect-target="_self">{{record.Name}}</a>
+            <div class="product--description">{{record.Brand}}</div>
             <div class="product--price-info">
-              <div class="price--unit" title="Inhalt 1 Stück">
-                <span class="price--label label--purchase-unit is--bold is--nowrap">Inhalt</span>
-                <span class="is--nowrap">1 Stück</span>
+              <div class="price--unit">
+                <span class="price--label label--purchase-unit is--bold is--nowrap">
+                  {/literal}{s name="DetailDataInfoContent" namespace="frontend/detail/data"}{/s}{literal}
+                </span>
+                <span class="is--nowrap">1 pc</span>
               </div>
               <div class="product--price">
                 <span class="price--default is--nowrap">{{record.Price}}</span>

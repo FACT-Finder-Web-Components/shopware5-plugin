@@ -9,5 +9,5 @@
     <license>proprietary</license>
     <link>https://web-components.fact-finder.de/</link>
     <author>Omikron Data Quality GmbH</author>
-    <compatibility minVersion="5.3.0" />
+    <compatibility minVersion="5.5.0" />
 </plugin>

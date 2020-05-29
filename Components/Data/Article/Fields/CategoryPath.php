@@ -9,9 +9,17 @@ use Shopware\Models\Category\Category;
 
 class CategoryPath implements ArticleFieldInterface
 {
+    /** @var string */
+    private $fieldName;
+
+    public function __construct(string $fieldName = 'CategoryPath')
+    {
+        $this->fieldName = $fieldName;
+    }
+
     public function getName(): string
     {
-        return 'CategoryPath';
+        return $this->fieldName;
     }
 
     public function getValue(Article $article): string
