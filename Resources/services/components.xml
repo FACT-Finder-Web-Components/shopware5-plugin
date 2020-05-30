@@ -5,10 +5,9 @@
 
     <services>
         <defaults autowire="true">
-            <bind key="$configReader" type="service" id="shopware.plugin.cached_config_reader" />
+            <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$httpClient" type="service" id="http_client" />
             <bind key="$logger" type="service" id="pluginlogger" />
-            <bind key="$pluginName">%omikron_factfinder.plugin_name%</bind>
         </defaults>
 
         <instanceof id="Symfony\Component\DependencyInjection\ContainerAwareInterface">
@@ -16,6 +15,11 @@
                 <argument type="service" id="service_container" />
             </call>
         </instanceof>
+
+        <service id="omikron_factfinder.plugin_config" class="Shopware\Components\Plugin\CachedConfigReader">
+            <factory service="shopware.plugin.cached_config_reader" method="getByPluginName" />
+            <argument>%omikron_factfinder.plugin_name%</argument>
+        </service>
 
         <service id="OmikronFactfinder\Components\Configuration" />
         <service id="OmikronFactfinder\Components\Upload\Configuration" />

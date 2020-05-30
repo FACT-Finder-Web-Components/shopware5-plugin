@@ -32,6 +32,7 @@ class PushImportService
 
     /**
      * @return bool
+     *
      * @throws RequestException
      */
     public function execute(): bool

@@ -4,29 +4,23 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\PushImport;
 
-use Shopware\Components\Plugin\ConfigReader;
-
 class Configuration
 {
-    /** @var string */
-    private $pluginName;
+    /** @var array */
+    private $pluginConfig;
 
-    /** @var ConfigReader */
-    private $configReader;
-
-    public function __construct(string $pluginName, ConfigReader $configReader)
+    public function __construct(array $pluginConfig)
     {
-        $this->pluginName   = $pluginName;
-        $this->configReader = $configReader;
+        $this->pluginConfig = $pluginConfig;
     }
 
     public function isPushImportEnabled(): bool
     {
-        return  (bool) $this->configReader->getByPluginName($this->pluginName)['ffAutomaticPushImport'];
+        return (bool) $this->pluginConfig['ffAutomaticPushImport'];
     }
 
     public function getImportTypes(): array
     {
-        return $this->configReader->getByPluginName($this->pluginName)['ffImportDataTypes'];
+        return (array) $this->pluginConfig['ffImportDataTypes'];
     }
 }
