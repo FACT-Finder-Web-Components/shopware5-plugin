@@ -4,34 +4,28 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Upload;
 
-use Shopware\Components\Plugin\ConfigReader;
-
 class Configuration
 {
-    /** @var string */
-    private $pluginName;
+    /** @var array */
+    private $pluginConfig;
 
-    /** @var ConfigReader */
-    private $configReader;
-
-    public function __construct(string $pluginName, ConfigReader $configReader)
+    public function __construct(array $pluginConfig)
     {
-        $this->pluginName   = $pluginName;
-        $this->configReader = $configReader;
+        $this->pluginConfig = $pluginConfig;
     }
 
     public function getUrl(): string
     {
-        return (string) $this->configReader->getByPluginName($this->pluginName)['ffFtpUrl'];
+        return (string) $this->pluginConfig['ffFtpUrl'];
     }
 
     public function getUserName(): string
     {
-        return (string) $this->configReader->getByPluginName($this->pluginName)['ffFtpUser'];
+        return (string) $this->pluginConfig['ffFtpUser'];
     }
 
     public function getPassword(): string
     {
-        return (string) $this->configReader->getByPluginName($this->pluginName)['ffFtpPassword'];
+        return (string) $this->pluginConfig['ffFtpPassword'];
     }
 }

@@ -32,6 +32,7 @@ class PushImportService
 
     /**
      * @return bool
+     *
      * @throws RequestException
      */
     public function execute(): bool
@@ -53,7 +54,7 @@ class PushImportService
             $this->client->post($this->getBaseEndpoint() . $type . '?' . http_build_query($params), [
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
-                'Authorization' => $this->configuration->getAuthorization(),
+                'Authorization' => $this->configuration->getCredentials(),
             ]);
         }
 
@@ -68,7 +69,7 @@ class PushImportService
         $query    = http_build_query(['channel' => $this->configuration->getChannel()]);
         $response = $this->client->get($this->getBaseEndpoint() . 'running?' . $query, [
             'Accept'        => 'application/json',
-            'Authorization' => $this->configuration->getAuthorization(),
+            'Authorization' => $this->configuration->getCredentials(),
         ]);
 
         return filter_var($response->getBody(), FILTER_VALIDATE_BOOLEAN);

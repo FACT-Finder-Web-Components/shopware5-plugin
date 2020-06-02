@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use OmikronFactfinder\Components\Api\Credentials;
+use OmikronFactfinder\Components\Configuration;
 use OmikronFactfinder\Components\Service\TestConnectionService;
 use Shopware\Components\CSRFWhitelistAware;
 use Shopware\Components\HttpClient\RequestException;
@@ -27,11 +27,11 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
     public function testConnectionAction()
     {
         $testConnection = $this->container->get(TestConnectionService::class);
-        $params         = $this->request->getParams();
+        $params         = new Configuration($this->request->getParams());
         $message        = $this->__('connectionEstablished');
 
         try {
-            $testConnection->execute($params['ffServerUrl'], $params['ffChannel'], $this->getCredentials($params));
+            $testConnection->execute($params->getServerUrl(), $params->getChannel(), $params->getCredentials());
         } catch (RequestException $e) {
             $message = $e->getBody();
             if ($e->getCode() !== 404 && $e->getCode() !== 503) {
@@ -40,10 +40,5 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
         }
 
         $this->response->setBody($message);
-    }
-
-    private function getCredentials(array $params): Credentials
-    {
-        return new Credentials($params['ffUser'], $params['ffPassword']);
     }
 }

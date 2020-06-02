@@ -5,45 +5,39 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components;
 
 use OmikronFactfinder\Components\Api\Credentials;
-use Shopware\Components\Plugin\ConfigReader;
 
 class Configuration
 {
-    /** @var string */
-    private $pluginName;
+    /** @var array */
+    private $pluginConfig;
 
-    /** @var ConfigReader */
-    private $configReader;
-
-    public function __construct(string $pluginName, ConfigReader $configReader)
+    public function __construct(array $pluginConfig)
     {
-        $this->pluginName   = $pluginName;
-        $this->configReader = $configReader;
+        $this->pluginConfig = $pluginConfig;
     }
 
     public function isEnabled(): bool
     {
-        return (bool) $this->configReader->getByPluginName($this->pluginName)['ffEnabled'];
+        return (bool) $this->pluginConfig['ffEnabled'];
     }
 
     public function useForCategories(): bool
     {
-        return $this->isEnabled() && $this->configReader->getByPluginName($this->pluginName)['ffUseForCategories'];
+        return $this->isEnabled() && $this->pluginConfig['ffUseForCategories'];
     }
 
     public function getServerUrl(): string
     {
-        return rtrim($this->configReader->getByPluginName($this->pluginName)['ffServerUrl'], ' /');
+        return rtrim($this->pluginConfig['ffServerUrl'], ' /');
     }
 
     public function getChannel(): string
     {
-        return $this->configReader->getByPluginName($this->pluginName)['ffChannel'];
+        return $this->pluginConfig['ffChannel'];
     }
 
-    public function getAuthorization(): Credentials
+    public function getCredentials(): Credentials
     {
-        ['ffUser' => $user, 'ffPassword' => $password] = $this->configReader->getByPluginName($this->pluginName);
-        return new Credentials($user, $password);
+        return new Credentials($this->pluginConfig['ffUser'], $this->pluginConfig['ffPassword']);
     }
 }
