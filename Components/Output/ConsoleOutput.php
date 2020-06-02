@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Output;
 
-use http\Exception\BadMethodCallException;
+use BadMethodCallException;
 use SplFileObject as File;
 use Symfony\Component\Console\Output\OutputInterface;
 
