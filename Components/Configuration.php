@@ -36,7 +36,7 @@ class Configuration
         return $this->pluginConfig['ffChannel'];
     }
 
-    public function getAuthorization(): Credentials
+    public function getCredentials(): Credentials
     {
         return new Credentials($this->pluginConfig['ffUser'], $this->pluginConfig['ffPassword']);
     }

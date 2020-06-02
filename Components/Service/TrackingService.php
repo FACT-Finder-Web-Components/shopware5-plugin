@@ -34,7 +34,7 @@ class TrackingService
         try {
             $this->httpClient->post($endpoint, [
                 'Accept'        => 'application/json',
-                'Authorization' => $this->config->getAuthorization(),
+                'Authorization' => $this->config->getCredentials(),
                 'Content-Type'  => 'application/json',
             ], json_encode($eventData));
         } catch (RequestException $e) {
