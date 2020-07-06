@@ -6,6 +6,7 @@
     <services>
         <defaults public="false" autoconfigure="true" autowire="true">
             <bind key="$imageSize">%omikron_factfinder.export.thumbnail_size%</bind>
+            <bind key="$router" id="router" type="service" />
         </defaults>
 
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
