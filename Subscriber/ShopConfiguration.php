@@ -6,8 +6,9 @@ namespace OmikronFactfinder\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs as EventArgs;
+use Psr\Container\ContainerInterface;
 use Shopware\Components\Plugin\ConfigReader;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Shopware\Models\Shop\Shop;
 
 class ShopConfiguration implements SubscriberInterface
 {
@@ -32,9 +33,12 @@ class ShopConfiguration implements SubscriberInterface
 
     public function onShopRegistration(EventArgs $args): void
     {
-        /** @var ContainerInterface $container */
-        $container = $args['subject'];
-        $config    = $this->configReader->getByPluginName($this->pluginName, $args['resource']);
+        $this->reloadConfiguration($args['subject'], $args['resource']);
+    }
+
+    private function reloadConfiguration(ContainerInterface $container, Shop $shop): void
+    {
+        $config = $this->configReader->getByPluginName($this->pluginName, $shop);
         $container->set('omikron_factfinder.plugin_config', $config);
     }
 }
