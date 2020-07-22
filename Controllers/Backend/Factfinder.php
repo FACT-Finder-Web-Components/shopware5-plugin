@@ -33,7 +33,7 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
         try {
             $testConnection->execute($params->getServerUrl(), $params->getChannel(), $params->getCredentials());
         } catch (RequestException $e) {
-            $message = json_decode($e->getBody(), true)['errorDescription'] ?? $e->getMessage();
+            $message = json_decode((string) $e->getBody(), true)['errorDescription'] ?? $e->getMessage();
         }
 
         $this->response->setBody($message);
