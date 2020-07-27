@@ -3,26 +3,26 @@
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
 
     <elements>
-        <element type="boolean">
+        <element type="boolean" scope="shop">
             <name>ffEnabled</name>
             <label>Enable FACT-Finder® Web Components?</label>
             <label lang="de">FACT-Finder® Web Components aktivieren?</label>
             <value>false</value>
         </element>
 
-        <element>
+        <element scope="shop">
             <name>ffServerUrl</name>
             <label>Server URL</label>
             <label lang="de">Server URL</label>
         </element>
 
-        <element>
+        <element scope="shop">
             <name>ffChannel</name>
             <label>Channel</label>
             <label lang="de">Channel</label>
         </element>
 
-        <element type="select">
+        <element type="select" scope="shop">
             <name>ffVersion</name>
             <label>FACT-Finder® Version</label>
             <label lang="de">Version von FACT-Finder®</label>
@@ -43,13 +43,13 @@
             </store>
         </element>
 
-        <element>
+        <element scope="shop">
             <name>ffUser</name>
             <label>Username</label>
             <label lang="de">Benutzername</label>
         </element>
 
-        <element type="password">
+        <element type="password" scope="shop">
             <name>ffPassword</name>
             <label>Password</label>
             <label lang="de">Passwort</label>
@@ -85,7 +85,7 @@
             </options>
         </element>
 
-        <element type="boolean">
+        <element type="boolean" scope="shop">
             <name>ffUseForCategories</name>
             <label>Use FACT-Finder® on category pages?</label>
             <label lang="de">Kategorieseiten mit FACT-Finder® rendern?</label>

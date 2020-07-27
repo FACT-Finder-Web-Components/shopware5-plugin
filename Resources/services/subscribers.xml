@@ -5,7 +5,9 @@
 
     <services>
         <defaults>
+            <bind key="$configReader" type="service" id="shopware.plugin.cached_config_reader" />
             <bind key="$pluginDirectory">%omikron_factfinder.plugin_dir%</bind>
+            <bind key="$pluginName">%omikron_factfinder.plugin_name%</bind>
         </defaults>
 
         <prototype namespace="OmikronFactfinder\Subscriber\" resource="../../Subscriber" autowire="true" public="true">
