@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Service;
 
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\Filesystem;
 use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
 use Shopware\Components\Filesystem\FilesystemFactory;
 
@@ -24,8 +24,9 @@ class UploadService
 
     public function uploadFeed(string $path, string $contents): void
     {
-        /** @var FilesystemInterface $fs */
+        /** @var Filesystem $fs */
         $fs = $this->fsFactory->factory($this->config());
+        $fs->getConfig()->set('disable_asserts', true);
         $fs->write($path, $contents);
     }
 

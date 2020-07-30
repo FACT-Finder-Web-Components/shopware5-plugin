@@ -16,7 +16,7 @@ class Configuration
 
     public function getUrl(): string
     {
-        return (string) $this->pluginConfig['ffFtpUrl'];
+        return (string) $this->pluginConfig['ffFtpHost'];
     }
 
     public function getUserName(): string

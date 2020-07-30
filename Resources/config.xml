@@ -93,9 +93,10 @@
         </element>
 
         <element>
-            <name>ffFtpUrl</name>
-            <label>FTP URL</label>
-            <label lang="de">FTP URL</label>
+            <name>ffFtpHost</name>
+            <label>FTP Host</label>
+            <description>Please only enter the FTP host, without protocol (i.e. ftp://)</description>
+            <description lang="de">Bitte nur den FTP Host ohne Protokoll (zB ftp://) eintragen</description>
         </element>
 
         <element>
