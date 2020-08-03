@@ -26,8 +26,15 @@
         </service>
 
         <service id="OmikronFactfinder\Components\Output\Csv">
-            <argument type="expression">service('OmikronFactfinder\\Components\\Configuration').getChannel()</argument>
-            <argument>%omikron_factfinder.export.delimiter%</argument>
+            <argument type="service">
+                <service class="SplFileObject">
+                    <argument type="expression">"export." ~ service('OmikronFactfinder\\Components\\Configuration').getChannel() ~ ".csv"</argument>
+                    <argument type="string">w+</argument>
+                    <call method="setCsvControl">
+                        <argument>%omikron_factfinder.export.delimiter%</argument>
+                    </call>
+                </service>
+            </argument>
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\BaseArticle" abstract="true">

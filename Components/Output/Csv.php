@@ -11,18 +11,14 @@ class Csv implements StreamInterface
     /** @var File */
     private $handle;
 
-    /** @var string */
-    private $delimiter;
-
-    public function __construct(string $fileName, string $delimiter)
+    public function __construct(File $handle)
     {
-        $this->handle    = new File($fileName . '.csv', 'wr+');
-        $this->delimiter = $delimiter;
+        $this->handle = $handle;
     }
 
     public function addEntity(array $entity): void
     {
-        $this->handle->fputcsv($entity, $this->delimiter);
+        $this->handle->fputcsv($entity);
     }
 
     public function getContent(): string
