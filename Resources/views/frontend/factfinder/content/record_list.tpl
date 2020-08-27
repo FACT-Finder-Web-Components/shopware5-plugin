@@ -1,5 +1,5 @@
 {block name="frontend_factfinder_record_list"}
-  <ff-record-list subscribe="{($subscribe) ? 'true' : 'false'}" unresolved>
+  <ff-record-list class="container" subscribe="{($subscribe) ? 'true' : 'false'}" unresolved>
     {block name="frontend_factfinder_record"}
       <ff-record class="product--box box--basic">
         <div class="box--content is--rounded">
