@@ -23,7 +23,7 @@
 
       {block name='frontend_listing_actions_paging_numbers'}
         <ff-paging-item type="currentLink" class="paging--link is--active">
-          {literal}{{caption}}{/literal}
+          {'{{caption}}'}
         </ff-paging-item>
       {/block}
 
