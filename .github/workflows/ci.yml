@@ -23,5 +23,7 @@ jobs:
       - name: Install dependencies
         run: composer install --no-ansi --no-interaction
 
-      - name: Unit tests
-        run: vendor/bin/phpunit -v
+      - name: Run tests
+        run: |
+          vendor/bin/php-cs-fixer fix --dry-run -v --no-ansi
+          vendor/bin/phpunit -v
