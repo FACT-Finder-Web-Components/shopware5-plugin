@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
-        class VariantProvider extends BaseArticle
+class VariantProvider extends BaseArticle
 {
     /** @var array */
     private $data;
