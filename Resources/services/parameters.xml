@@ -15,7 +15,7 @@
             <parameter key="Price">Price</parameter>
             <parameter key="Brand">Brand</parameter>
             <parameter key="Availability">Availability</parameter>
-            <parameter key="ShopwareId">ShopwareId</parameter>
+            <parameter key="HasVariants">HasVariants</parameter>
             <parameter key="CategoryPath">CategoryPath</parameter>
             <parameter key="Deeplink">Deeplink</parameter>
             <parameter key="Attributes">Attributes</parameter>
