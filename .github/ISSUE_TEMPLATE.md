@@ -1,0 +1,6 @@
+- Shopware Plugin version: 
+- Shopware version: 
+- PHP version: 
+- Expected behavior: 
+- Actual behavior: 
+- Steps to reproduce: 
