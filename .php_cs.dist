@@ -26,6 +26,7 @@ return Config::create()
         'no_useless_else' => true,
         'no_useless_return' => true,
         'ordered_class_elements' => true,
+        'single_line_throw' => false,
         'strict_comparison' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
     ])

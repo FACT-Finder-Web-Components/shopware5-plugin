@@ -18,7 +18,6 @@ class BackwardCompatibilityCompilerPass implements CompilerPassInterface
             return; // On Shopware 5.6, proceed...
         }
 
-        eval('namespace Shopware\Components{interface ShopRegistrationServiceInterface{}}');
         $shopRegistration = new Definition(ShopRegistrationService::class, [new Reference('service_container')]);
         $container->setDefinition('shopware.components.shop_registration_service', $shopRegistration);
 

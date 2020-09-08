@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+namespace Shopware\Components;
+
+interface ShopRegistrationServiceInterface
+{
+}
+
 namespace OmikronFactfinder\BackwardCompatibility;
 
 use Shopware\Components\ShopRegistrationServiceInterface;
