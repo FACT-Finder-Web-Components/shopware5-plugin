@@ -46,9 +46,7 @@
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider"
                  parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
                  autowire="true"
-                 shared="false">
-            <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
-        </service>
+                 shared="false" />
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\VariantProvider"
                  parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
