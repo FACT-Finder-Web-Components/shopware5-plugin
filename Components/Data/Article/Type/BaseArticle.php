@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
+use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use OmikronFactfinder\Components\Filter\ExtendedTextFilter;
 use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
 
-abstract class BaseArticle implements ExportEntityInterface
+abstract class BaseArticle implements ExportEntityInterface, DataProviderInterface
 {
     /** @var Article */
     protected $article;
@@ -52,6 +53,12 @@ abstract class BaseArticle implements ExportEntityInterface
             'Short'         => (string) $this->article->getDescription(),
             'Brand'         => (string) $this->article->getSupplier()->getName(),
             'Availability'  => (int) $this->article->getMainDetail()->getActive(),
+            'HasVariants'   => 0,
         ];
+    }
+
+    public function getEntities(): iterable
+    {
+        return [$this];
     }
 }

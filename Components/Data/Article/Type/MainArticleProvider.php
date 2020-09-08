@@ -36,7 +36,8 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
         $options = array_merge([], ...array_values($this->getConfigurableOptions()));
         if ($options) {
-            $data = ['Attributes' => ($data['Attributes'] ?? '|') . implode('|', array_unique($options)) . '|'] + $data;
+            $data['Attributes']  = ($data['Attributes'] ?: '|') . implode('|', array_unique($options)) . '|';
+            $data['HasVariants'] = 1;
         }
 
         return $data;
@@ -44,7 +45,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function getEntities(): iterable
     {
-        yield from [$this];
+        yield from parent::getEntities();
         yield from $this->article->getDetails()->filter($this->isVariant())->map($this->articleVariant());
     }
 

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
-use OmikronFactfinder\Components\Data\DataProviderInterface;
-
-class VariantProvider extends BaseArticle implements DataProviderInterface
+class VariantProvider extends BaseArticle
 {
     /** @var array */
     private $data;
@@ -22,10 +20,5 @@ class VariantProvider extends BaseArticle implements DataProviderInterface
                 'ProductNumber' => (string) $this->detail->getNumber(),
                 'Availability'  => (int) $this->detail->getActive(),
             ] + $this->data + parent::toArray();
-    }
-
-    public function getEntities(): iterable
-    {
-        return [$this];
     }
 }

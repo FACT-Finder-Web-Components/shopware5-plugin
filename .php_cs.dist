@@ -10,6 +10,7 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreVCS(true);
 
 return Config::create()
+    ->setHideProgress(true)
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
     ->setRules([
