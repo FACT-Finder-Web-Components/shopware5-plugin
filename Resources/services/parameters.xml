@@ -10,6 +10,7 @@
             <parameter key="Name">Name</parameter>
             <parameter key="EAN">EAN</parameter>
             <parameter key="Weight">Weight</parameter>
+            <parameter key="Short">Description</parameter>
             <parameter key="Description">Description</parameter>
             <parameter key="ImageUrl">ImageUrl</parameter>
             <parameter key="Price">Price</parameter>
