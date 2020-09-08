@@ -31,7 +31,7 @@
                     <argument type="expression">"export." ~ service('OmikronFactfinder\\Components\\Configuration').getChannel() ~ ".csv"</argument>
                     <argument type="string">w+</argument>
                     <call method="setCsvControl">
-                        <argument>%omikron_factfinder.export.delimiter%</argument>
+                        <argument>%factfinder.export.delimiter%</argument>
                     </call>
                 </service>
             </argument>
@@ -45,10 +45,8 @@
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider"
                  parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
-                 shared="false">
-            <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
-            <argument type="tagged" tag="factfinder.export.field" />
-        </service>
+                 autowire="true"
+                 shared="false" />
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\VariantProvider"
                  parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
@@ -67,10 +65,9 @@
             <argument type="service" id="config" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Service\ExportService">
+        <service id="OmikronFactfinder\Components\Service\ExportService" autowire="true">
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
             <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter" />
-            <argument>%omikron_factfinder.export.articles.columns%</argument>
         </service>
 
         <service id="OmikronFactfinder\Components\Service\UploadService">

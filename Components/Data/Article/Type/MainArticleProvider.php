@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
+use OmikronFactfinder\Components\Data\Article\FieldProvider;
 use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
@@ -14,13 +15,13 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
     /** @var ArticleProviderFactory */
     private $providerFactory;
 
-    /** @var ArticleFieldInterface[] */
-    private $articleFields;
+    /** @var FieldProvider */
+    private $fieldProvider;
 
-    public function __construct(ArticleProviderFactory $articleProviderFactory, \Traversable $articleFields)
+    public function __construct(ArticleProviderFactory $articleProviderFactory, FieldProvider $fieldProvider)
     {
         $this->providerFactory = $articleProviderFactory;
-        $this->articleFields   = iterator_to_array($articleFields);
+        $this->fieldProvider   = $fieldProvider;
     }
 
     public function getId(): int
@@ -30,7 +31,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function toArray(): array
     {
-        $data = array_reduce($this->articleFields, function (array $fields, ArticleFieldInterface $field) {
+        $data = array_reduce($this->fieldProvider->getFields(), function (array $fields, ArticleFieldInterface $field) {
             return $fields + [$field->getName() => $field->getValue($this->article)];
         }, parent::toArray());
 

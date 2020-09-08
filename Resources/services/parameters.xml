@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="omikron_factfinder.export.articles.columns" type="collection">
+        <parameter key="factfinder.export.columns.base" type="collection">
             <parameter key="ProductNumber">ProductNumber</parameter>
             <parameter key="Master">Master</parameter>
             <parameter key="Name">Name</parameter>
@@ -12,18 +12,13 @@
             <parameter key="Weight">Weight</parameter>
             <parameter key="Short">Short</parameter>
             <parameter key="Description">Description</parameter>
-            <parameter key="ImageUrl">ImageUrl</parameter>
-            <parameter key="Price">Price</parameter>
             <parameter key="Brand">Brand</parameter>
             <parameter key="Availability">Availability</parameter>
             <parameter key="HasVariants">HasVariants</parameter>
-            <parameter key="CategoryPath">CategoryPath</parameter>
-            <parameter key="Deeplink">Deeplink</parameter>
-            <parameter key="Attributes">Attributes</parameter>
         </parameter>
 
-        <parameter key="omikron_factfinder.export.delimiter" type="string">;</parameter>
+        <parameter key="factfinder.export.delimiter" type="string">;</parameter>
 
-        <parameter key="omikron_factfinder.export.thumbnail_size" type="string">600x600</parameter>
+        <parameter key="factfinder.export.thumbnail_size" type="string">600x600</parameter>
     </parameters>
 </container>
