@@ -11,7 +11,7 @@
 
         <service id="OmikronFactfinder\Components\Data\Article\FieldProvider">
             <argument type="tagged" tag="factfinder.export.field" />
-            <argument>%omikron_factfinder.export.articles.columns%</argument>
+            <argument>%omikron_factfinder.export.articles.columns_base%</argument>
         </service>
 
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
