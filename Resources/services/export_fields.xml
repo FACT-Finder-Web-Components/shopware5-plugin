@@ -9,6 +9,11 @@
             <bind key="$router" id="router" type="service" />
         </defaults>
 
+        <service id="OmikronFactfinder\Components\Data\Article\FieldProvider">
+            <argument type="tagged" tag="factfinder.export.field" />
+            <argument>%omikron_factfinder.export.articles.columns%</argument>
+        </service>
+
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
                    resource="../../Components/Data/Article/Fields" />
     </services>

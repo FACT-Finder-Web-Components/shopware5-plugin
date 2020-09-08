@@ -45,9 +45,9 @@
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider"
                  parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
+                 autowire="true"
                  shared="false">
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
-            <argument type="tagged" tag="factfinder.export.field" />
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\VariantProvider"
@@ -67,10 +67,9 @@
             <argument type="service" id="config" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Service\ExportService">
+        <service id="OmikronFactfinder\Components\Service\ExportService" autowire="true">
             <argument type="service" id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
             <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter" />
-            <argument>%omikron_factfinder.export.articles.columns%</argument>
         </service>
 
         <service id="OmikronFactfinder\Components\Service\UploadService">
