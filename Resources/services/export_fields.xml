@@ -5,13 +5,13 @@
 
     <services>
         <defaults public="false" autoconfigure="true" autowire="true">
-            <bind key="$imageSize">%omikron_factfinder.export.thumbnail_size%</bind>
+            <bind key="$imageSize">%factfinder.export.thumbnail_size%</bind>
             <bind key="$router" id="router" type="service" />
         </defaults>
 
         <service id="OmikronFactfinder\Components\Data\Article\FieldProvider">
             <argument type="tagged" tag="factfinder.export.field" />
-            <argument>%omikron_factfinder.export.articles.columns_base%</argument>
+            <argument>%factfinder.export.columns.base%</argument>
         </service>
 
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"

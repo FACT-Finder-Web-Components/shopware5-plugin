@@ -31,7 +31,7 @@
                     <argument type="expression">"export." ~ service('OmikronFactfinder\\Components\\Configuration').getChannel() ~ ".csv"</argument>
                     <argument type="string">w+</argument>
                     <call method="setCsvControl">
-                        <argument>%omikron_factfinder.export.delimiter%</argument>
+                        <argument>%factfinder.export.delimiter%</argument>
                     </call>
                 </service>
             </argument>
