@@ -19,14 +19,19 @@ class TemplateRegistration implements SubscriberInterface
     /** @var string */
     private $pluginDirectory;
 
+    /** @var array */
+    private $fieldRoles;
+
     public function __construct(
         Configuration $configuration,
         TemplateManager $templateManager,
-        string $pluginDirectory
+        string $pluginDirectory,
+        array $fieldRoles
     ) {
         $this->configuration   = $configuration;
         $this->templateManager = $templateManager;
         $this->pluginDirectory = $pluginDirectory;
+        $this->fieldRoles      = $fieldRoles;
     }
 
     public static function getSubscribedEvents()
@@ -40,6 +45,7 @@ class TemplateRegistration implements SubscriberInterface
     {
         if ($this->configuration->isEnabled()) {
             $this->templateManager->addTemplateDir($this->pluginDirectory . '/Resources/views');
+            $this->templateManager->assign('ffFieldRoles', $this->fieldRoles);
         }
     }
 }

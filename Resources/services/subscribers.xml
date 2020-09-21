@@ -6,6 +6,7 @@
     <services>
         <defaults>
             <bind key="$configReader" type="service" id="shopware.plugin.cached_config_reader" />
+            <bind key="$fieldRoles">%factfinder.field_roles%</bind>
             <bind key="$pluginDirectory">%omikron_factfinder.plugin_dir%</bind>
             <bind key="$pluginName">%omikron_factfinder.plugin_name%</bind>
         </defaults>
