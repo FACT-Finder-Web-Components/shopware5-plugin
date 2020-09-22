@@ -1,4 +1,4 @@
-- Solves issue: 
+- Closes: #
 - Description: 
 - Tested with Shopware version(s): 
 - Tested with PHP version(s): 

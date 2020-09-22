@@ -32,6 +32,6 @@ class Articles implements \IteratorAggregate
     private function getArticles(int $page, int $pageSize): iterable
     {
         $this->articleResource->setResultMode(Resource::HYDRATE_OBJECT);
-        return $this->articleResource->getList($page * $pageSize, $pageSize)['data'];
+        return $this->articleResource->getList($page * $pageSize, $pageSize, ['active' => true])['data'];
     }
 }

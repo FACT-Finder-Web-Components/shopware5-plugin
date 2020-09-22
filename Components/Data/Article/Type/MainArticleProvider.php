@@ -53,7 +53,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
     private function isVariant(): callable
     {
         return function (Detail $detail): bool {
-            return $detail->getKind() !== 1;
+            return $detail->getKind() !== 1 && $detail->getActive();
         };
     }
 

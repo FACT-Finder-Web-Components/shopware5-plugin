@@ -20,16 +20,8 @@
   {/block}
 
   <script type="text/javascript">
-    document.addEventListener('WebComponentsReady', function () {
-      factfinder.communication.fieldRoles = {$ffFieldRoles|@json_encode};
-
-      factfinder.communication.ResultDispatcher.addCallback('asn', function (resultData) {
-        resultData.forEach(function (group) {
-          group.selectedElements.forEach(function (element) {
-            element.name = factfinder.common.fixedDecodeURIComponent(element.name);
-          });
-        });
-      });
+    document.addEventListener('ffReady', function (e) {
+      e.factfinder.communication.fieldRoles = {$ffFieldRoles|@json_encode};
     });
   </script>
 {/block}
