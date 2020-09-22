@@ -17,6 +17,20 @@
             <parameter key="HasVariants">HasVariants</parameter>
         </parameter>
 
+        <parameter key="factfinder.field_roles" type="collection">
+            <parameter key="brand">Brand</parameter>
+            <parameter key="campaignProductNumber">ProductNumber</parameter>
+            <parameter key="deeplink">Deeplink</parameter>
+            <parameter key="description">Description</parameter>
+            <parameter key="displayProductNumber">ProductNumber</parameter>
+            <parameter key="ean">EAN</parameter>
+            <parameter key="imageUrl">ImageUrl</parameter>
+            <parameter key="masterArticleNumber">Master</parameter>
+            <parameter key="price">Price</parameter>
+            <parameter key="productName">Name</parameter>
+            <parameter key="trackingProductNumber">ProductNumber</parameter>
+        </parameter>
+
         <parameter key="factfinder.export.delimiter" type="string">;</parameter>
 
         <parameter key="factfinder.export.thumbnail_size" type="string">600x600</parameter>

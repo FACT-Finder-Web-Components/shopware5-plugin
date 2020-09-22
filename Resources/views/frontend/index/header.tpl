@@ -18,4 +18,10 @@
       });
     </script>
   {/block}
+
+  <script type="text/javascript">
+    document.addEventListener('ffReady', function (e) {
+      e.factfinder.communication.fieldRoles = {$ffFieldRoles|@json_encode};
+    });
+  </script>
 {/block}
