@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
+use OmikronFactfinder\Components\Data\Article\FieldProvider;
+use OmikronFactfinder\Components\Data\Article\Fields\FieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use OmikronFactfinder\Components\Filter\ExtendedTextFilter;
@@ -21,6 +23,9 @@ abstract class BaseArticle implements ExportEntityInterface, DataProviderInterfa
     /** @var ExtendedTextFilter */
     protected $filter;
 
+    /** @var FieldProvider */
+    protected $fieldProvider;
+
     public function setDetail(Detail $detail)
     {
         $this->detail = $detail;
@@ -36,6 +41,11 @@ abstract class BaseArticle implements ExportEntityInterface, DataProviderInterfa
         $this->filter = $textFilter;
     }
 
+    public function setFieldProvider(FieldProvider $fieldProvider)
+    {
+        $this->fieldProvider = $fieldProvider;
+    }
+
     public function getId(): int
     {
         return (int) $this->detail->getId();
@@ -43,18 +53,23 @@ abstract class BaseArticle implements ExportEntityInterface, DataProviderInterfa
 
     public function toArray(): array
     {
-        return [
-            'ProductNumber' => (string) $this->article->getMainDetail()->getNumber(),
+        $baseData = [
+            'ProductNumber' => (string) $this->detail->getNumber(),
             'Master'        => (string) $this->article->getMainDetail()->getNumber(),
             'Name'          => (string) $this->article->getName(),
-            'EAN'           => (string) $this->article->getMainDetail()->getEan(),
-            'Weight'        => (float) $this->article->getMainDetail()->getWeight(),
+            'EAN'           => (string) $this->detail->getEan(),
+            'Weight'        => (float) $this->detail->getWeight(),
             'Description'   => (string) $this->article->getDescriptionLong(),
             'Short'         => (string) $this->article->getDescription(),
             'Brand'         => (string) $this->article->getSupplier()->getName(),
-            'Availability'  => (int) $this->article->getMainDetail()->getActive(),
+            'Availability'  => (int) $this->detail->getActive(),
             'HasVariants'   => 0,
         ];
+
+        return array_reduce($this->fieldProvider->getFields(), function (array $fields, FieldInterface $field) {
+            return $fields + [$field->getName() => $field->getValue($this->detail)];
+        }, $baseData);
+
     }
 
     public function getEntities(): iterable

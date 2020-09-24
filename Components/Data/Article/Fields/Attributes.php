@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
 use OmikronFactfinder\Components\Filter\TextFilter;
-use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Detail;
 use Shopware\Models\Property\Value;
 
-class Attributes implements ArticleFieldInterface
+class Attributes implements FieldInterface
 {
     /** @var TextFilter */
     private $filter;
@@ -23,9 +23,9 @@ class Attributes implements ArticleFieldInterface
         return 'Attributes';
     }
 
-    public function getValue(Article $article): string
+    public function getValue(Detail $detail): string
     {
-        $attributes = array_reduce($article->getPropertyValues()->toArray(), function (array $attrs, Value $value) {
+        $attributes = array_reduce($detail->getArticle()->getPropertyValues()->toArray(), function (array $attrs, Value $value) {
             return $attrs + [$value->getId() => $this->formatAttribute($value->getOption()->getName(), $value->getValue())];
         }, []);
 

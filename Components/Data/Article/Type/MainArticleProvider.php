@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
-use OmikronFactfinder\Components\Data\Article\FieldProvider;
-use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use Shopware\Models\Article\Detail;
@@ -15,13 +13,9 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
     /** @var ArticleProviderFactory */
     private $providerFactory;
 
-    /** @var FieldProvider */
-    private $fieldProvider;
-
-    public function __construct(ArticleProviderFactory $articleProviderFactory, FieldProvider $fieldProvider)
+    public function __construct(ArticleProviderFactory $articleProviderFactory)
     {
         $this->providerFactory = $articleProviderFactory;
-        $this->fieldProvider   = $fieldProvider;
     }
 
     public function getId(): int
@@ -31,10 +25,7 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function toArray(): array
     {
-        $data = array_reduce($this->fieldProvider->getFields(), function (array $fields, ArticleFieldInterface $field) {
-            return $fields + [$field->getName() => $field->getValue($this->article)];
-        }, parent::toArray());
-
+        $data = parent::toArray();
         $options = array_merge([], ...array_values($this->getConfigurableOptions()));
         if ($options) {
             $data['Attributes']  = ($data['Attributes'] ?: '|') . implode('|', array_unique($options)) . '|';

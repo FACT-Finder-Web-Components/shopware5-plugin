@@ -17,8 +17,8 @@ class VariantProvider extends BaseArticle
     public function toArray(): array
     {
         return [
-                'ProductNumber' => (string) $this->detail->getNumber(),
-                'Availability'  => (int) $this->detail->getActive(),
+                'ProductNumber' => (string)$this->detail->getNumber(),
+                'Availability'  => (int)$this->detail->getActive(),
             ] + $this->data + parent::toArray();
     }
 }

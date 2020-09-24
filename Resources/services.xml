@@ -41,6 +41,9 @@
             <call method="setTextFilter">
                 <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
             </call>
+            <call method="setFieldProvider">
+                <argument type="service" id="OmikronFactfinder\Components\Data\Article\FieldProvider" />
+            </call>
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider"
