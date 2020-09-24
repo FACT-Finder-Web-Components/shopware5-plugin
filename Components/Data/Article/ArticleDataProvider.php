@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article;
 
-use OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory;
+use OmikronFactfinder\Components\Data\Article\Type\ProviderFactory;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
 use Shopware\Models\Article\Article;
 
@@ -13,13 +13,13 @@ class ArticleDataProvider implements DataProviderInterface
     /** @var Articles */
     private $articles;
 
-    /** @var ArticleProviderFactory */
+    /** @var ProviderFactory */
     private $providerFactory;
 
-    public function __construct(Articles $articles, ArticleProviderFactory $articleProviderFactory)
+    public function __construct(Articles $articles, ProviderFactory $providerFactory)
     {
         $this->articles        = $articles;
-        $this->providerFactory = $articleProviderFactory;
+        $this->providerFactory = $providerFactory;
     }
 
     public function getEntities(): iterable

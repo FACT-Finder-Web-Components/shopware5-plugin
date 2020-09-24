@@ -37,21 +37,22 @@
             </argument>
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Type\BaseArticle" abstract="true">
+        <service id="OmikronFactfinder\Components\Data\Article\Type\DetailProvider"
+            shared="false"
+            autowire="true">
+
             <call method="setTextFilter">
                 <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
             </call>
+            <call method="setFieldProvider">
+                <argument type="service" id="OmikronFactfinder\Components\Data\Article\FieldProvider" />
+            </call>
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Type\MainArticleProvider"
-                 parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
+        <service id="OmikronFactfinder\Components\Data\Article\Type\MainDetailProvider"
+                 parent="OmikronFactfinder\Components\Data\Article\Type\DetailProvider"
                  autowire="true"
                  shared="false" />
-
-        <service id="OmikronFactfinder\Components\Data\Article\Type\VariantProvider"
-                 parent="OmikronFactfinder\Components\Data\Article\Type\BaseArticle"
-                 shared="false"
-                 autowire="true" />
 
         <service id="OmikronFactfinder\Components\Service\ShopEmulationService">
             <argument type="service">

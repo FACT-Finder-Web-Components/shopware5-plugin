@@ -9,24 +9,24 @@ use Shopware\Models\Article\Detail;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class ArticleProviderFactory implements ContainerAwareInterface
+class ProviderFactory implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    private const MAIN_ARTICLE_KIND = 1;
+    private const MAIN_DETAIL_KIND = 1;
 
     public function create(Detail $detail, array $data = []): ExportEntityInterface
     {
-        if ($detail->getKind() === self::MAIN_ARTICLE_KIND) {
-            $article = clone $this->container->get(MainArticleProvider::class);
+        if ($detail->getKind() === self::MAIN_DETAIL_KIND) {
+            $entity = clone $this->container->get(MainDetailProvider::class);
         } else {
-            $article = clone $this->container->get(VariantProvider::class);
-            $article->setData($data);
+            $entity = clone $this->container->get(DetailProvider::class);
+            $entity->setData($data);
         }
 
-        $article->setDetail($detail);
-        $article->setArticle($detail->getArticle());
+        $entity->setDetail($detail);
+        $entity->setArticle($detail->getArticle());
 
-        return $article;
+        return $entity;
     }
 }

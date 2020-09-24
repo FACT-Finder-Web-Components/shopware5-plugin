@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article;
 
-use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
+use OmikronFactfinder\Components\Data\Article\Fields\FieldInterface;
 
 class FieldProvider
 {
-    /** @var ArticleFieldInterface[] */
+    /** @var FieldInterface[] */
     private $fields;
 
     /** @var string[] */
@@ -30,7 +30,7 @@ class FieldProvider
         return $this->fields;
     }
 
-    private function getFieldName(ArticleFieldInterface $field): string
+    private function getFieldName(FieldInterface $field): string
     {
         return $field->getName();
     }

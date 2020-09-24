@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OmikronFactfinder;
 
 use OmikronFactfinder\BackwardCompatibility\BackwardCompatibilityCompilerPass;
-use OmikronFactfinder\Components\Data\Article\Fields\ArticleFieldInterface;
+use OmikronFactfinder\Components\Data\Article\Fields\FieldInterface;
 use Shopware\Components\Plugin;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -15,6 +15,6 @@ class OmikronFactfinder extends Plugin
     {
         parent::build($container);
         $container->addCompilerPass(new BackwardCompatibilityCompilerPass());
-        $container->registerForAutoconfiguration(ArticleFieldInterface::class)->addTag('factfinder.export.field');
+        $container->registerForAutoconfiguration(FieldInterface::class)->addTag('factfinder.export.field');
     }
 }
