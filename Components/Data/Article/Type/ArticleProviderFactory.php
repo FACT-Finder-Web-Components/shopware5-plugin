@@ -13,15 +13,14 @@ class ArticleProviderFactory implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    private const MAIN_ARTICLE_KIND = 1;
+    private const MAIN_DETAIL_KIND = 1;
 
-    public function create(Detail $detail, array $data = []): ExportEntityInterface
+    public function create(Detail $detail): ExportEntityInterface
     {
-        if ($detail->getKind() === self::MAIN_ARTICLE_KIND) {
-            $article = clone $this->container->get(MainArticleProvider::class);
+        if ($detail->getKind() === self::MAIN_DETAIL_KIND) {
+            $article = clone $this->container->get(MainDetailProvider::class);
         } else {
-            $article = clone $this->container->get(VariantProvider::class);
-            $article->setData($data);
+            $article = clone $this->container->get(DetailProvider::class);
         }
 
         $article->setDetail($detail);

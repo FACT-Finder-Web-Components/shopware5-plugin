@@ -12,12 +12,12 @@ use OmikronFactfinder\Components\Filter\ExtendedTextFilter;
 use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
 
-abstract class BaseArticle implements ExportEntityInterface, DataProviderInterface
+class DetailProvider implements ExportEntityInterface, DataProviderInterface
 {
     /** @var Article */
     protected $article;
 
-    /** @var Detail */
+    /** @var DetailProvider */
     protected $detail;
 
     /** @var ExtendedTextFilter */

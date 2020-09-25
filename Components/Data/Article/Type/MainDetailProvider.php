@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
-use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use Shopware\Models\Article\Detail;
 
-class MainArticleProvider extends BaseArticle implements DataProviderInterface
+class MainDetailProvider extends DetailProvider
 {
     /** @var ArticleProviderFactory */
     private $providerFactory;
@@ -37,8 +36,8 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
 
     public function getEntities(): iterable
     {
-        yield from parent::getEntities();
-        yield from $this->article->getDetails()->filter($this->isVariant())->map($this->articleVariant());
+//        yield from parent::getEntities();
+        yield from $this->article->getDetails()->map($this->articleVariant());
     }
 
     private function isVariant(): callable
@@ -53,7 +52,6 @@ class MainArticleProvider extends BaseArticle implements DataProviderInterface
         $options = $this->getConfigurableOptions();
 
         return function (Detail $variant) use ($options): ExportEntityInterface {
-            //@todo don't pass data as additional argument?
             return $this->providerFactory->create($variant, ['Attributes' => '|' . implode('|', $options[$variant->getNumber()] ?? []) . '|']);
         };
     }
