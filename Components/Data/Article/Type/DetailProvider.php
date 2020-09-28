@@ -14,11 +14,14 @@ use Shopware\Models\Article\Detail;
 
 class DetailProvider implements ExportEntityInterface, DataProviderInterface
 {
+    /** @var Detail */
+    private $detail;
+
     /** @var Article */
     protected $article;
 
-    /** @var DetailProvider */
-    protected $detail;
+    /** @var array */
+    protected $data = [];
 
     /** @var ExtendedTextFilter */
     protected $filter;
@@ -34,6 +37,11 @@ class DetailProvider implements ExportEntityInterface, DataProviderInterface
     public function setArticle(Article $article)
     {
         $this->article = $article;
+    }
+
+    public function setData(array $data)
+    {
+        $this->data = $data;
     }
 
     public function setTextFilter(ExtendedTextFilter $textFilter)
@@ -53,7 +61,7 @@ class DetailProvider implements ExportEntityInterface, DataProviderInterface
 
     public function toArray(): array
     {
-        $baseData = [
+        $data = [
             'ProductNumber' => (string) $this->detail->getNumber(),
             'Master'        => (string) $this->article->getMainDetail()->getNumber(),
             'Name'          => (string) $this->article->getName(),
@@ -64,11 +72,11 @@ class DetailProvider implements ExportEntityInterface, DataProviderInterface
             'Brand'         => (string) $this->article->getSupplier()->getName(),
             'Availability'  => (int) $this->detail->getActive(),
             'HasVariants'   => 0,
-        ];
+        ] + $this->data;
 
         return array_reduce($this->fieldProvider->getFields(), function (array $fields, FieldInterface $field) {
             return $fields + [$field->getName() => $field->getValue($this->detail)];
-        }, $baseData);
+        }, $data);
     }
 
     public function getEntities(): iterable

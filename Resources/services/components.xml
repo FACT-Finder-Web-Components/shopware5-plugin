@@ -26,7 +26,7 @@
         <service id="OmikronFactfinder\Components\PushImport\Configuration" />
         <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
         <service id="OmikronFactfinder\Components\Data\Article\Articles" />
-        <service id="OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory" />
+        <service id="OmikronFactfinder\Components\Data\Article\Type\ProviderFactory" />
         <service id="OmikronFactfinder\Components\Filter\TextFilter" />
         <service id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
         <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" />

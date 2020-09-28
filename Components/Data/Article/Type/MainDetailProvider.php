@@ -9,12 +9,12 @@ use Shopware\Models\Article\Detail;
 
 class MainDetailProvider extends DetailProvider
 {
-    /** @var ArticleProviderFactory */
+    /** @var ProviderFactory */
     private $providerFactory;
 
-    public function __construct(ArticleProviderFactory $articleProviderFactory)
+    public function __construct(ProviderFactory $providerFactory)
     {
-        $this->providerFactory = $articleProviderFactory;
+        $this->providerFactory = $providerFactory;
     }
 
     public function getId(): int
