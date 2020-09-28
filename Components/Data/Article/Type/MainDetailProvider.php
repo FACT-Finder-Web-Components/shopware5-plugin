@@ -19,12 +19,12 @@ class MainDetailProvider extends DetailProvider
 
     public function getId(): int
     {
-        return (int) $this->article->getId();
+        return (int)$this->article->getId();
     }
 
     public function toArray(): array
     {
-        $data = parent::toArray();
+        $data    = parent::toArray();
         $options = array_merge([], ...array_values($this->getConfigurableOptions()));
         if ($options) {
             $data['Attributes']  = ($data['Attributes'] ?: '|') . implode('|', array_unique($options)) . '|';
@@ -59,9 +59,11 @@ class MainDetailProvider extends DetailProvider
     private function getConfigurableOptions(): array
     {
         return array_reduce($this->article->getDetails()->toArray(), function (array $attributes, Detail $detail) {
-            return $attributes + [$detail->getNumber() => array_map(function ($value) {
-                return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
-            }, $detail->getConfiguratorOptions()->getValues())];
+            return $attributes + [
+                    $detail->getNumber() => array_map(function ($value) {
+                        return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
+                    }, $detail->getConfiguratorOptions()->getValues())
+                ];
         }, []);
     }
 }

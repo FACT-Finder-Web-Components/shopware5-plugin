@@ -69,7 +69,6 @@ class DetailProvider implements ExportEntityInterface, DataProviderInterface
         return array_reduce($this->fieldProvider->getFields(), function (array $fields, FieldInterface $field) {
             return $fields + [$field->getName() => $field->getValue($this->detail)];
         }, $baseData);
-
     }
 
     public function getEntities(): iterable
