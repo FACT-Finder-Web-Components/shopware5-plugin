@@ -14,20 +14,20 @@ use Shopware\Models\Article\Detail;
 
 class DetailProvider implements ExportEntityInterface, DataProviderInterface
 {
-    /** @var Detail */
-    private $detail;
-
     /** @var Article */
     protected $article;
-
-    /** @var array */
-    protected $data = [];
 
     /** @var ExtendedTextFilter */
     protected $filter;
 
     /** @var FieldProvider */
     protected $fieldProvider;
+
+    /** @var Detail */
+    protected $detail;
+
+    /** @var array */
+    protected $data = [];
 
     public function setDetail(Detail $detail)
     {
