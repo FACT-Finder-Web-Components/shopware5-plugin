@@ -19,7 +19,7 @@ class MainDetailProvider extends DetailProvider
 
     public function getId(): int
     {
-        return (int)$this->article->getId();
+        return (int) $this->article->getId();
     }
 
     public function toArray(): array
@@ -36,15 +36,7 @@ class MainDetailProvider extends DetailProvider
 
     public function getEntities(): iterable
     {
-//        yield from parent::getEntities();
         yield from $this->article->getDetails()->map($this->articleVariant());
-    }
-
-    private function isVariant(): callable
-    {
-        return function (Detail $detail): bool {
-            return $detail->getKind() !== 1 && $detail->getActive();
-        };
     }
 
     private function articleVariant(): callable
@@ -62,7 +54,7 @@ class MainDetailProvider extends DetailProvider
             return $attributes + [
                     $detail->getNumber() => array_map(function ($value) {
                         return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
-                    }, $detail->getConfiguratorOptions()->getValues())
+                    }, $detail->getConfiguratorOptions()->getValues()),
                 ];
         }, []);
     }
