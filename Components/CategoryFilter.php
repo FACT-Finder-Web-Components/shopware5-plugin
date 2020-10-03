@@ -14,7 +14,7 @@ class CategoryFilter
     /** @var string */
     private $fieldName;
 
-    public function __construct(CategoryRepository $categoryRepository, string $fieldName)
+    public function __construct(CategoryRepository $categoryRepository, string $fieldName = 'CategoryPath')
     {
         $this->repository = $categoryRepository;
         $this->fieldName  = $fieldName;
