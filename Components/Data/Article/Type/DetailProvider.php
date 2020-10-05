@@ -70,7 +70,6 @@ class DetailProvider implements ExportEntityInterface, DataProviderInterface
             'Description'   => (string) $this->article->getDescriptionLong(),
             'Short'         => (string) $this->article->getDescription(),
             'Brand'         => (string) $this->article->getSupplier()->getName(),
-            'Availability'  => (int) $this->detail->getActive(),
             'HasVariants'   => 0,
         ] + $this->data;
 
