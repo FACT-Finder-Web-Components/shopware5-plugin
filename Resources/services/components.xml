@@ -33,5 +33,7 @@
         <service id="OmikronFactfinder\Components\Service\PushImportService" />
         <service id="OmikronFactfinder\Components\Service\TestConnectionService" />
         <service id="OmikronFactfinder\Components\Service\TrackingService" />
+
+        <service id="OmikronFactfinder\Components\Filter\FilterInterface" class="OmikronFactfinder\Components\Filter\TextFilter" />
     </services>
 </container>

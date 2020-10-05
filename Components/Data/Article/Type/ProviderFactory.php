@@ -25,7 +25,6 @@ class ProviderFactory implements ContainerAwareInterface
         }
 
         $entity->setDetail($detail);
-        $entity->setArticle($detail->getArticle());
 
         return $entity;
     }

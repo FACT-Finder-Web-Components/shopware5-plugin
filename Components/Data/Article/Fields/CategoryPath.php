@@ -24,8 +24,9 @@ class CategoryPath implements FieldInterface
 
     public function getValue(Detail $detail): string
     {
-        $categoryName = $this->categoryName($detail->getArticle()->getAllCategories());
-        return implode('|', $detail->getArticle()->getCategories()->map(function (Category $category) use ($categoryName) {
+        $article      = $detail->getArticle();
+        $categoryName = $this->categoryName($article->getAllCategories());
+        return implode('|', $article->getCategories()->map(function (Category $category) use ($categoryName) {
             return implode('/', array_map($categoryName, $this->getPath($category)));
         })->toArray());
     }

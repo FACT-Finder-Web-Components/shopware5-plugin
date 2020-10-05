@@ -4,31 +4,18 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Type;
 
+use Doctrine\Common\Collections\Collection;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
 use Shopware\Models\Article\Detail;
 
 class MainDetailProvider extends DetailProvider
 {
-    /** @var ProviderFactory */
-    private $providerFactory;
-
-    public function __construct(ProviderFactory $providerFactory)
-    {
-        $this->providerFactory = $providerFactory;
-    }
-
-    public function getId(): int
-    {
-        return (int) $this->article->getId();
-    }
-
     public function toArray(): array
     {
         $data    = parent::toArray();
         $options = array_merge([], ...array_values($this->getConfigurableOptions()));
         if ($options) {
-            $data['Attributes']  = ($data['Attributes'] ?: '|') . implode('|', array_unique($options)) . '|';
-            $data['HasVariants'] = 1;
+            $data['Attributes'] = ($data['Attributes'] ?: '|') . implode('|', array_unique($options)) . '|';
         }
 
         return $data;
@@ -36,7 +23,7 @@ class MainDetailProvider extends DetailProvider
 
     public function getEntities(): iterable
     {
-        yield from $this->article->getDetails()->map($this->articleVariant());
+        yield from $this->getDetails()->map($this->articleVariant());
     }
 
     private function articleVariant(): callable
@@ -50,12 +37,20 @@ class MainDetailProvider extends DetailProvider
 
     private function getConfigurableOptions(): array
     {
-        return array_reduce($this->article->getDetails()->toArray(), function (array $attributes, Detail $detail) {
+        return array_reduce($this->getDetails()->toArray(), function (array $attributes, Detail $detail) {
             return $attributes + [
                     $detail->getNumber() => array_map(function ($value) {
                         return "{$this->filter->filterValue($value->getGroup()->getName())}={$this->filter->filterValue($value->getName())}";
                     }, $detail->getConfiguratorOptions()->getValues()),
                 ];
         }, []);
+    }
+
+    /**
+     * @return Detail[]
+     */
+    private function getDetails(): Collection
+    {
+        return $this->detail->getArticle()->getDetails();
     }
 }

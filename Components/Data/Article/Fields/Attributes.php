@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
-use OmikronFactfinder\Components\Filter\TextFilter;
+use OmikronFactfinder\Components\Filter\FilterInterface;
 use Shopware\Models\Article\Detail;
 use Shopware\Models\Property\Value;
 
 class Attributes implements FieldInterface
 {
-    /** @var TextFilter */
+    /** @var FilterInterface */
     private $filter;
 
-    public function __construct(TextFilter $filter)
+    public function __construct(FilterInterface $filter)
     {
         $this->filter = $filter;
     }
@@ -25,15 +25,15 @@ class Attributes implements FieldInterface
 
     public function getValue(Detail $detail): string
     {
-        $attributes = array_reduce($detail->getArticle()->getPropertyValues()->toArray(), function (array $attrs, Value $value) {
-            return $attrs + [$value->getId() => $this->formatAttribute($value->getOption()->getName(), $value->getValue())];
-        }, []);
+        $attributes = $detail->getArticle()->getPropertyValues()->map(function (Value $value) {
+            return $this->format($value->getOption()->getName(), $value->getValue());
+        });
 
-        return $attributes ? '|' . implode('|', array_values($attributes)) . '|' : '';
+        return count($attributes) ? '|' . implode('|', array_values($attributes->toArray())) . '|' : '';
     }
 
-    private function formatAttribute($name, $value): string
+    private function format(string ...$parts): string
     {
-        return "{$this->filter->filterValue($name)}={$this->filter->filterValue($value)}";
+        return implode('=', array_map([$this->filter, 'filterValue'], $parts));
     }
 }
