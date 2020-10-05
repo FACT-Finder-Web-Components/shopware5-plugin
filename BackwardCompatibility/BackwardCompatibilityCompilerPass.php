@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\BackwardCompatibility;
 
-use OmikronFactfinder\Components\Data\Article\Articles;
+use OmikronFactfinder\Components\Data\Article\ArticleDetails;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -21,10 +21,10 @@ class BackwardCompatibilityCompilerPass implements CompilerPassInterface
         $shopRegistration = new Definition(ShopRegistrationService::class, [new Reference('service_container')]);
         $container->setDefinition('shopware.components.shop_registration_service', $shopRegistration);
 
-        if ($container->has(Articles::class)) {
+        if ($container->has(ArticleDetails::class)) {
             $articleResource = new Definition(ArticleResource::class, [new Reference('translation')]);
             $articleResource->addMethodCall('setManager', [new Reference('models')]);
-            $container->getDefinition(Articles::class)->setArgument('$articleResource', $articleResource);
+            $container->getDefinition(ArticleDetails::class)->setArgument('$articleResource', $articleResource);
         }
     }
 }

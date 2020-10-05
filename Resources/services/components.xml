@@ -25,15 +25,18 @@
         <service id="OmikronFactfinder\Components\Upload\Configuration" />
         <service id="OmikronFactfinder\Components\PushImport\Configuration" />
         <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
-        <service id="OmikronFactfinder\Components\Data\Article\Articles" />
-        <service id="OmikronFactfinder\Components\Data\Article\Type\ProviderFactory" />
+        <service id="OmikronFactfinder\Components\Data\Article\ArticleDetails" />
+        <service id="OmikronFactfinder\Components\Data\Article\Entity\ExportArticle" />
         <service id="OmikronFactfinder\Components\Filter\TextFilter" />
         <service id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
         <service id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+        <service id="OmikronFactfinder\Components\Service\ExportService" />
         <service id="OmikronFactfinder\Components\Service\PushImportService" />
         <service id="OmikronFactfinder\Components\Service\TestConnectionService" />
         <service id="OmikronFactfinder\Components\Service\TrackingService" />
+        <service id="OmikronFactfinder\Components\Service\UploadService" />
 
-        <service id="OmikronFactfinder\Components\Filter\FilterInterface" class="OmikronFactfinder\Components\Filter\TextFilter" />
+        <service id="OmikronFactfinder\Components\Filter\FilterInterface"
+                 class="OmikronFactfinder\Components\Filter\TextFilter" />
     </services>
 </container>

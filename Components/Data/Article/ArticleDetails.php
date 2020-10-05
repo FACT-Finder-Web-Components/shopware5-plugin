@@ -6,8 +6,10 @@ namespace OmikronFactfinder\Components\Data\Article;
 
 use Shopware\Components\Api\Resource\Article as ArticleResource;
 use Shopware\Components\Api\Resource\Resource;
+use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Detail;
 
-class Articles implements \IteratorAggregate
+class ArticleDetails implements \IteratorAggregate
 {
     /** @var ArticleResource */
     private $articleResource;
@@ -25,7 +27,12 @@ class Articles implements \IteratorAggregate
     {
         yield from [];
         for ($page = 0; $list = $this->getArticles($page, $this->batchSize); $page++) {
-            yield from $list;
+            foreach ($list as $article) {
+                /* @var Article $article */
+                yield from $article->getDetails()->filter(function (Detail $detail): bool {
+                    return (bool) $detail->getActive();
+                });
+            }
         }
     }
 

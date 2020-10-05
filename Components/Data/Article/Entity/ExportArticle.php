@@ -2,50 +2,29 @@
 
 declare(strict_types=1);
 
-namespace OmikronFactfinder\Components\Data\Article\Type;
+namespace OmikronFactfinder\Components\Data\Article\Entity;
 
 use OmikronFactfinder\Components\Data\Article\FieldProvider;
 use OmikronFactfinder\Components\Data\Article\Fields\FieldInterface;
-use OmikronFactfinder\Components\Data\DataProviderInterface;
 use OmikronFactfinder\Components\Data\ExportEntityInterface;
-use OmikronFactfinder\Components\Filter\ExtendedTextFilter;
 use Shopware\Models\Article\Detail;
 
-class DetailProvider implements ExportEntityInterface, DataProviderInterface
+class ExportArticle implements ExportEntityInterface
 {
-    /** @var ExtendedTextFilter */
-    protected $filter;
-
     /** @var FieldProvider */
     protected $fieldProvider;
-
-    /** @var ProviderFactory */
-    protected $providerFactory;
 
     /** @var Detail */
     protected $detail;
 
-    /** @var array */
-    protected $data = [];
-
-    public function __construct(
-        ExtendedTextFilter $filter,
-        FieldProvider $fieldProvider,
-        ProviderFactory $providerFactory
-    ) {
-        $this->filter          = $filter;
-        $this->fieldProvider   = $fieldProvider;
-        $this->providerFactory = $providerFactory;
+    public function __construct(FieldProvider $fieldProvider)
+    {
+        $this->fieldProvider = $fieldProvider;
     }
 
     public function setDetail(Detail $detail)
     {
         $this->detail = $detail;
-    }
-
-    public function setData(array $data)
-    {
-        $this->data = $data;
     }
 
     public function getId(): int
@@ -71,11 +50,6 @@ class DetailProvider implements ExportEntityInterface, DataProviderInterface
 
         return array_reduce($this->fieldProvider->getFields(), function (array $fields, FieldInterface $field) {
             return $fields + [$field->getName() => $field->getValue($this->detail)];
-        }, $data + $this->data);
-    }
-
-    public function getEntities(): iterable
-    {
-        return [$this];
+        }, $data);
     }
 }

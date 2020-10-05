@@ -11,14 +11,13 @@
     </imports>
 
     <services>
-        <service id="omikron_factfinder.components.category_filter" class="OmikronFactfinder\Components\CategoryFilter">
+        <service id="OmikronFactfinder\Components\CategoryFilter">
             <argument type="service">
                 <service class="Shopware\Models\Category\Repository">
                     <factory service="models" method="getRepository" />
                     <argument type="string">Shopware\Models\Category\Category</argument>
                 </service>
             </argument>
-            <argument type="string">CategoryPath</argument>
         </service>
 
         <service id="OmikronFactfinder\Commands\ExportArticlesCommand">
@@ -37,17 +36,7 @@
             </argument>
         </service>
 
-        <service id="OmikronFactfinder\Components\Data\Article\Type\DetailProvider"
-            shared="false"
-            autowire="true">
-        </service>
-
-        <service id="OmikronFactfinder\Components\Data\Article\Type\MainDetailProvider"
-                 parent="OmikronFactfinder\Components\Data\Article\Type\DetailProvider"
-                 autowire="true"
-                 shared="false" />
-
-        <service id="OmikronFactfinder\Components\Service\ShopEmulationService">
+        <service id="OmikronFactfinder\Components\Service\ShopEmulationService" autowire="true">
             <argument type="service">
                 <service class="Shopware\Models\Shop\Repository">
                     <factory service="models" method="getRepository" />
@@ -57,16 +46,6 @@
             <argument type="service" id="shopware.components.shop_registration_service" />
             <argument type="service" id="router" />
             <argument type="service" id="config" />
-        </service>
-
-        <service id="OmikronFactfinder\Components\Service\ExportService" autowire="true">
-            <argument type="service" id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
-            <argument type="service" id="OmikronFactfinder\Components\Filter\TextFilter" />
-        </service>
-
-        <service id="OmikronFactfinder\Components\Service\UploadService">
-            <argument type="service" id="shopware.filesystem_factory" />
-            <argument type="service" id="OmikronFactfinder\Components\Upload\Configuration" />
         </service>
     </services>
 </container>
