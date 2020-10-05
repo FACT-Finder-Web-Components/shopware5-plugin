@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
-use OmikronFactfinder\Components\Filter\TextFilter;
+use OmikronFactfinder\Components\Filter\FilterInterface;
+use Shopware\Models\Article\Configurator\Option;
 use Shopware\Models\Article\Detail;
 use Shopware\Models\Property\Value;
 
 class Attributes implements FieldInterface
 {
-    /** @var TextFilter */
+    /** @var FilterInterface */
     private $filter;
 
-    public function __construct(TextFilter $filter)
+    public function __construct(FilterInterface $filter)
     {
         $this->filter = $filter;
     }
@@ -25,15 +26,28 @@ class Attributes implements FieldInterface
 
     public function getValue(Detail $detail): string
     {
-        $attributes = array_reduce($detail->getArticle()->getPropertyValues()->toArray(), function (array $attrs, Value $value) {
-            return $attrs + [$value->getId() => $this->formatAttribute($value->getOption()->getName(), $value->getValue())];
-        }, []);
+        $properties = $detail->getArticle()->getPropertyValues()->map(function (Value $value) {
+            return $this->format($value->getOption()->getName(), $value->getValue());
+        })->toArray();
 
-        return $attributes ? '|' . implode('|', array_values($attributes)) . '|' : '';
+        $values = array_merge($properties, ...array_map([$this, 'getConfiguratorOptions'], $this->getDetails($detail)));
+        return count($values) ? '|' . implode('|', array_unique($values)) . '|' : '';
     }
 
-    private function formatAttribute($name, $value): string
+    private function getConfiguratorOptions(Detail $detail): array
     {
-        return "{$this->filter->filterValue($name)}={$this->filter->filterValue($value)}";
+        return $detail->getConfiguratorOptions()->map(function (Option $option): string {
+            return $this->format($option->getGroup()->getName(), $option->getName());
+        })->toArray();
+    }
+
+    private function getDetails(Detail $detail): array
+    {
+        return $detail->getKind() === 1 ? $detail->getArticle()->getDetails()->toArray() : [$detail];
+    }
+
+    private function format(string ...$parts): string
+    {
+        return implode('=', array_map([$this->filter, 'filterValue'], $parts));
     }
 }
