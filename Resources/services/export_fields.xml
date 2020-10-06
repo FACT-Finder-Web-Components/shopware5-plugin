@@ -5,10 +5,15 @@
 
     <services>
         <defaults public="false" autoconfigure="true" autowire="true">
+            <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$imageSize">%factfinder.export.thumbnail_size%</bind>
             <bind key="$router" id="router" type="service" />
         </defaults>
-
+        <instanceof id="Symfony\Component\DependencyInjection\ContainerAwareInterface">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </instanceof>
         <service id="OmikronFactfinder\Components\Data\Article\FieldProvider">
             <argument type="tagged" tag="factfinder.export.field" />
             <argument>%factfinder.export.columns.base%</argument>
@@ -17,8 +22,11 @@
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
                    resource="../../Components/Data/Article/Fields" />
 
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\Attributes">
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\FilterAttributes">
             <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
+            <argument type="service" id="shopware_attribute.crud_service" />
+            <argument type="service" id="snippets" />
         </service>
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\GenericColumn" autowire="false" autoconfigure="false"/>
     </services>
 </container>

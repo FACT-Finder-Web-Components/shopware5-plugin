@@ -5,23 +5,36 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
 use OmikronFactfinder\Components\Filter\FilterInterface;
+use Shopware\Bundle\AttributeBundle\Service\CrudServiceInterface;
 use Shopware\Models\Article\Configurator\Option;
 use Shopware\Models\Article\Detail;
 use Shopware\Models\Property\Value;
+use Shopware_Components_Snippet_Manager as SnippetManager;
 
-class Attributes implements FieldInterface
+class FilterAttributes implements FieldInterface
 {
     /** @var FilterInterface */
     private $filter;
 
-    public function __construct(FilterInterface $filter)
-    {
-        $this->filter = $filter;
+    /** @var CrudServiceInterface */
+    private $crudService;
+
+    /** @var SnippetManager */
+    private $snippetManager;
+
+    public function __construct(
+        FilterInterface $filter,
+        CrudServiceInterface $crudService,
+        SnippetManager $snippetManager
+    ) {
+        $this->filter         = $filter;
+        $this->crudService    = $crudService;
+        $this->snippetManager = $snippetManager;
     }
 
     public function getName(): string
     {
-        return 'Attributes';
+        return 'FilterAttributes';
     }
 
     public function getValue(Detail $detail): string
@@ -29,8 +42,7 @@ class Attributes implements FieldInterface
         $properties = $detail->getArticle()->getPropertyValues()->map(function (Value $value) {
             return $this->format($value->getOption()->getName(), $value->getValue());
         })->toArray();
-
-        $values = array_merge($properties, ...array_map([$this, 'getConfiguratorOptions'], $this->getDetails($detail)));
+        $values  = array_merge($properties, ...array_map([$this, 'getConfiguratorOptions'], $this->getDetails($detail)));
         return count($values) ? '|' . implode('|', array_unique($values)) . '|' : '';
     }
 
