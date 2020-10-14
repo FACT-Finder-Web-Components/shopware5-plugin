@@ -4,9 +4,9 @@
                   {if {config name=ffVersion} eq 'ng'}api="v3"{/if}
                   {if $addParams}add-params="{$addParams|escape:'html'}"{/if}
                   {if $searchImmediate}search-immediate="true"{/if}
-                  sid="{$sid|truncate:30:''}"
+                  sid="{$sid|md5|truncate:30:''}"
                   {if $uid}user-id="{$uid}"{/if}
-                  use-url-parameter="true"
+                  use-url-parameters="true"
                   only-search-params="true"
                   disable-single-hit-redirect="true"
                   currency-code="{0|currency:use_shortname:left|substr:0:3}"
