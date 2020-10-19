@@ -6,17 +6,13 @@ namespace OmikronFactfinder\Components\Data\Article\Fields;
 
 use OmikronFactfinder\Components\Filter\FilterInterface;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
-use Shopware\Bundle\AttributeBundle\Service\CrudServiceInterface;
+use OmikronFactfinder\Components\Service\AttributeService;
 use Shopware\Models\Article\Detail;
-use Shopware_Components_Snippet_Manager as SnippetManager;
 
 class GenericField implements FieldInterface
 {
-    /** @var CrudServiceInterface */
-    private $crudService;
-
-    /** @var SnippetManager */
-    private $snippetManager;
+    /** @var AttributeService */
+    private $attributeService;
 
     /** @var FilterInterface */
     private $filter;
@@ -28,15 +24,13 @@ class GenericField implements FieldInterface
     private $columnName = '';
 
     public function __construct(
-        CrudServiceInterface $crudService,
-        SnippetManager $snippetManager,
+        AttributeService $attributeService,
         FilterInterface $filter,
         NumberFormatter $numberFormatter
     ) {
-        $this->crudService     = $crudService;
-        $this->snippetManager  = $snippetManager;
-        $this->filter          = $filter;
-        $this->numberFormatter = $numberFormatter;
+        $this->attributeService = $attributeService;
+        $this->filter           = $filter;
+        $this->numberFormatter  = $numberFormatter;
     }
 
     public function setColumnName(string $columnName)
@@ -47,15 +41,13 @@ class GenericField implements FieldInterface
 
     public function getName(): string
     {
-        $column = $this->crudService->get('s_articles_attributes', $this->columnName);
-        $key    = sprintf('%s_%s_label', $column->getTableName(), $column->getColumnName());
-        return $this->snippetManager->getNamespace('backend/attribute_columns')->get($key) ?? $column->getLabel();
+        return $this->attributeService->getLabel($this->columnName);
     }
 
     public function getValue(Detail $detail): string
     {
         $attributeObj  = $detail->getAttribute();
-        $column        = $this->crudService->get('s_articles_attributes', $this->columnName);
+        $column        = $this->attributeService->getAttribute($this->columnName);
         $getter        = 'get' . ucfirst($this->columnName);
         $valueReturned = method_exists($attributeObj, $getter) && $attributeObj->{"$getter"}() ? $attributeObj->{"$getter"}() : '';
 
