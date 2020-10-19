@@ -36,7 +36,7 @@ class FieldProvider implements ContainerAwareInterface
 
     public function getFields(): array
     {
-        return $this->fields + $this->getSingleFields();
+        return array_merge($this->fields, $this->getSingleFields());
     }
 
     private function getSingleFields(): array
