@@ -41,9 +41,9 @@ class FieldProvider implements ContainerAwareInterface
 
     private function getSingleFields(): array
     {
-        return array_reduce($this->pluginConfig['ffSingleFields'], function (array $columns, string $columnName) {
-            return $columns + [$columnName => clone ($this->container->get(GenericField::class))->setColumnName($columnName)];
-        }, []);
+        return array_map(function (string $columnName) {
+            return (clone $this->container->get(GenericField::class))->setColumnName($columnName);
+        }, (array) $this->pluginConfig['ffSingleFields']);
     }
 
     private function getFieldName(FieldInterface $field): string

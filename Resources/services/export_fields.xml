@@ -27,6 +27,7 @@
             <argument type="service" id="shopware_attribute.crud_service" />
             <argument type="service" id="snippets" />
         </service>
-        <service id="OmikronFactfinder\Components\Data\Article\Fields\GenericColumn" autowire="false" autoconfigure="false"/>
+
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\GenericField" public="true" autoconfigure="false" />
     </services>
 </container>
