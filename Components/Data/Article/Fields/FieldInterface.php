@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
-use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Detail;
 
-interface ArticleFieldInterface
+interface FieldInterface
 {
     public function getName(): string;
 
-    public function getValue(Article $article): string;
+    public function getValue(Detail $detail): string;
 }

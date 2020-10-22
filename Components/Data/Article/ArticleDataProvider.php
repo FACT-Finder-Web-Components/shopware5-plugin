@@ -4,30 +4,37 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article;
 
-use OmikronFactfinder\Components\Data\Article\Type\ArticleProviderFactory;
+use OmikronFactfinder\Components\Data\Article\Entity\ExportArticle;
 use OmikronFactfinder\Components\Data\DataProviderInterface;
-use Shopware\Models\Article\Article;
+use OmikronFactfinder\Components\Data\ExportEntityInterface;
+use Psr\Container\ContainerInterface;
 
 class ArticleDataProvider implements DataProviderInterface
 {
-    /** @var Articles */
-    private $articles;
+    /** @var ArticleDetails */
+    private $articleDetails;
 
-    /** @var ArticleProviderFactory */
-    private $providerFactory;
+    /** @var ContainerInterface */
+    private $container;
 
-    public function __construct(Articles $articles, ArticleProviderFactory $articleProviderFactory)
+    public function __construct(ArticleDetails $articleDetails, ContainerInterface $container)
     {
-        $this->articles        = $articles;
-        $this->providerFactory = $articleProviderFactory;
+        $this->articleDetails = $articleDetails;
+        $this->container      = $container;
     }
 
     public function getEntities(): iterable
     {
         yield from []; // init generator: Prevent errors in case of an empty product collection
-        /** @var Article $article */
-        foreach ($this->articles as $article) {
-            yield from $this->providerFactory->create($article->getMainDetail())->getEntities();
+        foreach ($this->articleDetails as $detail) {
+            yield $this->createEntity($detail);
         }
+    }
+
+    private function createEntity($detail): ExportEntityInterface
+    {
+        $entity = $this->container->get(ExportArticle::class);
+        $entity->setDetail($detail);
+        return $entity;
     }
 }

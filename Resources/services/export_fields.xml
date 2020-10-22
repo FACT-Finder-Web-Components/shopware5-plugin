@@ -5,16 +5,24 @@
 
     <services>
         <defaults public="false" autoconfigure="true" autowire="true">
+            <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$imageSize">%factfinder.export.thumbnail_size%</bind>
             <bind key="$router" id="router" type="service" />
         </defaults>
 
         <service id="OmikronFactfinder\Components\Data\Article\FieldProvider">
             <argument type="tagged" tag="factfinder.export.field" />
-            <argument>%factfinder.export.columns.base%</argument>
+            <argument key="$columns">%factfinder.export.columns.base%</argument>
         </service>
 
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
-                   resource="../../Components/Data/Article/Fields" />
+                   resource="../../Components/Data/Article/Fields"
+                   exclude="../../Components/Data/Article/Fields/ArticleAttribute.php" />
+
+        <service id="OmikronFactfinder\Components\Data\Article\Fields\FilterAttributes">
+            <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
+        </service>
+
+        <service id="OmikronFactfinder\Components\Data\Article\SingleFields" />
     </services>
 </container>

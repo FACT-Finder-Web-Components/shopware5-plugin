@@ -10,8 +10,8 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreVCS(true);
 
 return Config::create()
-    ->setHideProgress(true)
     ->setRiskyAllowed(true)
+    ->setHideProgress(true)
     ->setUsingCache(false)
     ->setRules([
         '@PSR2' => true,
@@ -26,6 +26,7 @@ return Config::create()
         'no_useless_else' => true,
         'no_useless_return' => true,
         'ordered_class_elements' => true,
+        'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
         'single_line_throw' => false,
         'strict_comparison' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],

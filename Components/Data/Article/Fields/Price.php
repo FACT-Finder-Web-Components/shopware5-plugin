@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
-use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Detail;
 
-class Price implements ArticleFieldInterface
+class Price implements FieldInterface
 {
     /** @var NumberFormatter */
     private $numberFormatter;
@@ -22,10 +22,10 @@ class Price implements ArticleFieldInterface
         return 'Price';
     }
 
-    public function getValue(Article $article): string
+    public function getValue(Detail $detail): string
     {
-        $price   = $article->getMainDetail()->getPrices()->first();
-        $taxRate = $article->getTax()->getTax();
+        $price   = $detail->getPrices()->first();
+        $taxRate = $detail->getArticle()->getTax()->getTax();
         return (string) $this->numberFormatter->format(($price ? $price->getPrice() : 0) * (1 + $taxRate / 100));
     }
 }

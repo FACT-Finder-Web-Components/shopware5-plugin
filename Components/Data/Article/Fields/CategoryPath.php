@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
-use Shopware\Models\Article\Article;
+use Shopware\Models\Article\Detail;
 use Shopware\Models\Category\Category;
 
-class CategoryPath implements ArticleFieldInterface
+class CategoryPath implements FieldInterface
 {
     /** @var string */
     private $fieldName;
@@ -22,8 +22,9 @@ class CategoryPath implements ArticleFieldInterface
         return $this->fieldName;
     }
 
-    public function getValue(Article $article): string
+    public function getValue(Detail $detail): string
     {
+        $article      = $detail->getArticle();
         $categoryName = $this->categoryName($article->getAllCategories());
         return implode('|', $article->getCategories()->map(function (Category $category) use ($categoryName) {
             return implode('/', array_map($categoryName, $this->getPath($category)));

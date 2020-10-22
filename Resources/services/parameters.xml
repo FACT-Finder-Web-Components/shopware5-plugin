@@ -13,7 +13,6 @@
             <parameter key="Short">Short</parameter>
             <parameter key="Description">Description</parameter>
             <parameter key="Brand">Brand</parameter>
-            <parameter key="Availability">Availability</parameter>
             <parameter key="HasVariants">HasVariants</parameter>
         </parameter>
 
