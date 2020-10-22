@@ -4,33 +4,56 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article;
 
-use OmikronFactfinder\Components\Data\Article\Fields\GenericField;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use OmikronFactfinder\Components\Data\Article\Fields\ArticleAttribute;
+use OmikronFactfinder\Components\Formatter\NumberFormatter;
+use Shopware\Bundle\AttributeBundle\Service\ConfigurationStruct as AttributeConfig;
+use Shopware\Bundle\AttributeBundle\Service\CrudServiceInterface;
+use Shopware_Components_Snippet_Manager as SnippetManager;
 
-class SingleFields implements ContainerAwareInterface
+class SingleFields
 {
-    use ContainerAwareTrait;
+    /** @var CrudServiceInterface */
+    private $crudService;
 
-    /** @var GenericField[] */
-    private $singleFields;
+    /** @var SnippetManager */
+    private $snippetManager;
+
+    /** @var NumberFormatter */
+    private $numberFormatter;
 
     /** @var array */
     private $pluginConfig;
 
-    public function __construct(array $pluginConfig)
-    {
-        $this->pluginConfig = $pluginConfig;
+    /** @var ArticleAttribute[] */
+    private $fields;
+
+    public function __construct(
+        CrudServiceInterface $crudService,
+        SnippetManager $snippetManager,
+        NumberFormatter $numberFormatter,
+        array $pluginConfig
+    ) {
+        $this->pluginConfig    = $pluginConfig;
+        $this->crudService     = $crudService;
+        $this->snippetManager  = $snippetManager;
+        $this->numberFormatter = $numberFormatter;
     }
 
     public function getFields(): array
     {
-        if (!$this->singleFields) {
-            $this->singleFields = array_map(function (string $columnName) {
-                return (clone $this->container->get(GenericField::class))->setColumnName($columnName);
-            }, (array) $this->pluginConfig['ffSingleFields']);
-        }
+        $this->fields = $this->fields ?? array_map([$this, 'getField'], (array) $this->pluginConfig['ffSingleFields']);
+        return $this->fields;
+    }
 
-        return $this->singleFields;
+    private function getField(string $columnName): ArticleAttribute
+    {
+        $attribute = $this->crudService->get('s_articles_attributes', $columnName);
+        return new ArticleAttribute($attribute, $this->numberFormatter, $this->getLabel($attribute));
+    }
+
+    private function getLabel(AttributeConfig $attribute): string
+    {
+        $key = sprintf('%s_%s_label', $attribute->getTableName(), $attribute->getColumnName());
+        return $this->snippetManager->getNamespace('backend/attribute_columns')->get($key, $attribute->getLabel());
     }
 }

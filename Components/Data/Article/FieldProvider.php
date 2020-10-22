@@ -11,22 +11,22 @@ class FieldProvider
     /** @var FieldInterface[] */
     private $fields;
 
+    /** @var SingleFields */
+    private $singleFields;
+
     /** @var string[] */
     private $columns;
 
-    /** SingleFields */
-    private $singleFields;
-
-    public function __construct(\Traversable $fields, array $columns, SingleFields $singleFields)
+    public function __construct(\Traversable $fields, SingleFields $singleFields, array $columns)
     {
         $this->fields       = iterator_to_array($fields);
-        $this->columns      = $columns;
         $this->singleFields = $singleFields;
+        $this->columns      = $columns;
     }
 
     public function getColumns(): array
     {
-        return array_unique(array_merge($this->columns, array_map([$this, 'getFieldName'], array_merge($this->fields, $this->singleFields->getFields()))));
+        return array_unique(array_merge($this->columns, array_map([$this, 'getFieldName'], $this->getFields())));
     }
 
     public function getFields(): array

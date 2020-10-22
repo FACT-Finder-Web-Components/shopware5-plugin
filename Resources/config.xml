@@ -145,28 +145,27 @@
             <label>Single fields</label>
             <store><![CDATA[
                 Ext.define('Shopware.apps.OmikronFactfinder.store.Attributes', {
-                 extend: 'Ext.data.Store',
-                 fields: [
-                    { name:'columnName', type: 'string' }, { name:'label', type: 'string' }
-                 ],
-                 autoLoad: true,
-                 filters: [
-                    function(item) {
-                        console.log(item.raw);
-                        return item.raw.configured === true;
+                    extend: 'Ext.data.Store',
+                    fields: [
+                        {name: 'columnName', type: 'string'}, {name: 'label', type: 'string'}
+                    ],
+                    autoLoad: true,
+                    filters: [
+                        function (item) {
+                            return item.raw.configured === true;
+                        }
+                    ],
+                    proxy: {
+                        type: 'ajax',
+                        url: window.location.href.substr(0, window.location.href.indexOf('backend')) + 'backend/attributeData/list?table=s_articles_attributes',
+                        reader: {
+                            type: 'json',
+                            root: 'data',
+                            totalProperty: 'total'
+                        },
                     }
-                ],
-                 proxy: {
-                     type: 'ajax',
-                     url: window.location.href.substr(0, window.location.href.indexOf('backend')) + 'backend/attributeData/list?table=s_articles_attributes',
-                     reader: {
-                          type: 'json',
-                          root: 'data',
-                          totalProperty: 'total'
-                      },
-                 }
-                }).create();//new ]]>
-            </store>
+                }).create();
+            ]]></store>
             <options>
                 <multiSelect>true</multiSelect>
                 <valueField>columnName</valueField>

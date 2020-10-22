@@ -42,7 +42,7 @@ class FilterAttributes implements FieldInterface
         $properties = $detail->getArticle()->getPropertyValues()->map(function (Value $value) {
             return $this->format($value->getOption()->getName(), $value->getValue());
         })->toArray();
-        $values  = array_merge($properties, ...array_map([$this, 'getConfiguratorOptions'], $this->getDetails($detail)));
+        $values     = array_merge($properties, ...array_map([$this, 'getConfiguratorOptions'], $this->getDetails($detail)));
         return count($values) ? '|' . implode('|', array_unique($values)) . '|' : '';
     }
 
