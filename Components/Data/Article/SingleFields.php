@@ -7,12 +7,12 @@ namespace OmikronFactfinder\Components\Data\Article;
 use OmikronFactfinder\Components\Data\Article\Fields\ArticleAttribute;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Bundle\AttributeBundle\Service\ConfigurationStruct as AttributeConfig;
-use Shopware\Bundle\AttributeBundle\Service\CrudServiceInterface;
+use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware_Components_Snippet_Manager as SnippetManager;
 
 class SingleFields
 {
-    /** @var CrudServiceInterface */
+    /** @var CrudService */
     private $crudService;
 
     /** @var SnippetManager */
@@ -28,7 +28,7 @@ class SingleFields
     private $fields;
 
     public function __construct(
-        CrudServiceInterface $crudService,
+        CrudService $crudService,
         SnippetManager $snippetManager,
         NumberFormatter $numberFormatter,
         array $pluginConfig

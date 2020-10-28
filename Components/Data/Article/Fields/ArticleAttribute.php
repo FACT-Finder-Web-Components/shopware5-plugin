@@ -6,7 +6,7 @@ namespace OmikronFactfinder\Components\Data\Article\Fields;
 
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
 use Shopware\Bundle\AttributeBundle\Service\ConfigurationStruct as AttributeConfig;
-use Shopware\Bundle\AttributeBundle\Service\TypeMappingInterface as Type;
+use Shopware\Bundle\AttributeBundle\Service\TypeMapping as Type;
 use Shopware\Models\Article\Detail;
 
 class ArticleAttribute implements FieldInterface
