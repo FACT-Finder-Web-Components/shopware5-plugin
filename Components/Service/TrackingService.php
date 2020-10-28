@@ -29,6 +29,10 @@ class TrackingService
 
     public function track(string $event, array $eventData): void
     {
+        if (!$this->config->isEnabled()) {
+            return;
+        }
+
         $endpoint = "{$this->config->getServerUrl()}/rest/v3/track/{$this->config->getChannel()}/{$event}";
 
         try {

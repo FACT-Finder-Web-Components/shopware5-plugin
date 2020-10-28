@@ -18,26 +18,26 @@ class Configuration
 
     public function isEnabled(): bool
     {
-        return (bool) $this->pluginConfig['ffEnabled'];
+        return (bool) ($this->pluginConfig['ffEnabled'] ?? false);
     }
 
     public function useForCategories(): bool
     {
-        return $this->isEnabled() && $this->pluginConfig['ffUseForCategories'];
+        return $this->isEnabled() && ($this->pluginConfig['ffUseForCategories'] ?? false);
     }
 
     public function getServerUrl(): string
     {
-        return rtrim($this->pluginConfig['ffServerUrl'], ' /');
+        return rtrim($this->pluginConfig['ffServerUrl'] ?? '', ' /');
     }
 
     public function getChannel(): string
     {
-        return $this->pluginConfig['ffChannel'];
+        return $this->pluginConfig['ffChannel'] ?? '';
     }
 
     public function getCredentials(): Credentials
     {
-        return new Credentials($this->pluginConfig['ffUser'], $this->pluginConfig['ffPassword']);
+        return new Credentials($this->pluginConfig['ffUser'] ?? '', $this->pluginConfig['ffPassword'] ?? '');
     }
 }
