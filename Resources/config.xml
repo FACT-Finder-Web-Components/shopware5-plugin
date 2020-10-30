@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
-
     <elements>
         <element type="boolean" scope="shop">
             <name>ffEnabled</name>
@@ -9,19 +8,16 @@
             <label lang="de">FACT-Finder® Web Components aktivieren?</label>
             <value>false</value>
         </element>
-
         <element scope="shop">
             <name>ffServerUrl</name>
             <label>Server URL</label>
             <label lang="de">Server URL</label>
         </element>
-
         <element scope="shop">
             <name>ffChannel</name>
             <label>Channel</label>
             <label lang="de">Channel</label>
         </element>
-
         <element type="select" scope="shop">
             <name>ffVersion</name>
             <label>FACT-Finder® Version</label>
@@ -42,19 +38,16 @@
                 </option>
             </store>
         </element>
-
         <element scope="shop">
             <name>ffUser</name>
             <label>Username</label>
             <label lang="de">Benutzername</label>
         </element>
-
         <element type="password" scope="shop">
             <name>ffPassword</name>
             <label>Password</label>
             <label lang="de">Passwort</label>
         </element>
-
         <element type="button">
             <name>ffTestconnection</name>
             <label>Test Connection</label>
@@ -75,7 +68,6 @@
                                 .map(element => encodeURIComponent(element.elementName) + '=' + encodeURIComponent(element.value))
                                 .join('&')
                                 .replace(/%20/g, '+');
-
                             xhr.open("POST", "factfinder/testConnection", true);
                             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                             xhr.send(formData);
@@ -84,40 +76,34 @@
                 </handler>
             </options>
         </element>
-
         <element type="boolean" scope="shop">
             <name>ffUseForCategories</name>
             <label>Use FACT-Finder® on category pages?</label>
             <label lang="de">Kategorieseiten mit FACT-Finder® rendern?</label>
             <value>true</value>
         </element>
-
         <element>
             <name>ffFtpHost</name>
             <label>FTP Host</label>
             <description>Please only enter the FTP host, without protocol (i.e. ftp://)</description>
             <description lang="de">Bitte nur den FTP Host ohne Protokoll (zB ftp://) eintragen</description>
         </element>
-
         <element>
             <name>ffFtpUser</name>
             <label>FTP User</label>
             <label lang="de">FTP Benutzer</label>
         </element>
-
         <element type="password">
             <name>ffFtpPassword</name>
             <label>FTP Password</label>
             <label lang="de">FTP Passwort</label>
         </element>
-
         <element type="boolean">
             <name>ffAutomaticPushImport</name>
             <label>Import data after export?</label>
             <label lang="de">Daten nach dem Export importieren?</label>
             <value>true</value>
         </element>
-
         <element type="combo">
             <name>ffImportDataTypes</name>
             <label>Import data types</label>
@@ -143,29 +129,30 @@
         <element type="combo">
             <name>ffSingleFields</name>
             <label>Single fields</label>
-            <store><![CDATA[
-                Ext.define('Shopware.apps.OmikronFactfinder.store.Attributes', {
-                    extend: 'Ext.data.Store',
-                    fields: [
-                        {name: 'columnName', type: 'string'}, {name: 'label', type: 'string'}
-                    ],
-                    autoLoad: true,
-                    filters: [
-                        function (item) {
-                            return item.raw.configured === true;
-                        }
-                    ],
-                    proxy: {
-                        type: 'ajax',
-                        url: window.location.href.substr(0, window.location.href.indexOf('backend')) + 'backend/attributeData/list?table=s_articles_attributes',
-                        reader: {
-                            type: 'json',
-                            root: 'data',
-                            totalProperty: 'total'
-                        },
-                    }
-                }).create();
-            ]]></store>
+            <store><![CDATA[Ext.define('Shopware.apps.OmikronFactfinder.store.Attributes.', {
+    extend: 'Ext.data.Store',
+    fields: [
+        { name:'columnName', type: 'string' },
+        { name:'label', type: 'string' }
+    ],
+    autoLoad: true,
+    filters: [
+        function (item) {
+            return item.raw.configured === true;
+        }
+    ],
+    pageSize: 25,
+    proxy: {
+        type: 'ajax',
+         url: window.location.href.substr(0, window.location.href.indexOf('backend')) + 'backend/attributeData/list?table=s_articles_attributes',
+        reader: {
+            type: 'json',
+            root: 'data',
+            totalProperty: 'total'
+        }
+    }
+    }).create();//new ]]>
+            </store>
             <options>
                 <multiSelect>true</multiSelect>
                 <valueField>columnName</valueField>
