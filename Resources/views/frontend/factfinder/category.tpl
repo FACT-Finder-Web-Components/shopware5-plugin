@@ -14,7 +14,7 @@
       document.addEventListener('ffReady', function (e) {
         e.eventAggregator.addBeforeHistoryPushCallback(function (res, event, url) {
           url = url.replace(/filter=CategoryPath[^&]+&?/, '');
-          factfinder.communication.Util.pushParameterToHistory(res, url, event);
+          e.factfinder.communication.Util.pushParameterToHistory(res, url, event);
           return false;
         });
       });
