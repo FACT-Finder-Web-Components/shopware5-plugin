@@ -4,16 +4,14 @@
   {/block}
 
   {block name='frontend_factfinder_campaign_advisor'}
-    {literal}
-      <ff-campaign-advisor unresolved>
-        <ff-campaign-advisor-question>
-          <h1 data-question>{{{text}}}</h1>
-          <ff-campaign-advisor-answer>
-            <div>{{{text}}}</div>
-          </ff-campaign-advisor-answer>
-        </ff-campaign-advisor-question>
-      </ff-campaign-advisor>
-    {/literal}
+    <ff-campaign-advisor unresolved>
+      <ff-campaign-advisor-question>
+        <h1 data-question>{'{{{text}}}'}</h1>
+        <ff-campaign-advisor-answer>
+          <div>{'{{{text}}}'}</div>
+        </ff-campaign-advisor-answer>
+      </ff-campaign-advisor-question>
+    </ff-campaign-advisor>
   {/block}
 
   {block name='frontend_factfinder_campaign_pushed_products'}
