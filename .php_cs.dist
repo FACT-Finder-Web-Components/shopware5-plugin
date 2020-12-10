@@ -27,6 +27,7 @@ return Config::create()
         'no_useless_return' => true,
         'ordered_class_elements' => true,
         'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
+        'php_unit_method_casing' => ['case' => 'snake_case'],
         'single_line_throw' => false,
         'strict_comparison' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
