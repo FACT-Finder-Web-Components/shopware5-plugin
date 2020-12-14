@@ -53,7 +53,6 @@ class PushImportService
         foreach ($this->pushImportConfiguration->getImportTypes() as $type) {
             $this->client->post($this->getBaseEndpoint() . $type . '?' . http_build_query($params), [
                 'Accept'        => 'application/json',
-                'Content-Type'  => 'application/json',
                 'Authorization' => $this->configuration->getCredentials(),
             ]);
         }
