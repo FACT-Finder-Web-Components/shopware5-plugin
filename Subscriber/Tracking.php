@@ -73,7 +73,7 @@ class Tracking implements SubscriberInterface
                 'masterId' => $this->getMasterProductNumber($product),
                 'count'    => $orderItem['quantity'],
                 'price'    => $this->numberFormatter->format((float) $orderItem['price']),
-                'sid'      => substr($orderItem['sessionID'], 0, 30),
+                'sid'      => substr(md5($orderItem['sessionID']), 0, 30),
                 'userId'   => $orderItem['userID'],
             ]);
         }, $arg['details']));
@@ -89,7 +89,7 @@ class Tracking implements SubscriberInterface
             'masterId' => $this->getMasterProductNumber($product),
             'count'    => $cartItem->getQuantity(),
             'price'    => $this->numberFormatter->format($price * (1 + $tax / 100)),
-            'sid'      => substr($this->session->get('sessionId'), 0, 30),
+            'sid'      => substr(md5($this->session->get('sessionId')), 0, 30),
             'userId'   => (int) $this->session->get('sUserId', 0),
         ]);
     }
