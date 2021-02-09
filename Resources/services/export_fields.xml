@@ -8,6 +8,7 @@
             <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$imageSize">%factfinder.export.thumbnail_size%</bind>
             <bind key="$router" id="router" type="service" />
+            <bind key="$fieldRoles">%factfinder.field_roles%</bind>
         </defaults>
 
         <service id="OmikronFactfinder\Components\Data\Article\FieldProvider">
@@ -24,5 +25,6 @@
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\SingleFields" />
+        <service id="OmikronFactfinder\Components\Data\Article\PriceCurrencyFields" />
     </services>
 </container>

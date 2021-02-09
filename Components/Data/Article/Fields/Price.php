@@ -10,7 +10,7 @@ use Shopware\Models\Article\Detail;
 class Price implements FieldInterface
 {
     /** @var NumberFormatter */
-    private $numberFormatter;
+    protected $numberFormatter;
 
     public function __construct(NumberFormatter $numberFormatter)
     {

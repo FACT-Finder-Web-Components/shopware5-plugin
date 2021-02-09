@@ -14,14 +14,18 @@ class FieldProvider
     /** @var SingleFields */
     private $singleFields;
 
+    /** @var PriceCurrencyFields */
+    private $priceCurrencyFields;
+
     /** @var string[] */
     private $columns;
 
-    public function __construct(\Traversable $fields, SingleFields $singleFields, array $columns)
+    public function __construct(\Traversable $fields, SingleFields $singleFields, PriceCurrencyFields $priceCurrencyFields, array $columns)
     {
-        $this->fields       = iterator_to_array($fields);
-        $this->singleFields = $singleFields;
-        $this->columns      = $columns;
+        $this->fields              = iterator_to_array($fields);
+        $this->singleFields        = $singleFields;
+        $this->columns             = $columns;
+        $this->priceCurrencyFields = $priceCurrencyFields;
     }
 
     public function getColumns(): array
@@ -31,7 +35,7 @@ class FieldProvider
 
     public function getFields(): array
     {
-        return array_merge($this->fields, $this->singleFields->getFields());
+        return array_merge($this->fields, $this->singleFields->getFields(), $this->priceCurrencyFields->getPriceCurrencyFields());
     }
 
     private function getFieldName(FieldInterface $field): string
