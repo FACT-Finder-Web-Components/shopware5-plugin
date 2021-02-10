@@ -18,7 +18,7 @@
 
         <prototype namespace="OmikronFactfinder\Components\Data\Article\Fields\"
                    resource="../../Components/Data/Article/Fields"
-                   exclude="../../Components/Data/Article/Fields/ArticleAttribute.php" />
+                   exclude="../../Components/Data/Article/Fields/{ArticleAttribute,PriceCurrency}.php" />
 
         <service id="OmikronFactfinder\Components\Data\Article\Fields\FilterAttributes">
             <argument type="service" id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />

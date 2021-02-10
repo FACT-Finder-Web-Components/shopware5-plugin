@@ -16,7 +16,6 @@ class OmikronFactfinder extends Plugin
     {
         parent::build($container);
         $container->addCompilerPass(new BackwardCompatibilityCompilerPass());
-        $container->registerForAutoconfiguration(PriceCurrency::class)->setAutowired(false);
         $container->registerForAutoconfiguration(FieldInterface::class)->addTag('factfinder.export.field');
     }
 }
