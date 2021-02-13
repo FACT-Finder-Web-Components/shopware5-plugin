@@ -6,6 +6,7 @@ namespace OmikronFactfinder\Components\Data\Article;
 
 use OmikronFactfinder\Components\Data\Article\Fields\ArticleAttribute;
 use OmikronFactfinder\Components\Formatter\NumberFormatter;
+use OmikronFactfinder\Components\Service\TranslationService;
 use Shopware\Bundle\AttributeBundle\Service\ConfigurationStruct as AttributeConfig;
 use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware_Components_Snippet_Manager as SnippetManager;
@@ -21,6 +22,9 @@ class SingleFields
     /** @var NumberFormatter */
     private $numberFormatter;
 
+    /** @var TranslationService */
+    private $translationService;
+
     /** @var array */
     private $pluginConfig;
 
@@ -31,24 +35,32 @@ class SingleFields
         CrudService $crudService,
         SnippetManager $snippetManager,
         NumberFormatter $numberFormatter,
+        TranslationService $translationService,
         array $pluginConfig
     ) {
-        $this->pluginConfig    = $pluginConfig;
-        $this->crudService     = $crudService;
-        $this->snippetManager  = $snippetManager;
-        $this->numberFormatter = $numberFormatter;
+        $this->pluginConfig       = $pluginConfig;
+        $this->crudService        = $crudService;
+        $this->snippetManager     = $snippetManager;
+        $this->numberFormatter    = $numberFormatter;
+        $this->translationService = $translationService;
     }
 
     public function getFields(): array
     {
-        $this->fields = $this->fields ?? array_map([$this, 'getField'], (array) $this->pluginConfig['ffSingleFields']);
+        $this->fields = $this->fields ?? array_map([$this, 'getField'], (array)$this->pluginConfig['ffSingleFields']);
         return $this->fields;
     }
 
     private function getField(string $columnName): ArticleAttribute
     {
         $attribute = $this->crudService->get('s_articles_attributes', $columnName);
-        return new ArticleAttribute($attribute, $this->numberFormatter, $this->getLabel($attribute));
+        return new ArticleAttribute(
+            $attribute,
+            $this->numberFormatter,
+            $this->translationService,
+            $this->snippetManager,
+            $this->getLabel($attribute)
+        );
     }
 
     private function getLabel(AttributeConfig $attribute): string

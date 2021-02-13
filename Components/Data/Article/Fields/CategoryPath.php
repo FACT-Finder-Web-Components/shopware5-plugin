@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
+use OmikronFactfinder\Components\Service\TranslationService;
 use Shopware\Models\Article\Detail;
 use Shopware\Models\Category\Category;
 
@@ -12,9 +13,13 @@ class CategoryPath implements FieldInterface
     /** @var string */
     private $fieldName;
 
-    public function __construct(string $fieldName = 'CategoryPath')
+    /** @var TranslationService  */
+    private $translationService;
+
+    public function __construct(TranslationService $translationService, string $fieldName = 'CategoryPath')
     {
-        $this->fieldName = $fieldName;
+        $this->fieldName          = $fieldName;
+        $this->translationService = $translationService;
     }
 
     public function getName(): string
@@ -34,7 +39,8 @@ class CategoryPath implements FieldInterface
     private function categoryName(array $allCategories): callable
     {
         $names = array_reduce($allCategories, function (array $result, Category $category) {
-            return $result + [$category->getId() => $category->getName()];
+            $translation = $this->translationService->getCategoryTranslation( $category->getId());
+            return $result + [$category->getId() => $translation['description'] ?: $category->getName()];
         }, []);
 
         return function (int $categoryId) use ($names): string {
