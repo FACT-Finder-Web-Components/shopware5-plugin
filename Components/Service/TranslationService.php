@@ -9,11 +9,11 @@ use Shopware_Components_Translation as TranslationComponent;
 
 class TranslationService
 {
-    private const ARTICLE_TRANSLATION = 'article';
-    private const CATEGORY_TRANSLATION = 'category';
-    private const PROPERTY_GROUP_TRANSLATION = 'propertygroup';
+    private const ARTICLE_TRANSLATION         = 'article';
+    private const CATEGORY_TRANSLATION        = 'category';
+    private const PROPERTY_GROUP_TRANSLATION  = 'propertygroup';
     private const PROPERTY_OPTION_TRANSLATION = 'propertyoption';
-    private const PROPERTY_VALUE_TRANSLATION = 'propertyvalue';
+    private const PROPERTY_VALUE_TRANSLATION  = 'propertyvalue';
 
     /** @var ContextServiceInterface */
     private $contextService;
@@ -63,7 +63,7 @@ class TranslationService
 
     private function getShopId(): int
     {
-        return (int)$this->contextService->getShopContext()->getShop()->getId();
+        return (int) $this->contextService->getShopContext()->getShop()->getId();
     }
 
     private function get(int $id, string $type): array

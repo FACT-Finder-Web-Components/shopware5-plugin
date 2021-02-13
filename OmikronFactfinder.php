@@ -6,7 +6,6 @@ namespace OmikronFactfinder;
 
 use OmikronFactfinder\BackwardCompatibility\BackwardCompatibilityCompilerPass;
 use OmikronFactfinder\Components\Data\Article\Fields\FieldInterface;
-use OmikronFactfinder\Components\Data\Article\Fields\PriceCurrency;
 use Shopware\Components\Plugin;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

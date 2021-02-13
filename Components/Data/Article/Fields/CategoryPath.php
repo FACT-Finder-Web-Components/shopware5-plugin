@@ -13,7 +13,7 @@ class CategoryPath implements FieldInterface
     /** @var string */
     private $fieldName;
 
-    /** @var TranslationService  */
+    /** @var TranslationService */
     private $translationService;
 
     public function __construct(TranslationService $translationService, string $fieldName = 'CategoryPath')
@@ -39,7 +39,7 @@ class CategoryPath implements FieldInterface
     private function categoryName(array $allCategories): callable
     {
         $names = array_reduce($allCategories, function (array $result, Category $category) {
-            $translation = $this->translationService->getCategoryTranslation( $category->getId());
+            $translation = $this->translationService->getCategoryTranslation($category->getId());
             return $result + [$category->getId() => $translation['description'] ?: $category->getName()];
         }, []);
 

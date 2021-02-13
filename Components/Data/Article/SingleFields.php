@@ -47,7 +47,7 @@ class SingleFields
 
     public function getFields(): array
     {
-        $this->fields = $this->fields ?? array_map([$this, 'getField'], (array)$this->pluginConfig['ffSingleFields']);
+        $this->fields = $this->fields ?? array_map([$this, 'getField'], (array) $this->pluginConfig['ffSingleFields']);
         return $this->fields;
     }
 

@@ -23,7 +23,6 @@ class PriceCurrency extends Price
         $this->fieldName = $fieldName;
     }
 
-
     public function getName(): string
     {
         return $this->fieldName;

@@ -61,11 +61,11 @@ class ArticleAttribute implements FieldInterface
             case Type::TYPE_BOOLEAN:
                 return $value ? $snippets->get('freeTextFieldBooleanYes') : $snippets->get('freeTextFieldBooleanNo');
             case Type::TYPE_DATETIME:
-                return $value instanceof \DateTime ? $value->format('Uv') : (string)$value;
+                return $value instanceof \DateTime ? $value->format('Uv') : (string) $value;
             case Type::TYPE_FLOAT:
-                return $this->numberFormatter->format((float)$value);
+                return $this->numberFormatter->format((float) $value);
             default:
-                return (string)$value;
+                return (string) $value;
         }
     }
 }

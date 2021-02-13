@@ -32,12 +32,14 @@ class FilterAttributes implements FieldInterface
     public function getValue(Detail $detail): string
     {
         $properties = $detail->getArticle()->getPropertyValues()->map(function (Value $value) {
-            $valueTransl  = $this->translationService->getPropertyValueTranslation($value->getId());
+            $valueTransl = $this->translationService->getPropertyValueTranslation($value->getId());
             $optionTransl = $this->translationService->getPropertyOptionTranslation($value->getOption()->getId());
+
             return $this->format($optionTransl['optionName'] ?: $value->getOption()->getName(), $valueTransl['optionValue'] ?: $value->getValue());
         })->toArray();
 
         $values = array_merge($properties, ...array_map([$this, 'getConfiguratorOptions'], $this->getDetails($detail)));
+
         return count($values) ? '|' . implode('|', array_unique($values)) . '|' : '';
     }
 
@@ -45,7 +47,8 @@ class FilterAttributes implements FieldInterface
     {
         return $detail->getConfiguratorOptions()->map(function (Option $option): string {
             $propertyTransl = $this->translationService->getPropertyTranslation($option->getGroup()->getId());
-            $optionTransl   = $this->translationService->getPropertyOptionTranslation($option->getId());
+            $optionTransl = $this->translationService->getPropertyOptionTranslation($option->getId());
+
             return $this->format($propertyTransl['groupNam'] ?: $option->getGroup()->getName(), $optionTransl['optionName'] ?: $option->getName());
         })->toArray();
     }

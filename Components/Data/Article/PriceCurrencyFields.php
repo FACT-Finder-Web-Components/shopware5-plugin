@@ -10,14 +10,13 @@ use Shopware\Models\Shop\Currency;
 
 class PriceCurrencyFields
 {
-    /** @var NumberFormatter  */
+    /** @var NumberFormatter */
     private $numberFormatter;
 
-    /** @var array  */
+    /** @var array */
     private $fieldRoles;
 
     public function __construct(
-
         NumberFormatter $numberFormatter,
         array $fieldRoles
     ) {

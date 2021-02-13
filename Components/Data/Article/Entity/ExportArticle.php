@@ -18,7 +18,7 @@ class ExportArticle implements ExportEntityInterface
     /** @var Detail */
     protected $detail;
 
-    /** @var TranslationService  */
+    /** @var TranslationService */
     private $translationService;
 
     public function __construct(FieldProvider $fieldProvider, TranslationService $translationService)
@@ -39,7 +39,7 @@ class ExportArticle implements ExportEntityInterface
 
     public function toArray(): array
     {
-        $article = $this->detail->getArticle();
+        $article      = $this->detail->getArticle();
         $translations = $this->translationService->getArticleTranslation($article->getId());
 
         $data = [
@@ -47,7 +47,7 @@ class ExportArticle implements ExportEntityInterface
             'Master'        => (string) $article->getMainDetail()->getNumber(),
             'Name'          => (string) $translations['name'] ?: $article->getName(),
             'EAN'           => (string) $this->detail->getEan(),
-            'Weight'        => (float)  $this->detail->getWeight(),
+            'Weight'        => (float) $this->detail->getWeight(),
             'Description'   => (string) $translations['description'] ?: $article->getDescriptionLong(),
             'Short'         => (string) $translations['description'] ?: $article->getDescription(),
             'Brand'         => (string) $article->getSupplier()->getName(),
