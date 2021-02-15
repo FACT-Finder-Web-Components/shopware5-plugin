@@ -25,6 +25,9 @@
         </service>
 
         <service id="OmikronFactfinder\Components\Data\Article\SingleFields" />
-        <service id="OmikronFactfinder\Components\Data\Article\PriceCurrencyFields" />
+        <service id="OmikronFactfinder\Components\Data\Article\PriceCurrencyFields">
+            <argument type="service" id="OmikronFactfinder\Components\Formatter\NumberFormatter" />
+            <argument type="service" id="models" />
+        </service>
     </services>
 </container>
