@@ -1,14 +1,14 @@
 ---
 name: CI
 
-on: [ push ]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ '7.2', '7.4' ]
+        php: [ '7.2', '7.3', '7.4' ]
         deps: [ 'lowest', 'stable' ]
     steps:
       - name: Checkout code
