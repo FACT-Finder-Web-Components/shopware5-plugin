@@ -21,6 +21,11 @@
             <argument>%omikron_factfinder.plugin_name%</argument>
         </service>
 
+        <service id="OmikronFactfinder\Components\Service\TranslationService">
+            <argument type="service" id="shopware_storefront.context_service" />
+            <argument type="service" id="translation" />
+        </service>
+
         <service id="OmikronFactfinder\Components\Configuration" />
         <service id="OmikronFactfinder\Components\Upload\Configuration" />
         <service id="OmikronFactfinder\Components\PushImport\Configuration" />
@@ -33,7 +38,6 @@
         <service id="OmikronFactfinder\Components\Service\ExportService" />
         <service id="OmikronFactfinder\Components\Service\PushImportService" />
         <service id="OmikronFactfinder\Components\Service\TestConnectionService" />
-        <service id="OmikronFactfinder\Components\Service\TranslationService" />
         <service id="OmikronFactfinder\Components\Service\TrackingService" />
         <service id="OmikronFactfinder\Components\Service\UploadService" />
 
