@@ -52,9 +52,7 @@ Credentials you will be given should be placed here.
   **Note:** Server URL should contain a used protocol: (e.g. `https://`) and should end with an endpoint ( `fact-finder` )
 * Channel - Channel you want to serve data from
 * Username
-* Passwo  **Note:** Module supports FACT-Finder® NG only.
-  
-rd  
+* Password  
   **Note:** Module supports FACT-Finder® NG only.
   
 ### Test Connection Button
@@ -139,8 +137,8 @@ class CustomColumn implements FieldInterface
 }
 ```
 
-Once your additional column is defined, register it as a service using Symfony DI ([you can find more information
-here][1]) and set them to be [auto-configured][2]. By doing this, your fields will be tagged as `factfinder.export.field` and
+Once your additional column is defined, register it as a service using Symfony DI (you can find more information
+[here][1]) and set them to be [auto-configured][2]. By doing this, your fields will be tagged as `factfinder.export.field` and
 can be picked up automatically by our `FieldProvider`. Of course, autoconfiguration is just a convenience we offer,
 you can still assign the tag to your service manually.
 
