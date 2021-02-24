@@ -15,7 +15,7 @@
     "composer/installers": "^1.8"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.16",
+    "friendsofphp/php-cs-fixer": "^2.18",
     "phpunit/phpunit": "^7.5"
   },
   "autoload-dev": {

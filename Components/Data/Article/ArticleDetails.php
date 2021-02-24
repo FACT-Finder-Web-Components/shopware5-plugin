@@ -38,7 +38,8 @@ class ArticleDetails implements \IteratorAggregate
 
     private function getArticles(int $page, int $pageSize): iterable
     {
+        $sortBy = [['property' => 'article.id']];
         $this->articleResource->setResultMode(Resource::HYDRATE_OBJECT);
-        return $this->articleResource->getList($page * $pageSize, $pageSize, ['active' => true])['data'];
+        return $this->articleResource->getList($page * $pageSize, $pageSize, ['active' => true], $sortBy)['data'];
     }
 }
