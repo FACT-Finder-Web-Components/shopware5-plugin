@@ -10,6 +10,7 @@ jobs:
       matrix:
         php: ['7.2', '7.3', '7.4']
         deps: ['lowest', 'stable']
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,13 +25,13 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Load Composer cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer
+          key: ${{ runner.os }}-${{ matrix.php }}-${{ matrix.deps }}-composer
 
       - name: Install dependencies
-        run: composer install --no-ansi --no-interaction
+        run: composer update --no-ansi --no-interaction --prefer-${{ matrix.deps }}
 
       - name: Run tests
         run: |
