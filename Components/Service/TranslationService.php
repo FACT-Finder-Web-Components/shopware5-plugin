@@ -71,7 +71,7 @@ class TranslationService
         if (!isset($this->translationsInMemory[$type][$id])) {
             $translations = $this->translationComponent->read($this->getShopId(), $type, $id);
 
-            $this->translationsInMemory[$type][$id] = $translations;
+            $this->translationsInMemory[$type][$id] = (array) $translations;
         }
 
         return $this->translationsInMemory[$type][$id];

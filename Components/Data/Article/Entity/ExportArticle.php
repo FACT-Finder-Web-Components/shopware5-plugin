@@ -45,11 +45,11 @@ class ExportArticle implements ExportEntityInterface
         $data = [
             'ProductNumber' => (string) $this->detail->getNumber(),
             'Master'        => (string) $article->getMainDetail()->getNumber(),
-            'Name'          => (string) $translations['name'] ?: $article->getName(),
+            'Name'          => (string) ($translations['name'] ?? $article->getName()),
             'EAN'           => (string) $this->detail->getEan(),
             'Weight'        => (float) $this->detail->getWeight(),
-            'Description'   => (string) $translations['descriptionLong'] ?: $article->getDescriptionLong(),
-            'Short'         => (string) $translations['description'] ?: $article->getDescription(),
+            'Description'   => (string) ($translations['descriptionLong'] ?? $article->getDescriptionLong()),
+            'Short'         => (string) ($translations['description'] ?? $article->getDescription()),
             'Brand'         => (string) $article->getSupplier()->getName(),
             'HasVariants'   => $this->detail->getKind() === 1 && count($article->getDetails()) > 1 ? 1 : 0,
         ];
