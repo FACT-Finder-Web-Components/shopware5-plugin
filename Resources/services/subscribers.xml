@@ -9,6 +9,7 @@
             <bind key="$fieldRoles">%factfinder.field_roles%</bind>
             <bind key="$pluginDirectory">%omikron_factfinder.plugin_dir%</bind>
             <bind key="$pluginName">%omikron_factfinder.plugin_name%</bind>
+            <bind key="$contextService" type="service" id="shopware_storefront.context_service" />
         </defaults>
 
         <prototype namespace="OmikronFactfinder\Subscriber\" resource="../../Subscriber" autowire="true" public="true">

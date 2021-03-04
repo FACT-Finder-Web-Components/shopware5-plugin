@@ -29,7 +29,7 @@
                 <span class="is--nowrap">1 pc</span>
               </div>
               <div class="product--price">
-                <span class="price--default is--nowrap">{'{{record.Price}}'}</span>
+                <span class="price--default is--nowrap">{$activeCurrency}</span>
               </div>
             </div>
           </div>

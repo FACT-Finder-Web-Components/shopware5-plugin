@@ -7,6 +7,8 @@ namespace OmikronFactfinder\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager as TemplateManager;
 use OmikronFactfinder\Components\Configuration;
+use OmikronFactfinder\Components\Data\Article\PriceCurrencyFields;
+use Shopware\Bundle\StoreFrontBundle\Service\ContextServiceInterface;
 
 class TemplateRegistration implements SubscriberInterface
 {
@@ -15,6 +17,12 @@ class TemplateRegistration implements SubscriberInterface
 
     /** @var TemplateManager */
     private $templateManager;
+
+    /** @var PriceCurrencyFields */
+    private $priceCurrencyFields;
+
+    /** @var ContextServiceInterface */
+    private $contextService;
 
     /** @var string */
     private $pluginDirectory;
@@ -25,13 +33,17 @@ class TemplateRegistration implements SubscriberInterface
     public function __construct(
         Configuration $configuration,
         TemplateManager $templateManager,
+        PriceCurrencyFields $priceCurrencyFields,
+        ContextServiceInterface $contextService,
         string $pluginDirectory,
         array $fieldRoles
     ) {
-        $this->configuration   = $configuration;
-        $this->templateManager = $templateManager;
-        $this->pluginDirectory = $pluginDirectory;
-        $this->fieldRoles      = $fieldRoles;
+        $this->configuration       = $configuration;
+        $this->templateManager     = $templateManager;
+        $this->priceCurrencyFields = $priceCurrencyFields;
+        $this->contextService      = $contextService;
+        $this->pluginDirectory     = $pluginDirectory;
+        $this->fieldRoles          = $fieldRoles;
     }
 
     public static function getSubscribedEvents()
@@ -44,8 +56,12 @@ class TemplateRegistration implements SubscriberInterface
     public function onPostDispatch(): void
     {
         if ($this->configuration->isEnabled()) {
+            $currencyField = sprintf('%s_%s', $this->fieldRoles['price'], $this->contextService->getShopContext()->getCurrency()->getName());
             $this->templateManager->addTemplateDir($this->pluginDirectory . '/Resources/views');
             $this->templateManager->assign('ffFieldRoles', $this->fieldRoles);
+            $this->templateManager->assign('currencyFields', implode(',', array_keys($this->priceCurrencyFields->getPriceCurrencyFields())));
+            $this->templateManager->assign('activeCurrency', "{{record.$currencyField}}");
+            $this->templateManager->assign('activeCurrencyField', $currencyField);
         }
     }
 }
