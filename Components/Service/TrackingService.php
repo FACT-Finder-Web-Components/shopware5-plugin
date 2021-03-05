@@ -33,7 +33,7 @@ class TrackingService
             return;
         }
 
-        $endpoint = "{$this->config->getServerUrl()}/rest/v3/track/{$this->config->getChannel()}/{$event}";
+        $endpoint = "{$this->config->getServerUrl()}/rest/v4/track/{$this->config->getChannel()}/{$event}";
 
         try {
             $this->httpClient->post($endpoint, [
