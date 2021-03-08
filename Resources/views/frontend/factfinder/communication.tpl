@@ -9,5 +9,6 @@
                   use-url-parameters="true"
                   only-search-params="true"
                   disable-single-hit-redirect="true"
+                  currency-fields="{$currencyFields}"
                   currency-code="{0|currency:use_shortname:left|substr:0:3}"
                   currency-country-code="{$Locale|replace:"_":"-"}"></ff-communication>
