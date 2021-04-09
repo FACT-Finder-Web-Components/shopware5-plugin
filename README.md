@@ -1,5 +1,7 @@
 # FACT-Finder® Web Components for Shopware 5
 
+[![Build status](https://github.com/FACT-Finder-Web-Components/shopware5-plugin/workflows/build/badge.svg)](https://github.com/FACT-Finder-Web-Components/shopware5-plugin/actions)
+
 This document helps you to integrate the FACT-Finder® Web Components SDK into your Shopware5 Shop. In addition, it gives a
 concise overview of its primary functions. The first chapter *Installation* walks you through the suggested installation
 process. The second chapter *Settings* explains the customisation options in the Shopware5 backend. The
