@@ -1,7 +1,7 @@
 {block name='frontend_index_start'}
   {$smarty.block.parent}
   {$facets = ['FACT-Finder ASN']}
-  {$ffAddParams = {','|implode:$ffCategoryPath|cat:',navigation=true'}}
+  {$ffAddParams = {','|implode:$ffCategoryPath|cat:$ffManufacturerFilter|cat:',navigation=true'}}
   {$searchImmediate = true}
   {$showListing = true}
 {/block}

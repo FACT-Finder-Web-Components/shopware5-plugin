@@ -6,21 +6,20 @@ namespace OmikronFactfinder\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_ActionEventArgs as EventArgs;
-use OmikronFactfinder\Components\CategoryFilter;
 use OmikronFactfinder\Components\Configuration;
 
-class CategoryView implements SubscriberInterface
+class ManufacturerView implements SubscriberInterface
 {
     /** @var Configuration */
     private $configuration;
 
-    /** @var CategoryFilter */
-    private $categoryPath;
+    /** @var array */
+    private $fieldRoles;
 
-    public function __construct(Configuration $configuration, CategoryFilter $categoryPath)
+    public function __construct(Configuration $configuration, array $fieldRoles)
     {
         $this->configuration = $configuration;
-        $this->categoryPath  = $categoryPath;
+        $this->fieldRoles    = $fieldRoles;
     }
 
     public static function getSubscribedEvents()
@@ -33,13 +32,12 @@ class CategoryView implements SubscriberInterface
     public function onPostDispatch(EventArgs $args): void
     {
         if ($this->configuration->useForCategories()) {
-            $view = $args->getSubject()->View();
-            $view->extendsTemplate('frontend/factfinder/category.tpl');
-            ['id' => $id] = $view->getAssign('sCategoryContent');
+            $view         = $args->getSubject()->View();
+            $manufacturer = $view->getAssign('manufacturer');
 
-            if ($id) {
-                $view->extendsTemplate('frontend/factfinder/category.tpl');
-                $view->assign('ffCategoryPath', $this->categoryPath->getValue($id));
+            if ($manufacturer) {
+                $view->extendsTemplate('frontend/factfinder/manufacturer.tpl');
+                $view->assign('ffManufacturerFilter', 'filter=' . rawurlencode(sprintf('%s:%s', $this->fieldRoles['brand'], $manufacturer->getName())));
                 return;
             }
         }
