@@ -53,6 +53,7 @@ This section contains a module configuration, which is required in order for the
 All fields are self-explained.
 Configuration set here is used by both Web Components and during the server side communication with FACT-Finder® instance.
 Credentials you will be given should be placed here.
+Please remember that you have to clear the store cache in order the new applied configuration to start working.
 
 * Server URL - FACT-Finder® instance url   
   **Note:** Server URL should contain a used protocol: (e.g. `https://`) and should end with an endpoint ( `fact-finder` )
