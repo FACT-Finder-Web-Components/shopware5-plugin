@@ -14,10 +14,14 @@ process. The second chapter *Settings* explains the customisation options in the
 - [Settings](#settings)
     - [Test Connection Button](#test-connection-button)
     - [Using FACT-Finder® on category pages](#using-fact-finder-on-category-pages)
-    - [Upload Settings](#upload-settings)
-    - [Import Settings](#import-settings)
+    - [Upload Options](#upload-options)
+    - [Import Options](#import-options)
     - [Single Fields](#single-fields)
 - [Exporting Feed](#exporting-feed)
+- [Web Components Integration](#web-components-integration)
+    - [Including Scripts](#including-scripts)
+    - [Communication](#communication)
+    - [Templates](#templates)
 - [Adding New Column To Feed](#adding-new-column-to-feed)
 - [Contribute](#contribute)
 - [License](#license)
@@ -49,6 +53,7 @@ This section contains a module configuration, which is required in order for the
 All fields are self-explained.
 Configuration set here is used by both Web Components and during the server side communication with FACT-Finder® instance.
 Credentials you will be given should be placed here.
+Please remember that you have to clear the store cache in order the new applied configuration to start working.
 
 * Server URL - FACT-Finder® instance url   
   **Note:** Server URL should contain a used protocol: (e.g. `https://`) and should end with an endpoint ( `fact-finder` )
@@ -106,6 +111,32 @@ There are two additional options:
 * `-i` runs the FACT-Finder® import with previously uploaded feed  
   **Note:** This option works only in a combination with `-u` 
   
+## Web Components Integration
+
+### Including Scripts
+The module is shipped with script including FACT-Finder Web Components.
+A whole [Including Scripts](https://web-components.fact-finder.de/documentation/4.x/include-scripts) step is done by the module.
+
+* Resources/views/frontend/_public/ff-web-components/vendor/custom-elements-es5-adapter.js
+* Resources/views/frontend/_public/ff-web-components/vendor/webcomponents-loader.js
+* Resources/views/frontend/_public/ff-web-components/bundle.js
+
+All these files are included in `Resources/views/frontend/index/header.tpl`.
+That file extends the Bare theme Shopware 5 [header.tpl](https://github.com/shopware/shopware/blob/5.7/themes/Frontend/Bare/frontend/index/header.tpl).
+**Note:** If your theme doesn't extend the Bare theme, make sure you include all scripts `header.tpl` is including.
+
+### Communication
+Main configuration element `ff-communication` is added in file `Resources/views/frontend/index/index.tpl`.
+Same as with `header.tpl`, it extends the [index.tpl](https://github.com/shopware/shopware/blob/5.7/themes/Frontend/Bare/frontend/index/index.tpl) file defined in Bare theme.
+This element is automatically filled with the data, configured in module backend configuration.
+**Note:** If your theme doesn't extend the Bare theme, make sure you implement `ff-communication` element as it is mandatory and  FACT-Finder Web Components will not work without it.
+
+### Templates
+Templates including Web Components can be found in directory `Resources/views/frontend/factfinder` and also in file `Resources/views/frontend/index/search.tpl`.
+Just as with the previous sections, all templates are extending Base theme wherever it is possible.
+You can use these templates if you are extending the Bare theme.
+In case you are not, treat them as an implementation examples and select suitable pieces and implement them in templates in your own theme files.
+
 ## Adding New Column To Feed
 The standard feed contains all data FACT-Finder® requires to work.
 However, you may want to export additional information which is relevant for your project and not part of a default
