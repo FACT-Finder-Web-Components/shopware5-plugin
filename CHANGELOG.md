@@ -1,4 +1,9 @@
 # Changelog
+## Unreleased
+### Fixed
+ - hide Recommendation header when no records are returned
+ - fix hardcoded record-id in ff-recommendation element
+
 ## [v1.0.1] - 2021.04.21
 
 ### Added
