@@ -1,6 +1,9 @@
 # Changelog
 ## Unreleased
 
+### Changed
+- Replaced default Shopware5 section `Similar Products` with the  `ff-similar-products` element
+
 ### Fixed
  - hide Recommendation header when no records are returned
  - fix hardcoded record-id in ff-recommendation element
