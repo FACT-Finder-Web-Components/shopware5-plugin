@@ -1,6 +1,9 @@
 # Changelog
 ## Unreleased
 
+### Changed
+- Replaced default Shopware5 section `Similar Products` with the  `ff-similar-products` element
+
 ### Fixed
  - hide Recommendation header when no records are returned
  - fix hardcoded record-id in ff-recommendation element
@@ -12,6 +15,7 @@
 
 ### Changed
 - Use built-in Shopware5 product slider widget with `ff-recommendation` element 
+- Upgrade Web Components to version 4.0.2
 
 ### Fixed
 - An error is thrown when user tries to navigate to manufacturer products page with `Use FACT-Finder® on category pages?` configuration option enabled
