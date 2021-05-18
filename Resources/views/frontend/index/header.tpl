@@ -22,11 +22,17 @@
     const activeCurrency = `{$activeCurrencyField}`;
     document.addEventListener('ffReady', function (e) {
       e.factfinder.communication.fieldRoles = {$ffFieldRoles|@json_encode};
-      e.factfinder.communication.ResultDispatcher.addCallback('result', function(result) {
+      e.factfinder.communication.ResultDispatcher.addCallback('result', function (result) {
         result.groups = result.groups.filter(function (group) {
           const associatedFieldName = group.elements.concat(group.selectedElements)[0].associatedFieldName;
           return associatedFieldName === activeCurrency || !/Price/.test(associatedFieldName);
         });
+      });
+
+      e.factfinder.communication.ResultDispatcher.addCallback('similarProducts', function (similarData) {
+        if (similarData.records && !similarData.records.length) {
+          document.querySelector('a[href="#content--similar-products"]').classList.add('ffw-hidden');
+        }
       });
     });
   </script>
