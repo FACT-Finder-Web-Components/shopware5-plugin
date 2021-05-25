@@ -1,4 +1,8 @@
 # Changelog
+## Unreleased
+### Fixed
+ - Fix hiding similar-products tab causes an error if there is are no native similar article fetched from the Shopware backend for a given article 
+
 ## [v1.0.2] - 2021.05.18
 
 ### Added
