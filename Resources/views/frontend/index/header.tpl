@@ -31,7 +31,10 @@
 
       e.factfinder.communication.ResultDispatcher.addCallback('similarProducts', function (similarData) {
         if (similarData.records && !similarData.records.length) {
-          document.querySelector('a[href="#content--similar-products"]').classList.add('ffw-hidden');
+          const similarProductsTab = document.querySelector('a[href="#content--similar-products"]');
+            if (similarProductsTab) {
+                similarProductsTab.classList.add('ffw-hidden');
+            }
         }
       });
     });
