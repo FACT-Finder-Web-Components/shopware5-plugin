@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## [v1.0.2.1] - 2021.05.28
 ### Fixed
  - Fix hiding similar-products tab causes an error if there is are no native similar article fetched from the Shopware backend for a given article 
 
@@ -29,6 +29,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v1.0.2.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.2.1
 [v1.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.1
 [v1.0.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.0
