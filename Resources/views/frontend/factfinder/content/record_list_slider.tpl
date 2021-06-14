@@ -10,15 +10,15 @@
            data-redirect-target="_self">
               <span class="image--element">
                 <span class="image--media">
-                  <img data-image="{'{{record.ImageURL}}'}" alt="{'{{record.Title}}'}" title="{'{{record.Title}}'}"/>
+                  <img data-image="{'{{record.ImageURL}}'}" alt="{'{{record.Name}}'}" title="{'{{record.Name}}'}"/>
                 </span>
               </span>
         </a>
         <a class="product--title"
-           title="{'{{record.Title}}'}"
+           title="{'{{record.Name}}'}"
            data-redirect="{'{{record.Deeplink}}'}"
            data-anchor="{'{{record.Deeplink}}'}"
-           data-redirect-target="_self">{'{{record.Title}}'}
+           data-redirect-target="_self">{'{{record.Name}}'}
         </a>
       </div>
     </div>
