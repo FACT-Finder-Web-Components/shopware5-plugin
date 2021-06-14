@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Subscriber;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Template_Manager as TemplateManager;
 use OmikronFactfinder\Components\Configuration;
@@ -51,7 +50,6 @@ class TemplateRegistration implements SubscriberInterface
     {
         return [
             'Enlight_Controller_Action_PostDispatchSecure_Frontend' => 'onPostDispatch',
-            'Theme_Compiler_Collect_Plugin_Javascript'              => 'onCollectJavascript',
         ];
     }
 
@@ -65,14 +63,5 @@ class TemplateRegistration implements SubscriberInterface
             $this->templateManager->assign('activeCurrency', "{{record.$currencyField}}");
             $this->templateManager->assign('activeCurrencyField', $currencyField);
         }
-    }
-
-    public function onCollectJavascript()
-    {
-        $jsPath = [
-            $this->pluginDirectory . '/Resources/views/frontend/_public/src/js/similar-products.js',
-        ];
-
-        return new ArrayCollection($jsPath);
     }
 }
