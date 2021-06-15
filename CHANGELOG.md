@@ -1,4 +1,11 @@
 # Changelog
+## [v1.0.4] - 2021.06.15
+### Changed
+ - Removed Theme_Compiler_Collect_Plugin_Javascript event listener. Now js files are placed in `Resources/frontend/js` and should be loaded automatically.
+
+### Fixed
+ - Use field `Name` instead of `Title` in ff-record template in record_list_slider.tpl.
+
 ## [v1.0.3] - 2021.05.28
 ### Changed
 - Upgrade Web Components to version 4.0.3
@@ -32,6 +39,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v1.0.4]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.4
 [v1.0.3]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.3
 [v1.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.1
