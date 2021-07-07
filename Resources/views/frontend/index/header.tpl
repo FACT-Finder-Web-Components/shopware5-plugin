@@ -12,7 +12,7 @@
       document.addEventListener('before-search', function (event) {
         if (['productDetail', 'getRecords'].lastIndexOf(event.detail.type) === -1) {
           event.preventDefault();
-          window.location = '{url controller='factfinder' action='result'}' + factfinder.common.dictToParameterString(event.detail);
+          window.location = '{url controller='factfinder' action='result'}' + factfinder.common.dictToParameterString(factfinder.common.encodeDict(event.detail));
         }
       });
     </script>
