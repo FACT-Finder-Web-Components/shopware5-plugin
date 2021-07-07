@@ -30,5 +30,5 @@
 {/block}
 
 {block name='frontend_listing_index_listing'}
-  {include file='frontend/factfinder/listing.tpl'}
+  {include file='frontend/factfinder/listing.tpl' isNavigationPage=true}
 {/block}
