@@ -1,4 +1,11 @@
 # Changelog
+## [v1.0.5] - 2021.07.07
+### Added
+ - Added `is-navigation` attribute to main `ff-record-list` (one with subscribe=true) on category and manufacturer pages. This might help detecting whether Web Components should send navigation requests instead of search. 
+
+### Fixed
+- Event data coming from searchbox element is not URLencoded before redirecting to search result page
+
 ## [v1.0.4] - 2021.06.15
 ### Changed
  - Removed Theme_Compiler_Collect_Plugin_Javascript event listener. Now js files are placed in `Resources/frontend/js` and should be loaded automatically.
