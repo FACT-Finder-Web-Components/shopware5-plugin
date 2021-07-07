@@ -6,7 +6,7 @@
 {/block}
 
 {block name='frontend_listing_list_inline'}
-  {include file='frontend/factfinder/content/record_list.tpl' subscribe=true}
+  {include file='frontend/factfinder/content/record_list.tpl' subscribe=true isNavigationPage=$isNavigationPage}
 {/block}
 
 {block name='frontend_listing_bottom_paging'}
