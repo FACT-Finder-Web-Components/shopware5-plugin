@@ -1,4 +1,13 @@
 # Changelog
+## Unreleased
+
+### Breaking
+ - Removed Service\TrackingService.php and Subscriber\Tracking as they are no longer necessary once tracking is handled by Web Components
+
+### Added
+ - Added Cart tracking script using Web Components API
+ - Added Checkout tracking using `ff-checkout-tracking` element
+
 ## [v1.0.5] - 2021.07.07
 ### Added
  - Added `is-navigation` attribute to main `ff-record-list` (one with subscribe=true) on category and manufacturer pages. This might help detecting whether Web Components should send navigation requests instead of search. 
