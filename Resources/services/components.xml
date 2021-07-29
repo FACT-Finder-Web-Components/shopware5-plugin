@@ -38,7 +38,6 @@
         <service id="OmikronFactfinder\Components\Service\ExportService" />
         <service id="OmikronFactfinder\Components\Service\PushImportService" />
         <service id="OmikronFactfinder\Components\Service\TestConnectionService" />
-        <service id="OmikronFactfinder\Components\Service\TrackingService" />
         <service id="OmikronFactfinder\Components\Service\UploadService" />
 
         <service id="OmikronFactfinder\Components\Filter\FilterInterface"

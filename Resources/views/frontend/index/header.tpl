@@ -19,7 +19,7 @@
   {/block}
 
   <script type="text/javascript">
-    const activeCurrency = `{$activeCurrencyField}`;
+    const activeCurrency = '{$activeCurrencyField}';
     document.addEventListener('ffReady', function (e) {
       e.factfinder.communication.fieldRoles = {$ffFieldRoles|@json_encode};
       e.factfinder.communication.ResultDispatcher.addCallback('result', function (result) {
