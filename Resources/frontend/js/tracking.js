@@ -6,6 +6,7 @@
             return;
         }
         waitForFactFinder().then(function (factfinder) {
+            const trackingHelper = factfinder.communication.Util.trackingHelper;
             factfinder.communication.EventAggregator.addFFEvent({
                 type: 'getRecords',
                 recordId: params[1],
@@ -16,8 +17,8 @@
                     }
                     const product = response[0];
                     factfinder.communication.Tracking.cart({
-                        id: getProductNumber(product),
-                        masterId: getMasterArticleNumber(product),
+                        id: trackingHelper.getTrackingProductId(product),
+                        masterId: trackingHelper.getMasterArticleNumber(product),
                         price: factfinder.communication.Util.trackingHelper.getPrice(product),
                         count: 1,
                     });
@@ -27,22 +28,6 @@
 
     });
 })(jQuery);
-
-function getMasterArticleNumber(product) {
-    return factfinder.communication.fieldRoles && factfinder.communication.fieldRoles.masterId
-           ? product.record[factfinder.communication.fieldRoles.masterId]
-           : product.record && product.record.Master
-             ? product.record.Master
-             : '';
-};
-
-function getProductNumber(product) {
-    return factfinder.communication.fieldRoles && factfinder.communication.fieldRoles.productNumber
-           ? product.record[factfinder.communication.fieldRoles.productNumber]
-           : product.record && product.record.ProductNumber
-             ? product.record.ProductNumber
-             : '';
-};
 
 function waitForFactFinder() {
     return new Promise(function (resolve) {
