@@ -47,5 +47,9 @@
             <argument type="service" id="router" />
             <argument type="service" id="config" />
         </service>
+
+        <service id="OmikronFactfinder\Subscriber\Tracking">
+            <argument type="service" id="Enlight_Components_Session_Namespace" />
+        </service>
     </services>
 </container>
