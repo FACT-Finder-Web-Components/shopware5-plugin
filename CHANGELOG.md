@@ -5,6 +5,7 @@
  - Removed Service\TrackingService.php and Subscriber\Tracking as they are no longer necessary once tracking is handled by Web Components
 
 ### Added
+ - Added Shopware5.7 compatibility
  - Added Cart tracking script using Web Components API
  - Added Checkout tracking using `ff-checkout-tracking` element
 

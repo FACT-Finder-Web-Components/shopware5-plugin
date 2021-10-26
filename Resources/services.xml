@@ -24,7 +24,7 @@
             <tag name="console.command" command="factfinder:export:articles" />
         </service>
 
-        <service id="OmikronFactfinder\Components\Output\Csv">
+        <service id="OmikronFactfinder\Components\Output\Csv" public="true">
             <argument type="service">
                 <service class="SplFileObject">
                     <argument type="expression">"export." ~ service('OmikronFactfinder\\Components\\Configuration').getChannel() ~ ".csv"</argument>
@@ -36,7 +36,7 @@
             </argument>
         </service>
 
-        <service id="OmikronFactfinder\Components\Service\ShopEmulationService" autowire="true">
+        <service id="OmikronFactfinder\Components\Service\ShopEmulationService" autowire="true" public="true">
             <argument type="service">
                 <service class="Shopware\Models\Shop\Repository">
                     <factory service="models" method="getRepository" />
