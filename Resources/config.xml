@@ -61,7 +61,7 @@
                             xhr = new XMLHttpRequest();
                             xhr.onreadystatechange = function () {
                                 if (xhr.readyState == 4) {
-                                     Shopware.Notification.createGrowlMessage(xhr.responseText);
+                                    Shopware.Notification.createGrowlMessage(xhr.responseText);
                                 }
                             }
                              var formData =  button.isContained.items.items
@@ -82,6 +82,22 @@
             <label lang="de">Kategorieseiten mit FACT-Finder® rendern?</label>
             <value>true</value>
         </element>
+        <element type="select" scope="shop">
+            <name>ffFtpProtocol</name>
+            <label>Protocol</label>
+            <label lang="de">Protokoll</label>
+            <value>ftp</value>
+            <store>
+                <option>
+                    <value>ftp</value>
+                    <label>FTP</label>
+                </option>
+                <option>
+                    <value>sftp</value>
+                    <label>SFTP</label>
+                </option>
+            </store>
+        </element>
         <element>
             <name>ffFtpHost</name>
             <label>FTP Host</label>
@@ -93,10 +109,64 @@
             <label>FTP User</label>
             <label lang="de">FTP Benutzer</label>
         </element>
+        <element type="text" scope="shop">
+            <name>ffFtpRootDir</name>
+            <label>Root dir</label>
+            <label lang="de">Root dir</label>
+        </element>
+        <element type="select" scope="shop">
+            <name>ffFtpAuthType</name>
+            <label>Authentication type</label>
+            <label lang="de">Authentifizierungsart</label>
+            <value>password</value>
+            <store>
+                <option>
+                    <value>password</value>
+                    <label>Password</label>
+                </option>
+                <option>
+                    <value>key</value>
+                    <label>SSH Key</label>
+                </option>
+            </store>
+        </element>
         <element type="password">
             <name>ffFtpPassword</name>
             <label>FTP Password</label>
             <label lang="de">FTP Passwort</label>
+        </element>
+        <element type="textarea">
+            <name>ffFtpKeyFile</name>
+            <label>File content</label>
+            <label lang="de">Dateiinhalt</label>
+        </element>
+        <element type="button">
+            <name>ffTestFtpconnection</name>
+            <label>Test FTP Connection</label>
+            <label lang="de">Test-Verbindung</label>
+            <options>
+                <cls>primary</cls>
+                <handler>
+                    <![CDATA[
+                        function (button) {
+                            console.log(document);
+                            xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4) {
+                                     Shopware.Notification.createGrowlMessage(xhr.responseText);
+                                }
+                            }
+                             var formData =  button.isContained.items.items
+                                .map(element => encodeURIComponent(element.elementName) + '=' + encodeURIComponent(element.value))
+                                .join('&')
+                                .replace(/%20/g, '+');
+                            xhr.open("POST", "factfinder/testFtpConnection", true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.send(formData);
+                        }
+                    ]]>
+                </handler>
+            </options>
         </element>
         <element type="boolean">
             <name>ffAutomaticPushImport</name>

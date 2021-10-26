@@ -7,7 +7,6 @@
         <defaults autowire="true">
             <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$httpClient" type="service" id="http_client" />
-            <bind key="$logger" type="service" id="pluginlogger" />
         </defaults>
 
         <instanceof id="Symfony\Component\DependencyInjection\ContainerAwareInterface">
