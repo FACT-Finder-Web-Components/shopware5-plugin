@@ -29,7 +29,7 @@ class TestConnectionService
         $endpoint = sprintf('%s/rest/v4/search/%s', rtrim($url, '/'), $channel);
         $this->client->get($endpoint . '?' . http_build_query(['query' => $this->apiQuery]), [
             'Accept'        => 'application/json',
-            'Authorization' => $credentials,
+            'Authorization' => $credentials->__toString(),
         ]);
     }
 }
