@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults autowire="true">
+        <defaults autowire="true" public="true">
             <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$httpClient" type="service" id="http_client" />
         </defaults>
@@ -28,7 +28,6 @@
         <service id="OmikronFactfinder\Components\Configuration" />
         <service id="OmikronFactfinder\Components\Upload\Configuration" />
         <service id="OmikronFactfinder\Components\PushImport\Configuration" />
-        <service id="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
         <service id="OmikronFactfinder\Components\Data\Article\ArticleDetails" />
         <service id="OmikronFactfinder\Components\Data\Article\Entity\ExportArticle" />
         <service id="OmikronFactfinder\Components\Filter\TextFilter" />
@@ -38,6 +37,7 @@
         <service id="OmikronFactfinder\Components\Service\PushImportService" />
         <service id="OmikronFactfinder\Components\Service\TestConnectionService" />
         <service id="OmikronFactfinder\Components\Service\UploadService" />
+        <service id="OmikronFactfinder\Components\Data\DataProviderInterface" class="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
 
         <service id="OmikronFactfinder\Components\Filter\FilterInterface"
                  class="OmikronFactfinder\Components\Filter\TextFilter" />
