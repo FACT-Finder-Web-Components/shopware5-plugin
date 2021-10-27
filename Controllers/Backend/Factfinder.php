@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use OmikronFactfinder\Components\Configuration;
 use OmikronFactfinder\Components\Service\TestConnectionService;
+use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
 use Shopware\Components\CSRFWhitelistAware;
 use Shopware\Components\HttpClient\RequestException;
 
@@ -16,12 +17,21 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
 
     public function getWhitelistedCSRFActions(): array
     {
-        return ['testConnection'];
+        return ['testConnection', 'testFtpConnection'];
     }
 
     public function preDispatch()
     {
         $this->container->get('front')->Plugins()->ViewRenderer()->setNoRender();
+    }
+
+    public function testFtpConnectionAction()
+    {
+        /** @var \OmikronFactfinder\Components\Service\UploadService $uploadService */
+        $uploadService  = $this->container->get(\OmikronFactfinder\Components\Service\UploadService::class);
+        $params         = new FTPConfig($this->request->getParams());
+        $uploadService->testConnection($params);
+        $this->response->setBody('');
     }
 
     public function testConnectionAction()

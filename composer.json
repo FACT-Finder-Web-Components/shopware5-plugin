@@ -12,7 +12,8 @@
   "require": {
     "php": "^7.1",
     "ext-json": "*",
-    "composer/installers": "^1.8"
+    "composer/installers": "^1.8",
+    "league/flysystem-sftp": "1.0.22"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.18",

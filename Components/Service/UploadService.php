@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Service;
 
-use League\Flysystem\Filesystem;
 use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
 use Shopware\Components\Filesystem\FilesystemFactory;
 
@@ -24,10 +23,25 @@ class UploadService
 
     public function uploadFeed(string $path, string $contents): void
     {
-        /** @var Filesystem $fs */
-        $fs = $this->fsFactory->factory($this->config());
-        $fs->getConfig()->set('disable_asserts', true);
-        $fs->write($path, $contents);
+        if ($this->config()['type'] === 'sftp') {
+            $fs = new SftpService($this->ftpConfig);
+            $fs->write($path, $contents);
+        } else {
+            $fs = $this->fsFactory->factory($this->config());
+            $fs->getConfig()->set('disable_asserts', true);
+            $fs->write($path, $contents);
+        }
+    }
+
+    public function testConnection(FTPConfig $config): void
+    {
+        if ($this->config()['type'] === 'sftp') {
+            $fs = new SftpService($config);
+            $fs->write('test.txt', 'test');
+        } else {
+            $fs = $this->fsFactory->factory($this->config());
+            $fs->write('test.txt', 'test');
+        }
     }
 
     private function config()
@@ -39,7 +53,7 @@ class UploadService
                 'password' => $this->ftpConfig->getPassword(),
                 'ssl'      => true,
             ],
-            'type'   => 'ftp',
+            'type'   => $this->ftpConfig->getProtocol(),
         ];
     }
 }

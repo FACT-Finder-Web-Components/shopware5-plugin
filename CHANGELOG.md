@@ -8,6 +8,7 @@
  - Added Shopware5.7 compatibility
  - Added Cart tracking script using Web Components API
  - Added Checkout tracking using `ff-checkout-tracking` element
+ - Added SFTP upload
 
 ## [v1.0.5] - 2021.07.07
 ### Added
