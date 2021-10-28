@@ -35,25 +35,26 @@ class UploadService
 
     public function testConnection(FTPConfig $config): void
     {
-        if ($this->config()['type'] === 'sftp') {
+        if ($config->getProtocol() === 'sftp') {
             $fs = new SftpService($config);
-            $fs->write('test.txt', 'test');
+            $fs->write('testconnection', 'test');
         } else {
-            $fs = $this->fsFactory->factory($this->config());
-            $fs->write('test.txt', 'test');
+            $fs = $this->fsFactory->factory($this->config($config));
+            $fs->write('testconnection', 'test');
         }
     }
 
-    private function config()
+    private function config(FTPConfig $ftpConfig = null): array
     {
         return [
             'config' => [
-                'host'     => $this->ftpConfig->getUrl(),
-                'username' => $this->ftpConfig->getUserName(),
-                'password' => $this->ftpConfig->getPassword(),
+                'host'     => $ftpConfig ? $ftpConfig->getUrl() : $this->ftpConfig->getUrl(),
+                'username' => $ftpConfig ? $ftpConfig->getUserName() : $this->ftpConfig->getUserName(),
+                'password' => $ftpConfig ? $ftpConfig->getPassword() : $this->ftpConfig->getPassword(),
+                'port'     => $ftpConfig ? $ftpConfig->getPort() : $this->ftpConfig->getPort(),
                 'ssl'      => true,
             ],
-            'type'   => $this->ftpConfig->getProtocol(),
+            'type'   => $ftpConfig ? $ftpConfig->getProtocol() : $this->ftpConfig->getProtocol(),
         ];
     }
 }

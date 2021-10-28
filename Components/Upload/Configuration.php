@@ -36,12 +36,17 @@ class Configuration
 
     public function getPort(): int
     {
-        return $this->pluginConfig['ffFtpPort'] ? (int) $this->pluginConfig['ffFtpPort'] : 22;
-    }
+        $port = 21;
 
-    public function getAuthType(): string
-    {
-        return (string) $this->pluginConfig['ffFtpAuthType'];
+        if (!empty($this->pluginConfig['ffFtpPort'])) {
+            $port = (int) $this->pluginConfig['ffFtpPort'];
+        } else {
+            if ($this->getProtocol() === 'sftp') {
+                $port = 22;
+            }
+        }
+
+        return $port;
     }
 
     public function getPrivateKey(): string
@@ -51,6 +56,16 @@ class Configuration
 
     public function getRootDir(): string
     {
-        return !empty($this->pluginConfig['ffFtpRootDir']) ? DIRECTORY_SEPARATOR . $this->pluginConfig['ffFtpRootDir'] : DIRECTORY_SEPARATOR;
+        //TODO: because of empty input returns string with value "null" I have add this check
+        if ($this->pluginConfig['ffFtpRootDir'] === 'null') {
+            return DIRECTORY_SEPARATOR;
+        }
+
+        return DIRECTORY_SEPARATOR . $this->pluginConfig['ffFtpRootDir'];
+    }
+
+    public function getKeyPassphrase(): string
+    {
+        return $this->pluginConfig['ffFtpKeyPassphrase'] ?? '';
     }
 }

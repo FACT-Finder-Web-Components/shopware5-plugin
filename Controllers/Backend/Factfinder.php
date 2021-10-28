@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use OmikronFactfinder\Components\Configuration;
 use OmikronFactfinder\Components\Service\TestConnectionService;
+use OmikronFactfinder\Components\Service\UploadService;
 use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
 use Shopware\Components\CSRFWhitelistAware;
 use Shopware\Components\HttpClient\RequestException;
@@ -27,11 +28,19 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
 
     public function testFtpConnectionAction()
     {
-        /** @var \OmikronFactfinder\Components\Service\UploadService $uploadService */
-        $uploadService  = $this->container->get(\OmikronFactfinder\Components\Service\UploadService::class);
+        $message        = $this->__('connectionEstablished');
+
+        /** @var UploadService $uploadService */
+        $uploadService  = $this->container->get(UploadService::class);
         $params         = new FTPConfig($this->request->getParams());
-        $uploadService->testConnection($params);
-        $this->response->setBody('');
+
+        try {
+            $uploadService->testConnection($params);
+        } catch (Exception $exception) {
+            $message        = $exception->getMessage();
+        }
+
+        $this->response->setBody($message);
     }
 
     public function testConnectionAction()

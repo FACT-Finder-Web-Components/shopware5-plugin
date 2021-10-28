@@ -114,21 +114,10 @@
             <label>Root dir</label>
             <label lang="de">Root dir</label>
         </element>
-        <element type="select" scope="shop">
-            <name>ffFtpAuthType</name>
-            <label>Authentication type</label>
-            <label lang="de">Authentifizierungsart</label>
-            <value>password</value>
-            <store>
-                <option>
-                    <value>password</value>
-                    <label>Password</label>
-                </option>
-                <option>
-                    <value>key</value>
-                    <label>SSH Key</label>
-                </option>
-            </store>
+        <element type="text" scope="shop">
+            <name>ffFtpPort</name>
+            <label>FTP port</label>
+            <label lang="de">FTP port</label>
         </element>
         <element type="password">
             <name>ffFtpPassword</name>
@@ -139,6 +128,11 @@
             <name>ffFtpKeyFile</name>
             <label>File content</label>
             <label lang="de">Dateiinhalt</label>
+        </element>
+        <element type="password">
+            <name>ffFtpKeyPassphrase</name>
+            <label>Key passphrase</label>
+            <label lang="de">Key passphrase</label>
         </element>
         <element type="button">
             <name>ffTestFtpconnection</name>

@@ -81,8 +81,13 @@ Following settings are used for uploading already exported feed to a given FTP o
 * FTP user
 * FTP Root dir   
   **Note:** Directory to upload (by default - "/")
-* FTP Authentication type
-* FTP password / SSH private key (depends on authentication type)
+* FTP port 
+* FTP password 
+* Private key
+* Private key passphrase
+
+![Module Enabled](docs/assets/ftp-settings.png "Module enabled")
+
 
 ### Import options
 You can configure the module to trigger FACT-Finder® import after the feed is uploaded to the configured FTP server. 
