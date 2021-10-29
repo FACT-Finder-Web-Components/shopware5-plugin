@@ -73,13 +73,21 @@ Once the user lands on a category page, a search event is immediately emitted (t
 parameter usage) with the corresponding category filter applied.
 
 ### Upload Options
-Following settings are used for uploading already exported feed to a given FTP server.
+Following settings are used for uploading already exported feed to a given FTP or SFTP server.
 **Note:** FTP server should be configured to listen on default port 21
 
 * FTP host  
   **Note:** Please enter the host only, without the used protocol
 * FTP user
-* FTP password
+* FTP Root dir   
+  **Note:** Directory to upload (by default - "/")
+* FTP port 
+* FTP password 
+* Private key
+* Private key passphrase
+
+![FTP Settings](docs/assets/ftp-settings.png "FTP Settings")
+
 
 ### Import options
 You can configure the module to trigger FACT-Finder® import after the feed is uploaded to the configured FTP server. 

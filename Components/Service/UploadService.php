@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Service;
 
-use League\Flysystem\Filesystem;
 use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
 use Shopware\Components\Filesystem\FilesystemFactory;
 
@@ -24,22 +23,38 @@ class UploadService
 
     public function uploadFeed(string $path, string $contents): void
     {
-        /** @var Filesystem $fs */
-        $fs = $this->fsFactory->factory($this->config());
-        $fs->getConfig()->set('disable_asserts', true);
-        $fs->write($path, $contents);
+        if ($this->config()['type'] === 'sftp') {
+            $fs = new SftpService($this->ftpConfig);
+            $fs->write($path, $contents);
+        } else {
+            $fs = $this->fsFactory->factory($this->config());
+            $fs->getConfig()->set('disable_asserts', true);
+            $fs->write($path, $contents);
+        }
     }
 
-    private function config()
+    public function testConnection(FTPConfig $config): void
+    {
+        if ($config->getProtocol() === 'sftp') {
+            $fs = new SftpService($config);
+            $fs->write('testconnection', 'test');
+        } else {
+            $fs = $this->fsFactory->factory($this->config($config));
+            $fs->write('testconnection', 'test');
+        }
+    }
+
+    private function config(FTPConfig $ftpConfig = null): array
     {
         return [
             'config' => [
-                'host'     => $this->ftpConfig->getUrl(),
-                'username' => $this->ftpConfig->getUserName(),
-                'password' => $this->ftpConfig->getPassword(),
+                'host'     => $ftpConfig ? $ftpConfig->getUrl() : $this->ftpConfig->getUrl(),
+                'username' => $ftpConfig ? $ftpConfig->getUserName() : $this->ftpConfig->getUserName(),
+                'password' => $ftpConfig ? $ftpConfig->getPassword() : $this->ftpConfig->getPassword(),
+                'port'     => $ftpConfig ? $ftpConfig->getPort() : $this->ftpConfig->getPort(),
                 'ssl'      => true,
             ],
-            'type'   => 'ftp',
+            'type'   => $ftpConfig ? $ftpConfig->getProtocol() : $this->ftpConfig->getProtocol(),
         ];
     }
 }
