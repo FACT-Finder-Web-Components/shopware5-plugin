@@ -86,7 +86,7 @@ Following settings are used for uploading already exported feed to a given FTP o
 * Private key
 * Private key passphrase
 
-![Module Enabled](docs/assets/ftp-settings.png "Module enabled")
+![FTP Settings](docs/assets/ftp-settings.png "FTP Settings")
 
 
 ### Import options
