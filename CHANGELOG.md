@@ -1,6 +1,9 @@
 # Changelog
-## [v2.0.0] - 2021.10.29
+## [v2.0.1] - 2021.12.10
+### Changed
+- Upgrade Web Components to version 4.0.5
 
+## [v2.0.0] - 2021.10.29
 ### Breaking
  - Removed Service\TrackingService.php and Subscriber\Tracking as they are no longer necessary once tracking is handled by Web Components
 
@@ -57,6 +60,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v2.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.1
 [v2.0.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.0
 [v1.0.5]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.5
 [v1.0.4]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v1.0.4
