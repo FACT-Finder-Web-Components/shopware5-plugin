@@ -28,7 +28,9 @@
         <service id="OmikronFactfinder\Components\Configuration" />
         <service id="OmikronFactfinder\Components\Upload\Configuration" />
         <service id="OmikronFactfinder\Components\PushImport\Configuration" />
-        <service id="OmikronFactfinder\Components\Data\Article\ArticleDetails" />
+        <service id="OmikronFactfinder\Components\Data\Article\ArticleDetails">
+            <argument type="service" id="article_resource"/>
+        </service>
         <service id="OmikronFactfinder\Components\Data\Article\Entity\ExportArticle" />
         <service id="OmikronFactfinder\Components\Filter\TextFilter" />
         <service id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />
