@@ -30,6 +30,7 @@
             <parameter key="trackingProductNumber">ProductNumber</parameter>
         </parameter>
 
+        <parameter key="factfinder.export.batchSize" type="string">100</parameter>
         <parameter key="factfinder.export.delimiter" type="string">;</parameter>
 
         <parameter key="factfinder.export.thumbnail_size" type="string">600x600</parameter>
