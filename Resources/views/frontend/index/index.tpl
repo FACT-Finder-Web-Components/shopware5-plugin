@@ -10,6 +10,6 @@
   {$smarty.block.parent}
 
   {block name='frontend_factfinder_communication'}
-    {action module=frontend controller=factfinder action=communication searchImmediate=$searchImmediate addParams=$ffAddParams}
+    {action module=frontend controller=factfinder action=communication searchImmediate=$searchImmediate addParams=$ffAddParams categoryPage=$ffCategoryPage}
   {/block}
 {/block}

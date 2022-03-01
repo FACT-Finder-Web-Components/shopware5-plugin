@@ -8,6 +8,7 @@
                   {if $uid}user-id="{$uid}"{/if}
                   use-url-parameters="true"
                   only-search-params="true"
+                  {if $categoryPage}category-page="{$categoryPage}"{/if}
                   disable-single-hit-redirect="true"
                   currency-fields="{$currencyFields}"
                   currency-code="{0|currency:use_shortname:left|substr:0:3}"
