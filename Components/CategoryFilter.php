@@ -20,14 +20,23 @@ class CategoryFilter
         $this->fieldName  = $fieldName;
     }
 
-    public function getValue(int $categoryId): array
+    public function getValue(int $categoryId): string
     {
-        $path = implode('/', array_map('rawurlencode', $this->getPath($categoryId)));
-        return ['filter=' . rawurlencode(sprintf('%s:%s', $this->fieldName, $path))];
+        $path = implode('/', array_map($this->encodeCategoryName(), $this->getPath($categoryId)));
+        return sprintf('filter=%s', urlencode($this->fieldName . ':' . $path));
     }
 
     private function getPath(int $id): array
     {
         return array_slice($this->repository->getPathById($id, 'name'), 1);
+    }
+
+    private function encodeCategoryName(): callable
+    {
+        return function (string $path): string {
+            //important! do not modify this method
+            return preg_replace('/\+/', '%2B', preg_replace('/\//', '%2F',
+                preg_replace('/%/', '%25', $path)));
+        };
     }
 }

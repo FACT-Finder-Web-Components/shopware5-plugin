@@ -12,6 +12,7 @@ class Shopware_Controllers_Frontend_Factfinder extends \Enlight_Controller_Actio
     {
         $view = $this->View();
         $view->assign('addParams', $this->Request()->getParam('addParams', ''));
+        $view->assign('categoryPage', $this->Request()->getParam('categoryPage', ''));
         $view->assign('searchImmediate', $this->Request()->getParam('searchImmediate', false));
         $view->assign('uid', (int) $this->get('session')->get('sUserId'));
     }

@@ -23,10 +23,9 @@ class CategoryFilterTest extends TestCase
 
     public function test_calculates_the_category_filter()
     {
-        $this->repository->method('getPathById')->willReturn(['ROOT', 'Ausrüstung', 'Bücher & Karten']);
-        $path = implode('/', array_map('rawurlencode', ['Ausrüstung', 'Bücher & Karten']));
+        $this->repository->method('getPathById')->willReturn(['ROOT', 'Ausrüstung100%', 'Bücher / Karten']);
 
         $categoryPath = new CategoryFilter($this->repository, 'Category');
-        $this->assertSame($categoryPath->getValue(42), ['filter=' . rawurlencode('Category:' . $path)]);
+        $this->assertSame($categoryPath->getValue(42), ['filter=Category:Ausr%C3%BCstung100%2525%2FB%C3%BCcher+%252F+Karten']);
     }
 }
