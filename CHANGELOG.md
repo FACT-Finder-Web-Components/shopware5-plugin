@@ -1,13 +1,13 @@
 # Changelog
-## [v3.0.0] - UNRELEASED 
+## [v3.0.0-rc.1] - 01.03.2022 
 ### Breaking
- - constructor changes
+ - constructors
   **Note**: The following changes apply to class constructors, if you have not overridden these classes you can ignore this part
     - `OmikronFactfinder\Components\Data\Article\Fields\CategoryPath`
     - `OmikronFactfinder\Components\Service\TranslationService`
     - `OmikronFactfinder\Components\Data\Article\ArticleDetails`
 
-- public method signature changes
+- public method signatures
  - `Components/CategoryFilter::getValue` now returns string instead of array 
  
  - dependency injection
@@ -98,6 +98,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.0.0-rc.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.0-rc.1
 [v2.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.2
 [v2.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.1
 [v2.0.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.0
