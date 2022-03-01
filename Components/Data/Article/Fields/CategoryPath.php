@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Components\Data\Article\Fields;
 
 use OmikronFactfinder\Components\Service\TranslationService;
+use Shopware\Bundle\StoreFrontBundle\Service\ContextServiceInterface;
 use Shopware\Models\Article\Detail;
 use Shopware\Models\Category\Category;
 
@@ -16,9 +17,16 @@ class CategoryPath implements FieldInterface
     /** @var TranslationService */
     private $translationService;
 
-    public function __construct(TranslationService $translationService, string $fieldName = 'CategoryPath')
-    {
+    /** @var ContextServiceInterface */
+    private $contextService;
+
+    public function __construct(
+        TranslationService $translationService,
+        ContextServiceInterface $contextService,
+        string $fieldName = 'CategoryPath'
+    ) {
         $this->fieldName          = $fieldName;
+        $this->contextService     = $contextService;
         $this->translationService = $translationService;
     }
 
@@ -29,11 +37,20 @@ class CategoryPath implements FieldInterface
 
     public function getValue(Detail $detail): string
     {
-        $article      = $detail->getArticle();
-        $categoryName = $this->categoryName($article->getAllCategories());
-        return implode('|', $article->getCategories()->map(function (Category $category) use ($categoryName) {
-            return implode('/', array_map($categoryName, $this->getPath($category)));
-        })->toArray());
+        $article        = $detail->getArticle();
+        $categoryName   = $this->categoryName($article->getAllCategories());
+        $rootCategoryId = $this->contextService->getShopContext()->getShop()->getCategory()->getId();
+
+        return implode(
+            '|',
+            $article->getCategories()
+                    ->filter(function (Category $category) use ($rootCategoryId) {
+                        return (bool) strstr($category->getPath(), "|$rootCategoryId|");
+                    })
+                    ->map(function (Category $category) use ($categoryName) {
+                        return implode('/', array_map($categoryName, $this->getPath($category)));
+                    })->toArray()
+        );
     }
 
     private function categoryName(array $allCategories): callable

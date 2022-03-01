@@ -7,6 +7,7 @@
         <defaults autowire="true" public="true">
             <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$httpClient" type="service" id="http_client" />
+            <bind key="$batchSize">%factfinder.export.batchSize%</bind>
         </defaults>
 
         <instanceof id="Symfony\Component\DependencyInjection\ContainerAwareInterface">
@@ -21,14 +22,19 @@
         </service>
 
         <service id="OmikronFactfinder\Components\Service\TranslationService">
-            <argument type="service" id="shopware_storefront.context_service" />
             <argument type="service" id="translation" />
+            <argument type="service" id="dbal_connection"/>
         </service>
 
         <service id="OmikronFactfinder\Components\Configuration" />
         <service id="OmikronFactfinder\Components\Upload\Configuration" />
         <service id="OmikronFactfinder\Components\PushImport\Configuration" />
-        <service id="OmikronFactfinder\Components\Data\Article\ArticleDetails" />
+        <service id="OmikronFactfinder\Components\Data\Article\ArticleDetails">
+            <argument type="service" id="shopware.api.article"/>
+            <argument type="service" id="shopware_storefront.context_service" />
+            <argument type="service" id="dbal_connection"/>
+            <argument type="service" id="OmikronFactfinder\Components\Service\TranslationService" />
+        </service>
         <service id="OmikronFactfinder\Components\Data\Article\Entity\ExportArticle" />
         <service id="OmikronFactfinder\Components\Filter\TextFilter" />
         <service id="OmikronFactfinder\Components\Filter\ExtendedTextFilter" />

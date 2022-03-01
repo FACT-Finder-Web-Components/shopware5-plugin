@@ -4,76 +4,126 @@ declare(strict_types=1);
 
 namespace OmikronFactfinder\Components\Service;
 
-use Shopware\Bundle\StoreFrontBundle\Service\ContextServiceInterface;
+use Doctrine\DBAL\Connection;
+use PDO;
 use Shopware_Components_Translation as TranslationComponent;
 
 class TranslationService
 {
-    private const ARTICLE_TRANSLATION         = 'article';
-    private const CATEGORY_TRANSLATION        = 'category';
-    private const PROPERTY_GROUP_TRANSLATION  = 'propertygroup';
-    private const PROPERTY_OPTION_TRANSLATION = 'propertyoption';
-    private const PROPERTY_VALUE_TRANSLATION  = 'propertyvalue';
-
-    /** @var ContextServiceInterface */
-    private $contextService;
+    private const ARTICLE            = 'article';
+    private const CATEGORY           = 'category';
+    private const PROPERTY_GROUP     = 'propertygroup';
+    private const PROPERTY_OPTION    = 'propertyoption';
+    private const PROPERTY_VALUE     = 'propertyvalue';
+    private const CONFIGURATOR_GROUP = 'configuratorgroup';
+    private const CONFIGURTOR_OPTION = 'configuratoroption';
 
     /** @var TranslationComponent */
     private $translationComponent;
 
+    /** @var Connection */
+    private $dbalConnection;
+
     /** @var array */
     private $translationsInMemory = [
-        self::ARTICLE_TRANSLATION         => [],
-        self::CATEGORY_TRANSLATION        => [],
-        self::PROPERTY_GROUP_TRANSLATION  => [],
-        self::PROPERTY_OPTION_TRANSLATION => [],
-        self::PROPERTY_VALUE_TRANSLATION  => [],
+        self::ARTICLE            => [],
+        self::CATEGORY           => [],
+        self::PROPERTY_GROUP     => [],
+        self::PROPERTY_OPTION    => [],
+        self::PROPERTY_VALUE     => [],
+        self::CONFIGURATOR_GROUP => [],
+        self::CONFIGURTOR_OPTION => [],
     ];
 
-    public function __construct(ContextServiceInterface $contextService, TranslationComponent $translationComponent)
+    public function __construct(TranslationComponent $translationComponent, Connection $dbalConnection)
     {
         $this->translationComponent = $translationComponent;
-        $this->contextService       = $contextService;
+        $this->dbalConnection       = $dbalConnection;
     }
 
     public function getArticleTranslation(int $articleId): array
     {
-        return $this->get($articleId, self::ARTICLE_TRANSLATION);
+        return $this->get($articleId, self::ARTICLE);
     }
 
-    public function getPropertyTranslation(int $groupId): array
+    /** @deprecated  property groups are not exported  */
+    public function getPropertyGroupTranslation(int $groupId): array
     {
-        return $this->get($groupId, self::PROPERTY_GROUP_TRANSLATION);
+        return $this->get($groupId, self::PROPERTY_GROUP);
     }
 
     public function getPropertyOptionTranslation(int $optionId): array
     {
-        return $this->get($optionId, self::PROPERTY_OPTION_TRANSLATION);
+        return $this->get($optionId, self::PROPERTY_OPTION);
     }
 
     public function getPropertyValueTranslation(int $valueId): array
     {
-        return $this->get($valueId, self::PROPERTY_VALUE_TRANSLATION);
+        return $this->get($valueId, self::PROPERTY_VALUE);
+    }
+
+    public function getConfiguratorGroupTranslation(int $groupId): array
+    {
+        return $this->get($groupId, self::CONFIGURATOR_GROUP);
+    }
+
+    public function getConfiguratorOptionTranslation(int $optionId): array
+    {
+        return $this->get($optionId, self::CONFIGURTOR_OPTION);
     }
 
     public function getCategoryTranslation(int $categoryId): array
     {
-        return $this->get($categoryId, self::CATEGORY_TRANSLATION);
+        return $this->get($categoryId, self::CATEGORY);
     }
 
-    private function getShopId(): int
+    public function loadProductTranslations(int $shopId, array $productIds): void
     {
-        return (int) $this->contextService->getShopContext()->getShop()->getId();
+        $this->addToCache($this->translationComponent->readBatch($shopId, self::ARTICLE, $productIds));
+    }
+
+    public function loadCategoriesTranslations(int $shopId, array $productIds): void
+    {
+        $categoryIds = $this->dbalConnection
+            ->createQueryBuilder()
+            ->select(['articleCategories.categoryID'])
+            ->from('s_articles_categories_ro', 'articleCategories')
+            ->where('article')
+            ->where('articleCategories.articleID IN (:ids)')
+            ->setParameter(':ids', $productIds, Connection::PARAM_INT_ARRAY)
+            ->execute()
+            ->fetchAll(PDO::FETCH_COLUMN);
+
+        $this->addToCache($this->translationComponent->readBatch($shopId, self::CATEGORY, $categoryIds));
+    }
+
+    public function loadPropertiesTranslations(int $shopId): void
+    {
+        $translationData = $this->dbalConnection
+            ->createQueryBuilder()
+            ->select(['objectdata, objectlanguage, objecttype, objectkey'])
+            ->from('s_core_translations', 't')
+            ->andWhere('t.objectlanguage = :objectLanguage')
+            ->setParameter('objectLanguage', $shopId)
+            ->andWhere('t.objecttype IN (:objectType)')
+            ->setParameter('objectType', ['propertygroup', 'propertyoption', 'propertyvalue', 'configuratorgroup', 'configuratoroption'], Connection::PARAM_STR_ARRAY)
+            ->execute()
+            ->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->addToCache($translationData, function (array $translation) {
+            return $this->translationComponent->unFilterData($translation['objecttype'], $translation['objectdata']);
+        });
     }
 
     private function get(int $id, string $type): array
     {
-        if (!isset($this->translationsInMemory[$type][$id])) {
-            $translations = $this->translationComponent->read($this->getShopId(), $type, $id);
+        return $this->translationsInMemory[$type][$id] ?? [];
+    }
 
-            $this->translationsInMemory[$type][$id] = (array) $translations;
+    private function addToCache(array $translations, callable $callback = null)
+    {
+        foreach ($translations as $translation) {
+            $this->translationsInMemory[$translation['objecttype']][$translation['objectkey']] = (array) $callback ? $callback($translation) : $translation['objectdata'];
         }
-
-        return $this->translationsInMemory[$type][$id];
     }
 }
