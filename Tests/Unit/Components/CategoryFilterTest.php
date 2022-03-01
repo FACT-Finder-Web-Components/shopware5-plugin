@@ -26,6 +26,6 @@ class CategoryFilterTest extends TestCase
         $this->repository->method('getPathById')->willReturn(['ROOT', 'Ausrüstung100%', 'Bücher / Karten']);
 
         $categoryPath = new CategoryFilter($this->repository, 'Category');
-        $this->assertSame($categoryPath->getValue(42), ['filter=Category:Ausr%C3%BCstung100%2525%2FB%C3%BCcher+%252F+Karten']);
+        $this->assertSame($categoryPath->getValue(42), ['filter=Category%3AAusr%C3%BCstung100%2525%2FB%C3%BCcher+%252F+Karten']);
     }
 }
