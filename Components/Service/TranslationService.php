@@ -87,7 +87,7 @@ class TranslationService
         $categoryIds = $this->dbalConnection
             ->createQueryBuilder()
             ->select(['articleCategories.categoryID'])
-            ->from('s_articles_categories', 'articleCategories')
+            ->from('s_articles_categories_ro', 'articleCategories')
             ->where('article')
             ->where('articleCategories.articleID IN (:ids)')
             ->setParameter(':ids', $productIds, Connection::PARAM_INT_ARRAY)
