@@ -1,8 +1,18 @@
 # Changelog
-## Unreleased
+## [v3.0.0] - 04.03.2022 
 ### Breaking
-   - public method removal
-    - `OmikronFactfinder\Components\Service\TranslationService::getPropertyGroupTranslation`
+ - public method removal
+  - `OmikronFactfinder\Components\Service\TranslationService::getPropertyGroupTranslation`
+            
+ - drop PHP7.1 and 7.2 support
+
+### Deprecations
+  Shopware5.5 support will be dropped in the next major release
+  - `BackwardCompatibility/BackwardCompatibilityCompilerPass`
+  - `BackwardCompatibility/ArticleResource`
+  - `OmikronFactfinder\BackwardCompatibility\ShopRegistrationServiceInterface`
+  - `OmikronFactfinder\BackwardCompatibility\ShopRegistrationService`
+     
 ### Add
  - add support for variants free text fields translations
 
@@ -108,6 +118,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.0.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.0
 [v3.0.0-rc.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.0-rc.1
 [v2.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.2
 [v2.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.1

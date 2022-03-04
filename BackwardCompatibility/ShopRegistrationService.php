@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Shopware\Components;
 
+/**
+ * @deprecated 5.5 backward compatibility will be removed in next major version
+ */
 interface ShopRegistrationServiceInterface
 {
 }
@@ -16,6 +19,9 @@ use Shopware\Models\Shop\Shop;
 use Shopware\Models\Shop\Template;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @deprecated 5.5 backward compatibility will be removed in next major version
+ */
 class ShopRegistrationService implements ShopRegistrationServiceInterface
 {
     /**

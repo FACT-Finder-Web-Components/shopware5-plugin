@@ -10,6 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @deprecated 5.5 backward compatibility will be removed in next major version
+ */
 class BackwardCompatibilityCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

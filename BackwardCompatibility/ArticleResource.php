@@ -8,6 +8,9 @@ use Shopware\Components\Api\Resource\Article;
 use Shopware\Components\Model\QueryBuilder;
 use Shopware\Models\Shop\Shop;
 
+/**
+ * @deprecated 5.5 backward compatibility will be removed in next major version
+ */
 class ArticleResource extends Article
 {
     public function getList($offset = 0, $limit = 25, array $criteria = [], array $orderBy = [], array $options = [])

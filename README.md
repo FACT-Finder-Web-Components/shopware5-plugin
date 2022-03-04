@@ -29,7 +29,7 @@ process. The second chapter *Settings* explains the customisation options in the
 
 ## Requirements
 - Shopware 5.5 or higher
-- PHP version 7.1 or higher
+- PHP version 7.3 or higher
 
 
 ## Installation
