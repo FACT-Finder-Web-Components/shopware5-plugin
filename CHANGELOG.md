@@ -1,37 +1,47 @@
 # Changelog
-## [v3.0.0-rc.1] - 01.03.2022 
+## Unreleased
 ### Breaking
+   - public method removal
+    - `OmikronFactfinder\Components\Service\TranslationService::getPropertyGroupTranslation`
+### Add
+ - add support for variants free text fields translations
+
+### Fix
+ - fix `OmikronFactfinder\Components\Data\Article\Fields\ArticleAttribute` could throw an error if `$detail->getAttribute()` returns null
+
+## [v3.0.0-rc.1] - 01.03.2022 
+### BREAKING
  - constructors
-  **Note**: The following changes apply to class constructors, if you have not overridden these classes you can ignore this part
+  **Note**: if you not override these classes in any way you can ignore this part
     - `OmikronFactfinder\Components\Data\Article\Fields\CategoryPath`
     - `OmikronFactfinder\Components\Service\TranslationService`
     - `OmikronFactfinder\Components\Data\Article\ArticleDetails`
 
 - public method signatures
- - `Components/CategoryFilter::getValue` now returns string instead of array 
+  - `Components/CategoryFilter::getValue` now returns string instead of array 
  
  - dependency injection
- **Note**: Following changes apply to the configuration files. They might cause problems after upgrade, if you use redefine these services from within your application level  
- - components.xml
-    - bind $batchSize argument to parameter `factfinder.export.batchSize` defined in parameters.xml
-    - adjust `OmikronFactfinder\Components\Service\TranslationService` according to constructor change
-    - adjust `OmikronFactfinder\Components\Data\Article\ArticleDetails` according to constructor change
-    - adjust `OmikronFactfinder\Components\Service\TranslationService` according to constructor change
- - export_fields.xml
-  - explicitly define `OmikronFactfinder\Components\Data\Article\SingleFields` arguments
-  - explicitly define `OmikronFactfinder\Components\Data\Article\CategoryPath` arguments   
+ **Note**: Following changes apply to the configuration files. They might cause problems after upgrade, if you redefine these services from within your application level. This is also implied by changes to the constructors above
+   - components.xml
+     - bind $batchSize argument to parameter `factfinder.export.batchSize` defined in parameters.xml
+     - adjust `OmikronFactfinder\Components\Service\TranslationService` according to the constructor change
+     - adjust `OmikronFactfinder\Components\Data\Article\ArticleDetails` according to the constructor change
+     - adjust `OmikronFactfinder\Components\Service\TranslationService` according to the constructor change
+    - export_fields.xml
+      - explicitly define `OmikronFactfinder\Components\Data\Article\SingleFields` arguments
+      - explicitly define `OmikronFactfinder\Components\Data\Article\CategoryPath` arguments   
 
 ## Add
- - Implement `ff-communication/category-page` attribute
+ - implement `ff-communication/category-page` attribute
  
 ## Change
- - Upgrade Web Components to version 4.0.8
+ - upgrade Web Components to version [4.0.8](https://github.com/FACT-Finder-Web-Components/ff-web-components/releases/tag/4.0.8)
  - remove `navigation=true` and `filter=CategoryPath` from `ff-communication/add-params`. From now filtering by category is done by `ff-communication/category-page`
 
 ### Fix
- - fix CategoryPath provider does not exclude categories that not originate from selected language shop root category
- - fix FilterAttributes provider does not correctly translate configurator groups and configurator options
- - fix export does not exclude products that are not assigned to any category that originates from selected language shop root category
+ - fix `Components/Data/Article/Fields/FilterAttributes` does not exclude categories that not originate from selected language shop root category
+ - fix `OmikronFactfinder\Components\Service\TranslationService` does not correctly translate configurator groups and configurator options
+ - fix `Components/Data/Article/ArticleDetails` does not exclude products that are not assigned to any category that originates from selected language shop root category
  
 ## [v2.0.2] - 2022.01.11
 ### Changed

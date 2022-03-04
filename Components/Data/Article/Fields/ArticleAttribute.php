@@ -50,11 +50,17 @@ class ArticleAttribute implements FieldInterface
     public function getValue(Detail $detail): string
     {
         $attributeObj = $detail->getAttribute();
-        $translation  = $this->translationService->getArticleTranslation($detail->getId());
-        $snippets     = $this->snippetManager->getNamespace('backend/omikron/factfinder');
+        if (!$attributeObj) {
+            return '';
+        }
 
-        $getter = 'get' . ucfirst($this->attributeConfig->getColumnName());
-        $value  = $translation['__attribute_' . $this->attributeConfig->getColumnName()] ?:
+        $translation  = $this->isMainVariant($detail)
+            ? $this->translationService->getArticleTranslation($detail->getArticleId())
+            : $this->translationService->getVariantTranslation($detail->getId());
+
+        $snippets = $this->snippetManager->getNamespace('backend/omikron/factfinder');
+        $getter   = 'get' . ucfirst($this->attributeConfig->getColumnName());
+        $value    = $translation['__attribute_' . $this->attributeConfig->getColumnName()] ?:
             (method_exists($attributeObj, $getter) ? $attributeObj->{$getter}() : '');
 
         switch ($this->attributeConfig->getColumnType()) {
@@ -67,5 +73,10 @@ class ArticleAttribute implements FieldInterface
             default:
                 return (string) $value;
         }
+    }
+
+    private function isMainVariant(Detail $detail): bool
+    {
+        return $detail->getId() === $detail->getArticle()->getMainDetail()->getId();
     }
 }
