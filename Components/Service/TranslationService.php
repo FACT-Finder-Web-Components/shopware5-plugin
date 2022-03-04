@@ -11,6 +11,7 @@ use Shopware_Components_Translation as TranslationComponent;
 class TranslationService
 {
     private const ARTICLE            = 'article';
+    private const VARIANT            = 'variant';
     private const CATEGORY           = 'category';
     private const PROPERTY_GROUP     = 'propertygroup';
     private const PROPERTY_OPTION    = 'propertyoption';
@@ -27,6 +28,7 @@ class TranslationService
     /** @var array */
     private $translationsInMemory = [
         self::ARTICLE            => [],
+        self::VARIANT            => [],
         self::CATEGORY           => [],
         self::PROPERTY_GROUP     => [],
         self::PROPERTY_OPTION    => [],
@@ -46,10 +48,9 @@ class TranslationService
         return $this->get($articleId, self::ARTICLE);
     }
 
-    /** @deprecated  property groups are not exported  */
-    public function getPropertyGroupTranslation(int $groupId): array
+    public function getVariantTranslation(int $articleId): array
     {
-        return $this->get($groupId, self::PROPERTY_GROUP);
+        return $this->get($articleId, self::VARIANT);
     }
 
     public function getPropertyOptionTranslation(int $optionId): array
@@ -82,13 +83,26 @@ class TranslationService
         $this->addToCache($this->translationComponent->readBatch($shopId, self::ARTICLE, $productIds));
     }
 
+    public function loadVariantsTranslations(int $shopId, array $productIds)
+    {
+        $variantIds = $this->dbalConnection
+            ->createQueryBuilder()
+            ->select(['articleDetails.id'])
+            ->from('s_articles_details', 'articleDetails')
+            ->where('articleDetails.articleID IN (:ids)')
+            ->setParameter(':ids', $productIds, Connection::PARAM_INT_ARRAY)
+            ->execute()
+            ->fetchAll(PDO::FETCH_COLUMN);
+
+        $this->addToCache($this->translationComponent->readBatch($shopId, self::VARIANT, $variantIds));
+    }
+
     public function loadCategoriesTranslations(int $shopId, array $productIds): void
     {
         $categoryIds = $this->dbalConnection
             ->createQueryBuilder()
             ->select(['articleCategories.categoryID'])
             ->from('s_articles_categories_ro', 'articleCategories')
-            ->where('article')
             ->where('articleCategories.articleID IN (:ids)')
             ->setParameter(':ids', $productIds, Connection::PARAM_INT_ARRAY)
             ->execute()
