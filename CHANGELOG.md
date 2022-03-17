@@ -68,6 +68,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v2.0.3]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.3
 [v2.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.2
 [v2.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.1
 [v2.0.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v2.0.0
