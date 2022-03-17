@@ -4,7 +4,6 @@
                   {if {config name=ffVersion} eq 'ng'}api="v4"{/if}
                   {if $addParams}add-params="{$addParams|escape:'html'}"{/if}
                   {if $searchImmediate}search-immediate="true"{/if}
-                  sid="{$sid|md5|truncate:30:''}"
                   {if $uid}user-id="{$uid}"{/if}
                   use-url-parameters="true"
                   only-search-params="true"
