@@ -1,4 +1,8 @@
 # Changelog
+## [v3.0.1] - 13.03.2022
+### Fix
+ - fix `sid` attribute is defined in `ff-communication template` causing it to be generated always with same value
+  
 ## [v3.0.0] - 04.03.2022 
 ### Breaking
  - public method removal
