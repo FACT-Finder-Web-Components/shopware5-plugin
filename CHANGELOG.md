@@ -1,4 +1,15 @@
 # Changelog
+## [Unreleased]
+### Fix
+ - Searchbox
+  - searchbox does not appear after clicking on magnifier icon
+  
+### Change
+ - `jquery.search.js` plugin
+  - override `onKeyUp` to prevent sending redundant native suggest calls using `ajax_search` controller
+ -`Resources/views/frontend/index/index.tpl`
+  - restore adding `data-search` in `frontend_index_shop_navigation` block. Lack of this directive disabled the searchbox show/hide functionality in mobile
+
 ## [v3.0.1] - 13.03.2022
 ### Fix
  - fix `sid` attribute is defined in `ff-communication template` causing it to be generated always with same value
