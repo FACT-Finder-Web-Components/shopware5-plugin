@@ -3,6 +3,10 @@
 {block name='frontend_factfinder_asn'}
   <ff-asn class="filter--facet-container" unresolved>
     {block name='frontend_factfinder_asn_group'}
+      {if $isNavigationPage}
+          <ff-asn-group for-group="{$categoryPathFieldName}ROOT" style="display:none" class="hidden-group" disable-auto-expand>
+          </ff-asn-group>
+      {/if}
       <ff-asn-group class="filter-panel filter--multi-selection" disable-auto-expand>
         <div slot="groupCaption" class="filter-panel--title">
           {'{{group.name}}'}

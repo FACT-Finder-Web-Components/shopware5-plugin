@@ -9,7 +9,9 @@
   - override `onKeyUp` to prevent sending redundant native suggest calls using `ajax_search` controller
  -`Resources/views/frontend/index/index.tpl`
   - restore adding `data-search` in `frontend_index_shop_navigation` block. Lack of this directive disabled the searchbox show/hide functionality in mobile
-
+ - Category Page
+  - hide ff-asn-group for Category Path. User should use main navigation instead to correctly update the web components navigation mode state  
+  
 ## [v3.0.1] - 13.03.2022
 ### Fix
  - fix `sid` attribute is defined in `ff-communication template` causing it to be generated always with same value
