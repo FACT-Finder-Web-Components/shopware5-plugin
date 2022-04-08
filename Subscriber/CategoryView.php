@@ -39,7 +39,11 @@ class CategoryView implements SubscriberInterface
 
             if ($id) {
                 $view->extendsTemplate('frontend/factfinder/category.tpl');
-                $view->assign('ffCategoryPath', $this->categoryPath->getValue($id));
+                $categoryPath = $this->categoryPath->getValue($id);
+                $view->assign('ffCategoryPath', $categoryPath);
+                preg_replace_callback('/[^filter=]\w+(?=%3A)/', function (array $match) use ($view) {
+                    $view->assign('ffCategoryPathFieldName', $match[0]);
+                }, $categoryPath);
                 return;
             }
         }

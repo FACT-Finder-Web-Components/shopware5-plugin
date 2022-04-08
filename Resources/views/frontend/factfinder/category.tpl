@@ -25,7 +25,7 @@
 
 {block name='frontend_listing_actions_filter_form'}
   <div data-filter-form="true">
-    {include file='frontend/factfinder/content/asn.tpl'}
+    {include file='frontend/factfinder/content/asn.tpl' isNavigationPage=true categoryPathFieldName=$ffCategoryPathFieldName}
     {include file='frontend/factfinder/content/filter_cloud.tpl'}
   </div>
 {/block}
