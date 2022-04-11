@@ -1,5 +1,5 @@
 # Changelog
-## [Unreleased]
+## [v3.0.2] - 11.04.2022
 ### Fix
  - Searchbox
   - searchbox does not appear after clicking on magnifier icon
@@ -135,6 +135,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.2
 [v3.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.1
 [v3.0.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.0
 [v3.0.0-rc.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.0-rc.1
