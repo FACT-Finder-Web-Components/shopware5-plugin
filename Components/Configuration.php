@@ -36,6 +36,12 @@ class Configuration
         return $this->pluginConfig['ffChannel'] ?? '';
     }
 
+    public function getFieldRoles(): array
+    {
+        $default = '{"brand":"Brand","campaignProductNumber":"ProductNumber","deeplink":"Deeplink","description":"Description","displayProductNumber":"ProductNumber","ean":"EAN","imageUrl":"ImageUrl","masterArticleNumber":"Master","price":"Price","productName":"Name","trackingProductNumber":"ProductNumber"}';
+        return json_decode($this->pluginConfig['ffFieldRoles'] ?? $default, true);
+    }
+
     public function getCredentials(): Credentials
     {
         return new Credentials($this->pluginConfig['ffUser'] ?? '', $this->pluginConfig['ffPassword'] ?? '');
