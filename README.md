@@ -13,6 +13,7 @@ process. The second chapter *Settings* explains the customisation options in the
 - [Activating the Module](#activating-the-module)
 - [Settings](#settings)
     - [Test Connection Button](#test-connection-button)
+    - [Update Field Roles Button](#update-field-roles-button)
     - [Using FACT-Finder® on category pages](#using-fact-finder-on-category-pages)
     - [Upload Options](#upload-options)
     - [Import Options](#import-options)
@@ -66,6 +67,11 @@ Please remember that you have to clear the store cache in order the new applied 
 By clicking the `Test Connection` button, you can check if your credentials are correct.
 This functionality uses form data, so there is no need to save first.
 **Note:** This functionality uses main sub shop channel input value.
+
+### Update Field Roles Button
+By clicking the `Update Field Roles` button, you can update the internal plugin configuration with the field roles configured in FACT-Finder®.
+You don't need to do that as long as you use the same column names as in feed, the plugin offers.
+If you use custom feed or you have changed default column names, please use this functionality to update field roles accordingly. 
 
 ### Using FACT-Finder® on category pages
 Render category pages with FACT-Finder®. Categories URLs and hence SEO will still use standard Shopware routing.
