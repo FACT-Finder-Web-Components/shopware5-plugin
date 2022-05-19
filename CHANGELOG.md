@@ -1,4 +1,8 @@
 # Changelog
+## Unreleased
+### Add
+ - add new Update FieldRoles functionality, more details in documentation
+ 
 ## [v3.0.2] - 11.04.2022
 ### Fix
  - Searchbox

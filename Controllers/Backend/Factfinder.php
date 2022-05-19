@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 use OmikronFactfinder\Components\Configuration;
 use OmikronFactfinder\Components\Service\TestConnectionService;
+use OmikronFactfinder\Components\Service\UpdateFieldRolesService;
 use OmikronFactfinder\Components\Service\UploadService;
 use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
 use Shopware\Components\CSRFWhitelistAware;
 use Shopware\Components\HttpClient\RequestException;
+use RuntimeException;
 
 class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action implements CSRFWhitelistAware
 {
@@ -18,7 +20,7 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
 
     public function getWhitelistedCSRFActions(): array
     {
-        return ['testConnection', 'testFtpConnection'];
+        return ['testConnection', 'testFtpConnection', 'updateFieldRoles'];
     }
 
     public function preDispatch()
@@ -51,6 +53,22 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
 
         try {
             $testConnection->execute($params->getServerUrl(), $params->getChannel(), $params->getCredentials());
+        } catch (RequestException $e) {
+            $message = json_decode((string) $e->getBody(), true)['errorDescription'] ?? $e->getMessage();
+        }
+
+        $this->response->setBody($message);
+    }
+
+    public function updateFieldRolesAction()
+    {
+        $updateFieldRoles = $this->container->get(UpdateFieldRolesService::class);
+        $message          = 'Field Roles updated succesfully';
+
+        try {
+            $updateFieldRoles->updateFieldRoles();
+        } catch (RuntimeException $e) {
+            $message = 'Update FieldRoles failed: Cause ' . $e->getMessage();
         } catch (RequestException $e) {
             $message = json_decode((string) $e->getBody(), true)['errorDescription'] ?? $e->getMessage();
         }

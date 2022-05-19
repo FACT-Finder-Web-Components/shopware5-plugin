@@ -8,6 +8,7 @@
             <bind key="$pluginConfig" type="service" id="omikron_factfinder.plugin_config" />
             <bind key="$httpClient" type="service" id="http_client" />
             <bind key="$batchSize">%factfinder.export.batchSize%</bind>
+            <bind key="$pluginName">%omikron_factfinder.plugin_name%</bind>
         </defaults>
 
         <instanceof id="Symfony\Component\DependencyInjection\ContainerAwareInterface">
@@ -16,7 +17,7 @@
             </call>
         </instanceof>
 
-        <service id="omikron_factfinder.plugin_config" class="Shopware\Components\Plugin\CachedConfigReader">
+            <service id="omikron_factfinder.plugin_config" class="Shopware\Components\Plugin\CachedConfigReader">
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName" />
             <argument>%omikron_factfinder.plugin_name%</argument>
         </service>
@@ -43,6 +44,10 @@
         <service id="OmikronFactfinder\Components\Service\PushImportService" />
         <service id="OmikronFactfinder\Components\Service\TestConnectionService" />
         <service id="OmikronFactfinder\Components\Service\UploadService" />
+        <service id="OmikronFactfinder\Components\Service\UpdateFieldRolesService">
+            <argument type="service" id="shopware.plugin.cached_config_reader"/>
+
+        </service>
         <service id="OmikronFactfinder\Components\Data\DataProviderInterface" class="OmikronFactfinder\Components\Data\Article\ArticleDataProvider" />
 
         <service id="OmikronFactfinder\Components\Filter\FilterInterface"

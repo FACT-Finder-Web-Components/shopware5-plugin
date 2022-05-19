@@ -58,7 +58,7 @@ class TemplateRegistration implements SubscriberInterface
         if ($this->configuration->isEnabled()) {
             $currencyField = sprintf('%s_%s', $this->fieldRoles['price'], $this->contextService->getShopContext()->getCurrency()->getName());
             $this->templateManager->addTemplateDir($this->pluginDirectory . '/Resources/views');
-            $this->templateManager->assign('ffFieldRoles', $this->fieldRoles);
+            $this->templateManager->assign('ffFieldRoles', $this->configuration->getFieldRoles());
             $this->templateManager->assign('currencyFields', implode(',', array_keys($this->priceCurrencyFields->getPriceCurrencyFields())));
             $this->templateManager->assign('activeCurrency', "{{record.$currencyField}}");
             $this->templateManager->assign('activeCurrencyField', $currencyField);
