@@ -39,3 +39,4 @@ jobs:
         run: |
           vendor/bin/php-cs-fixer fix --dry-run -v --no-ansi
           vendor/bin/phpunit -v
+          vendor/bin/phpmd Components/ text phpmd.xml.dist

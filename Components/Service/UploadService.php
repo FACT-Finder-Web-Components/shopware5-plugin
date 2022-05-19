@@ -24,24 +24,26 @@ class UploadService
     public function uploadFeed(string $path, string $contents): void
     {
         if ($this->config()['type'] === 'sftp') {
-            $fs = new SftpService($this->ftpConfig);
-            $fs->write($path, $contents);
-        } else {
-            $fs = $this->fsFactory->factory($this->config());
-            $fs->getConfig()->set('disable_asserts', true);
-            $fs->write($path, $contents);
+            $filesystem = new SftpService($this->ftpConfig);
+            $filesystem->write($path, $contents);
+            return;
         }
+        //ftp
+        $filesystem = $this->fsFactory->factory($this->config());
+        $filesystem->getConfig()->set('disable_asserts', true);
+        $filesystem->write($path, $contents);
     }
 
     public function testConnection(FTPConfig $config): void
     {
         if ($config->getProtocol() === 'sftp') {
-            $fs = new SftpService($config);
-            $fs->write('testconnection', 'test');
-        } else {
-            $fs = $this->fsFactory->factory($this->config($config));
-            $fs->write('testconnection', 'test');
+            $filesystem = new SftpService($config);
+            $filesystem->write('testconnection', 'test');
+            return;
         }
+        //ftp
+        $filesystem = $this->fsFactory->factory($this->config($config));
+        $filesystem->write('testconnection', 'test');
     }
 
     private function config(FTPConfig $ftpConfig = null): array

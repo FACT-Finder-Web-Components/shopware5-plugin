@@ -33,11 +33,19 @@ class FieldProvider
         return array_unique(array_merge($this->columns, array_map([$this, 'getFieldName'], $this->getFields())));
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+     * Method is used in an old callback use expression [object, methodName] which is not detected by the md
+     */
     public function getFields(): array
     {
         return array_merge($this->fields, $this->singleFields->getFields(), $this->priceCurrencyFields->getPriceCurrencyFields());
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+     * Method is used in an old callback use expression [object, methodName] which is not detected by the md
+     */
     private function getFieldName(FieldInterface $field): string
     {
         return $field->getName();
