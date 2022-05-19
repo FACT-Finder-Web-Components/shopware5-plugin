@@ -21,7 +21,7 @@ class CategoryFilterTest extends TestCase
             ->getMock();
     }
 
-    public function test_calculates_the_category_filter()
+    public function testCalculatesTheCategoryFilter()
     {
         $this->repository->method('getPathById')->willReturn(['ROOT', 'Ausrüstung100%', 'Bücher / Karten']);
 

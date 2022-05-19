@@ -7,9 +7,9 @@ use OmikronFactfinder\Components\Service\TestConnectionService;
 use OmikronFactfinder\Components\Service\UpdateFieldRolesService;
 use OmikronFactfinder\Components\Service\UploadService;
 use OmikronFactfinder\Components\Upload\Configuration as FTPConfig;
+use RuntimeException;
 use Shopware\Components\CSRFWhitelistAware;
 use Shopware\Components\HttpClient\RequestException;
-use RuntimeException;
 
 class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action implements CSRFWhitelistAware
 {

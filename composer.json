@@ -16,8 +16,9 @@
     "league/flysystem-sftp": "1.0.22"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.18",
-    "phpunit/phpunit": "^7.5"
+    "friendsofphp/php-cs-fixer": "2.18",
+    "phpunit/phpunit": "^7.5",
+    "phpmd/phpmd": "^2.9"
   },
   "autoload-dev": {
     "psr-4": {

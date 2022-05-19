@@ -8,6 +8,7 @@ use OmikronFactfinder\Components\Output\Csv;
 use OmikronFactfinder\Components\Service\ExportService;
 use OmikronFactfinder\Components\Service\PushImportService;
 use OmikronFactfinder\Components\Service\ShopEmulationService;
+use OmikronFactfinder\Components\Service\UpdateFieldRolesService;
 use OmikronFactfinder\Components\Service\UploadService;
 use Shopware\Commands\ShopwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -32,7 +33,8 @@ class ExportArticlesCommand extends ShopwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->registerErrorHandler($output);
-
+        $this->container->get(UpdateFieldRolesService::class)->updateFieldRoles();
+        exit;
         $shopEmulation = $this->getContainer()->get(ShopEmulationService::class);
         $shopEmulation->emulateShop((int) $input->getArgument(self::SHOP_ID_ARGUMENT), function () use ($input, $output) {
             $feed = $this->getContainer()->get(Csv::class);

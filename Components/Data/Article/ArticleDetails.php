@@ -12,6 +12,7 @@ use Shopware\Components\Api\Resource\Article as ArticleResource;
 use Shopware\Components\Api\Resource\Resource;
 use Shopware\Models\Article\Article;
 use Shopware\Models\Article\Detail;
+use Traversable;
 
 class ArticleDetails implements \IteratorAggregate
 {
@@ -44,7 +45,7 @@ class ArticleDetails implements \IteratorAggregate
         $this->batchSize          = $batchSize;
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         $shop = $this->contextService->getContext()->getShop();
         $this->translationService->loadPropertiesTranslations((int) $shop->getId());

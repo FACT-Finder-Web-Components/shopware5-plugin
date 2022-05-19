@@ -76,6 +76,6 @@ class PushImportService
 
     private function getBaseEndpoint(): string
     {
-        return $endpoint = $this->configuration->getServerUrl() . '/rest/v4/import/';
+        return $this->configuration->getServerUrl() . '/rest/v4/import/';
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OmikronFactfinder\Components\Service;
 
 use Exception;
@@ -11,6 +13,8 @@ class SftpService
 {
     /** @var array */
     private $parameters;
+
+    /** @var Filesystem */
     private $sftp;
 
     public function __construct(FTPConfig $parameters)

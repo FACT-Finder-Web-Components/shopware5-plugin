@@ -6,6 +6,7 @@ namespace OmikronFactfinder\Components\Service;
 
 use OmikronFactfinder\Components\Configuration;
 use OmikronFactfinder\Components\FieldRoles\Mapper;
+use RuntimeException;
 use Shopware\Components\HttpClient\HttpClientInterface;
 use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin\ConfigReader;
@@ -87,7 +88,7 @@ class UpdateFieldRolesService
         $plugin           = $pluginRepository->findOneBy(['name' => 'OmikronFactfinder']);
 
         if (!$plugin) {
-            throw new \RuntimeException('OmikronFactfinder is not installed');
+            throw new RuntimeException('OmikronFactfinder is not installed');
         }
 
         return $plugin;
