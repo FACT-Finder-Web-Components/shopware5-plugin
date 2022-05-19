@@ -51,6 +51,10 @@ class SingleFields
         return $this->fields;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+     * Method is used in an old callback use expression [object, methodName] which is not detected by the md
+     */
     private function getField(string $columnName): ArticleAttribute
     {
         $attribute = $this->crudService->get('s_articles_attributes', $columnName);

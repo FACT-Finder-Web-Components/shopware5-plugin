@@ -47,6 +47,9 @@ class ArticleAttribute implements FieldInterface
         return $this->label;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function getValue(Detail $detail): string
     {
         $attributeObj = $detail->getAttribute();

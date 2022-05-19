@@ -36,17 +36,7 @@ class Configuration
 
     public function getPort(): int
     {
-        $port = 21;
-
-        if (!empty($this->pluginConfig['ffFtpPort'])) {
-            $port = (int) $this->pluginConfig['ffFtpPort'];
-        } else {
-            if ($this->getProtocol() === 'sftp') {
-                $port = 22;
-            }
-        }
-
-        return $port;
+        return $this->getProtocol() === 'sftp' ? 22 : ($this->pluginConfig['ffFtpPort'] ?: 21);
     }
 
     public function getPrivateKey(): string
