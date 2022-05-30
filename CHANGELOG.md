@@ -1,8 +1,11 @@
 # Changelog
-## Unreleased
+## [v3.1.0] - 30.05.2022
 ### Add
  - add new Update FieldRoles functionality, more details in documentation
  
+### Change
+ - upgrade Web Components to version [4.0.10](https://github.com/FACT-Finder-Web-Components/ff-web-components/releases/tag/4.0.10)
+
 ## [v3.0.2] - 11.04.2022
 ### Fix
  - Searchbox
@@ -139,6 +142,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.1.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.0
 [v3.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.2
 [v3.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.1
 [v3.0.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.0
