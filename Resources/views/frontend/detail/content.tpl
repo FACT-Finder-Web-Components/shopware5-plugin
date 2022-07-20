@@ -3,11 +3,11 @@
 {block name="frontend_detail_index_header_container"}
   {$smarty.block.parent}
 
-  {block name="frontend_factfinder_product_campaign_feedbacktext"}
-      {if $ffFeatureFlags.campaign}
-        <ff-campaign-feedbacktext is-product-campaign unresolved>{'{{{text}}}'}</ff-campaign-feedbacktext>
-      {/if}
-  {/block}
+  {if $ffFeatureFlags.campaign}
+    {block name="frontend_factfinder_product_campaign_feedbacktext"}
+      <ff-campaign-feedbacktext is-product-campaign unresolved>{'{{{text}}}'}</ff-campaign-feedbacktext>
+    {/block}
+  {/if}
 {/block}
 
 {block name="frontend_detail_index_tabs_cross_selling"}
@@ -15,9 +15,9 @@
   {if $ffFeatureFlags.campaign}
     <ff-campaign-product record-id="{$sArticle.mainVariantNumber}"></ff-campaign-product>
   {/if}
-  {block name="frontend_factfinder_detail_recommendation"}
-      {if $ffFeatureFlags.recommendation}
-          {include file='frontend/factfinder/content/recommendation.tpl'}
-      {/if}
-  {/block}
+  {if $ffFeatureFlags.recommendation}
+    {block name="frontend_factfinder_detail_recommendation"}
+      {include file='frontend/factfinder/content/recommendation.tpl'}
+    {/block}
+  {/if}
 {/block}
