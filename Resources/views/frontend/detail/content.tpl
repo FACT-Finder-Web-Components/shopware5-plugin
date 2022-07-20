@@ -12,7 +12,9 @@
 
 {block name="frontend_detail_index_tabs_cross_selling"}
   {$smarty.block.parent}
-  <ff-campaign-product record-id="{$sArticle.mainVariantNumber}"></ff-campaign-product>
+  {if $ffFeatureFlags.campaign}
+    <ff-campaign-product record-id="{$sArticle.mainVariantNumber}"></ff-campaign-product>
+  {/if}
   {block name="frontend_factfinder_detail_recommendation"}
       {if $ffFeatureFlags.recommendation}
           {include file='frontend/factfinder/content/recommendation.tpl'}
