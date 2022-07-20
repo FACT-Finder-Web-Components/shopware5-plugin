@@ -46,4 +46,9 @@ class Configuration
     {
         return new Credentials($this->pluginConfig['ffUser'] ?? '', $this->pluginConfig['ffPassword'] ?? '');
     }
+
+    public function isFeatureEnabled(string $name): bool
+    {
+        return (bool) ($this->pluginConfig[$name] ?? false);
+    }
 }

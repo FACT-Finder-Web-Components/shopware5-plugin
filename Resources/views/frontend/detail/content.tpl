@@ -4,7 +4,9 @@
   {$smarty.block.parent}
 
   {block name="frontend_factfinder_product_campaign_feedbacktext"}
-    <ff-campaign-feedbacktext is-product-campaign unresolved>{'{{{text}}}'}</ff-campaign-feedbacktext>
+      {if $ffFeatureFlags.campaign}
+        <ff-campaign-feedbacktext is-product-campaign unresolved>{'{{{text}}}'}</ff-campaign-feedbacktext>
+      {/if}
   {/block}
 {/block}
 
@@ -12,6 +14,8 @@
   {$smarty.block.parent}
   <ff-campaign-product record-id="{$sArticle.mainVariantNumber}"></ff-campaign-product>
   {block name="frontend_factfinder_detail_recommendation"}
-    {include file='frontend/factfinder/content/recommendation.tpl'}
+      {if $ffFeatureFlags.recommendation}
+          {include file='frontend/factfinder/content/recommendation.tpl'}
+      {/if}
   {/block}
 {/block}

@@ -1,4 +1,9 @@
 # Changelog
+## Unreleased
+### Add
+- Configuration
+  - add option to enable/disable web component features Recommendation, Campaign and SimilarProducts
+
 ## [v3.1.0] - 30.05.2022
 ### Add
  - add new Update FieldRoles functionality, more details in documentation
