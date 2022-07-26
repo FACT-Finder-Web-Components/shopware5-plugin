@@ -62,6 +62,11 @@ class TemplateRegistration implements SubscriberInterface
             $this->templateManager->assign('currencyFields', implode(',', array_keys($this->priceCurrencyFields->getPriceCurrencyFields())));
             $this->templateManager->assign('activeCurrency', "{{record.$currencyField}}");
             $this->templateManager->assign('activeCurrencyField', $currencyField);
+            $this->templateManager->assign('ffFeatureFlags', [
+                'recommendation'  => $this->configuration->isFeatureEnabled('ffRecommendationFeatureEnabled'),
+                'campaign'        => $this->configuration->isFeatureEnabled('ffCampaignFeatureEnabled'),
+                'similarProducts' => $this->configuration->isFeatureEnabled('ffSimilarProductsFeatureEnabled'),
+            ]);
         }
     }
 }

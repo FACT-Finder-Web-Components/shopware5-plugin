@@ -252,5 +252,23 @@
                 <isCustomStore>true</isCustomStore>
             </options>
         </element>
+        <element type="boolean" scope="shop">
+            <name>ffRecommendationFeatureEnabled</name>
+            <label>Enable Recommendation Feature?</label>
+            <label lang="de">Enable Recommendation Feature?</label>
+            <value>true</value>
+        </element>
+        <element type="boolean" scope="shop">
+            <name>ffCampaignFeatureEnabled</name>
+            <label>Enable Campaign Feature?</label>
+            <label lang="de">Enable Campaign Feature?</label>
+            <value>true</value>
+        </element>
+        <element type="boolean" scope="shop">
+            <name>ffSimilarProductsFeatureEnabled</name>
+            <label>Enable Similar Products Feature?</label>
+            <label lang="de">Enable Similar Products Feature?</label>
+            <value>true</value>
+        </element>
     </elements>
 </config>

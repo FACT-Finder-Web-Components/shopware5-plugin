@@ -27,5 +27,12 @@
   },
   "extra": {
     "installer-name": "OmikronFactfinder"
+  },
+  "config": {
+    "allow-plugins": {
+      "omikron/*": true,
+      "composer/installers": true,
+      "league/flysystem-sftp": true
+    }
   }
 }
