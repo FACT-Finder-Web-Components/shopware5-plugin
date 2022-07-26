@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## [v3.1.1] - 26.07.2022
 ### Add
 - Configuration
   - add option to enable/disable web component features Recommendation, Campaign and SimilarProducts
@@ -147,6 +147,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.1.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.1
 [v3.1.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.0
 [v3.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.2
 [v3.0.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.1

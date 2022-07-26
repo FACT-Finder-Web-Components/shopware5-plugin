@@ -21,7 +21,7 @@
   <script type="text/javascript">
     const activeCurrency = '{$activeCurrencyField}';
     document.addEventListener('ffReady', function (e) {
-      e.factfinder.sdk = 'sw5-v3.1.0';
+      e.factfinder.sdk = 'sw5-v3.1.1';
       e.factfinder.communication.fieldRoles = {$ffFieldRoles|@json_encode};
       e.factfinder.communication.ResultDispatcher.addCallback('result', function (result) {
         result.groups = result.groups.filter(function (group) {
