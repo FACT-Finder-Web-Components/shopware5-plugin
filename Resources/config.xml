@@ -270,5 +270,11 @@
             <label lang="de">Enable Similar Products Feature?</label>
             <value>true</value>
         </element>
+        <element type="boolean" scope="shop">
+            <name>ffAnonymizeUserId</name>
+            <label>Enable anonymize User ID?</label>
+            <label lang="de">Anonymisieren der Benutzer-ID aktivieren?</label>
+            <value>false</value>
+        </element>
     </elements>
 </config>
