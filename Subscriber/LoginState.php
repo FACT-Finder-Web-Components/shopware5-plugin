@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace OmikronFactfinder\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
+use OmikronFactfinder\Components\Configuration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginState implements SubscriberInterface
@@ -15,17 +15,25 @@ class LoginState implements SubscriberInterface
     const HAS_JUST_LOGGED_OUT = 'ff_has_just_logged_out';
     const USER_ID = 'ff_user_id';
 
-    /**
-     * @var ContainerInterface
-     */
+    /** @var ContainerInterface */
     private $container;
+
+    /** @var Configuration */
+    private $configuration;
 
     /** @var bool */
     private $isTriggered = false;
 
-    public function __construct(ContainerInterface $container)
-    {
+    /** @var \Enlight_Components_Session_Namespace */
+    private $session;
+
+    public function __construct(
+        ContainerInterface $container,
+        Configuration $configuration
+    ) {
         $this->container = $container;
+        $this->configuration = $configuration;
+        $this->session = $this->container->get('session');
     }
 
     public static function getSubscribedEvents()
@@ -53,7 +61,7 @@ class LoginState implements SubscriberInterface
             return;
         }
 
-        if ($session->get('sUserId') === null) {
+        if ($this->getUserId() === null) {
             $this->clearCookie(self::USER_ID);
             $this->clearCookie(self::HAS_JUST_LOGGED_OUT);
         }
@@ -66,7 +74,7 @@ class LoginState implements SubscriberInterface
 
         if ($session->get(self::HAS_JUST_LOGGED_IN, false) === true) {
             $this->setCookie(self::HAS_JUST_LOGGED_IN, '1');
-            $this->setCookie(self::USER_ID, (string) $session->get('sUserId'));
+            $this->setCookie(self::USER_ID, $this->getUserId());
             $session->set(self::HAS_JUST_LOGGED_IN, false);
         }
     }
@@ -126,5 +134,13 @@ class LoginState implements SubscriberInterface
     private function getCookie(string $name): string
     {
         return $_COOKIE[$name] ?? '';
+    }
+
+    private function getUserId(): string
+    {
+        $session = $this->container->get('session');
+        $userId = (string) $session->get('sUserId');
+
+        return $this->configuration->isFeatureEnabled('ffAnonymizeUserId') ? md5($userId) : $userId;
     }
 }

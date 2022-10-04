@@ -7,6 +7,8 @@
 ### Add
 - Configuration
   - add option to enable/disable web component features Recommendation, Campaign and SimilarProducts
+- Login, Logout, Subscriber
+    - new login state management which detect user has just logged in and logged out
 
 ## [v3.1.0] - 30.05.2022
 ### Add
