@@ -31,9 +31,9 @@ class LoginState implements SubscriberInterface
         ContainerInterface $container,
         Configuration $configuration
     ) {
-        $this->container = $container;
+        $this->container     = $container;
         $this->configuration = $configuration;
-        $this->session = $this->container->get('session');
+        $this->session       = $this->container->get('session');
     }
 
     public static function getSubscribedEvents()
@@ -49,9 +49,9 @@ class LoginState implements SubscriberInterface
 
     public function hasJustLoggedIn(\Enlight_Controller_ActionEventArgs $args): void
     {
-        $session = $this->container->get('session');
+        $session  = $this->container->get('session');
         $response = $args->getResponse();
-        $request = $args->getRequest();
+        $request  = $args->getRequest();
 
         if (
             $this->isTriggered
@@ -81,9 +81,9 @@ class LoginState implements SubscriberInterface
 
     public function hasJustLoggedOut(\Enlight_Controller_ActionEventArgs $args): void
     {
-        $session = $this->container->get('session');
+        $session  = $this->container->get('session');
         $response = $args->getResponse();
-        $request = $args->getRequest();
+        $request  = $args->getRequest();
 
         if (
             $this->isTriggered
@@ -102,7 +102,7 @@ class LoginState implements SubscriberInterface
 
     public function setIsTriggered(\Enlight_Controller_ActionEventArgs $args): void
     {
-        $request = $args->getRequest();
+        $request  = $args->getRequest();
         $response = $args->getResponse();
 
         if (
