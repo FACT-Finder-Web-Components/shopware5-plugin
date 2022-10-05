@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginState implements SubscriberInterface
 {
-    const HAS_JUST_LOGGED_IN = 'ff_has_just_logged_in';
+    const HAS_JUST_LOGGED_IN  = 'ff_has_just_logged_in';
     const HAS_JUST_LOGGED_OUT = 'ff_has_just_logged_out';
-    const USER_ID = 'ff_user_id';
+    const USER_ID             = 'ff_user_id';
 
     /** @var ContainerInterface */
     private $container;
@@ -139,7 +139,7 @@ class LoginState implements SubscriberInterface
     private function getUserId(): string
     {
         $session = $this->container->get('session');
-        $userId = (string) $session->get('sUserId');
+        $userId  = (string) $session->get('sUserId');
 
         return $this->configuration->isFeatureEnabled('ffAnonymizeUserId') ? md5($userId) : $userId;
     }
