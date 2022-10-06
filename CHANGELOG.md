@@ -1,4 +1,8 @@
 # Changelog
+## Unreleased
+### Change
+- increase api version from v4 to v5
+
 ## [v3.1.1] - 26.07.2022
 ### Add
 - Configuration

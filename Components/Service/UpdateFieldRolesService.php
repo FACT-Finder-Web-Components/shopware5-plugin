@@ -79,7 +79,7 @@ class UpdateFieldRolesService
 
     private function getEndpoint(string $url, string $channel): string
     {
-        return sprintf('%s/rest/v4/search/%s', rtrim($url, '/'), $channel);
+        return sprintf('%s/rest/v5/search/%s', rtrim($url, '/'), $channel);
     }
 
     private function getPlugin(): Plugin
