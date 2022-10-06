@@ -1,7 +1,7 @@
 # Changelog
-## Unreleased
+## [v3.1.2] - 06.10.2022
 ### Change
-- increase api version from v4 to v5
+- Added compatibility with `FACT-Finder NG 3.0`, Increase api version from `v4` to `v5`
 
 ## [v3.1.1] - 26.07.2022
 ### Add
@@ -151,6 +151,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.1.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.2
 [v3.1.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.1
 [v3.1.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.0
 [v3.0.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.0.2
