@@ -110,6 +110,10 @@ Additional data transformations are performed on the data of one of these types:
 Free text fields of different type are exported in non changed form.
 For the field with Entity type defined, it will export the Identifier of that entity.
 
+### Advanced Settings
+
+* `Anonymize User ID` - check this option if you want to send user id with tracking requests in anonymized form. By default the regular id field from user table is sent.
+
 ## Exporting Feed
 Feed export is available in the Shopware CLI application. You can run it by executing:
 
