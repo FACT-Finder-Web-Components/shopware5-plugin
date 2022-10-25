@@ -21,16 +21,22 @@
       return acc;
     }, {});
 
+    const clearCookie = (name) => {
+      document.cookie = name+'=; Max-Age=-1;';
+    }
+
     if (cookies['ff_user_id']) {
       factfinder.communication.sessionManager.setLoginData(cookies['ff_user_id'])
 
       if (cookies['ff_has_just_logged_in']) {
+        clearCookie('ff_has_just_logged_in');
         factfinder.communication.Tracking.loginWithConfig();
       }
     } else {
       factfinder.communication.sessionManager.clearLoginData();
 
       if (cookies['ff_has_just_logged_out']) {
+        clearCookie('ff_has_just_logged_out');
         factfinder.communication.sessionManager.clearAllSessionData();
       }
     }

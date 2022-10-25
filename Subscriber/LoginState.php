@@ -44,7 +44,6 @@ class LoginState implements SubscriberInterface
         return [
             'Enlight_Controller_Action_PostDispatchSecure_Frontend' => [
                 ['isCustomerLoggedOut'],
-                ['isHasJustLoggedInCookieSet'],
                 ['hasCustomerJustLoggedIn'],
                 ['hasCustomerJustLoggedOut'],
                 ['setIsTriggered'],
@@ -57,7 +56,7 @@ class LoginState implements SubscriberInterface
         try {
             $this->validateRequest($args->getRequest(), $args->getResponse());
 
-            if ($this->getUserId() === null) {
+            if ($this->getUserId() === '') {
                 $this->clearCookie(self::USER_ID);
                 $this->clearCookie(self::HAS_JUST_LOGGED_OUT);
             }
@@ -68,25 +67,6 @@ class LoginState implements SubscriberInterface
         }
     }
 
-    public function isHasJustLoggedInCookieSet(\Enlight_Controller_ActionEventArgs $args): bool
-    {
-        $request  = $args->getRequest();
-
-        try {
-            $this->validateRequest($request, $args->getResponse());
-        } catch (Exception $e) {
-            if ($request->getCookie(self::HAS_JUST_LOGGED_IN, '') !== '1') {
-                return false;
-            }
-        }
-
-        if ($request->getCookie(self::HAS_JUST_LOGGED_IN, '') === '1') {
-            $this->clearCookie(self::HAS_JUST_LOGGED_IN);
-        }
-
-        return true;
-    }
-
     public function hasCustomerJustLoggedIn(\Enlight_Controller_ActionEventArgs $args): bool
     {
         $request  = $args->getRequest();
@@ -94,9 +74,7 @@ class LoginState implements SubscriberInterface
         try {
             $this->validateRequest($request, $args->getResponse());
         } catch (Exception $e) {
-            if ($this->session->get(self::HAS_JUST_LOGGED_IN, false) === false) {
-                return false;
-            }
+            return false;
         }
 
         if ($this->session->get(self::HAS_JUST_LOGGED_IN, false) === true) {
@@ -175,6 +153,10 @@ class LoginState implements SubscriberInterface
     {
         $session = $this->container->get('session');
         $userId  = (string) $session->get('sUserId');
+
+        if ($userId === '') {
+            return '';
+        }
 
         return $this->configuration->isFeatureEnabled('ffAnonymizeUserId') ? md5($userId) : $userId;
     }

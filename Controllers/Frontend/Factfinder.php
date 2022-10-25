@@ -22,6 +22,10 @@ class Shopware_Controllers_Frontend_Factfinder extends \Enlight_Controller_Actio
         $configuration = $this->get('OmikronFactfinder\Components\Configuration');
         $userId        = (string) $this->get('session')->get('sUserId');
 
+        if ($userId === '') {
+            return '';
+        }
+
         return $configuration->isFeatureEnabled('ffAnonymizeUserId') ? md5($userId) : $userId;
     }
 }
