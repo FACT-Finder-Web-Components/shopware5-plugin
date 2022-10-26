@@ -1,4 +1,5 @@
 # Changelog
+## [v3.1.3] - 26.10.2022
 ### Change
 - Upgrade Web Components version to v4.2.2
 - introduce new way of user login tracking event
@@ -155,6 +156,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.1.3]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.3
 [v3.1.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.2
 [v3.1.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.1
 [v3.1.0]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.0
