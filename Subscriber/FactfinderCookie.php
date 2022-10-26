@@ -14,7 +14,7 @@ class FactfinderCookie implements SubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'CookieCollector_Collect_Cookies' => 'addCookies'
+            'CookieCollector_Collect_Cookies' => 'addCookies',
         ];
     }
 
