@@ -1,4 +1,8 @@
 # Changelog
+### Change
+- Upgrade Web Components version to v4.2.2
+- introduce new way of user login tracking event
+
 ## [v3.1.2] - 06.10.2022
 ### Change
 - Added compatibility with `FACT-Finder NG 3.0`, Increase api version from `v4` to `v5`
