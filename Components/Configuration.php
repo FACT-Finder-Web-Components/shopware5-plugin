@@ -62,7 +62,7 @@ class Configuration
         return [
             'addToCart' => [
                 'count' => $this->pluginConfig['ffTrackingAddToCartCount'] ?? 'count_as_one',
-            ]
+            ],
         ];
     }
 }
