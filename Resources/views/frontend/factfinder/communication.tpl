@@ -1,7 +1,7 @@
 <ff-communication url="{config name=ffServerUrl}"
                   channel="{config name=ffChannel}"
                   version="{config name=ffVersion}"
-                  {if {config name=ffVersion} eq 'ng'}api="v5"{/if}
+                  {if {config name=ffVersion} eq 'ng'}api="{config name=ffApiVersion}"{/if}
                   {if $addParams}add-params="{$addParams|escape:'html'}"{/if}
                   use-url-parameters="true"
                   only-search-params="true"

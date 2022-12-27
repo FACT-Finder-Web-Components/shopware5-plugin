@@ -38,6 +38,22 @@
                 </option>
             </store>
         </element>
+        <element type="select" scope="shop">
+            <name>ffApiVersion</name>
+            <label>FACT-Finder® Api Version</label>
+            <label lang="de">FACT-Finder® Api Version</label>
+            <value>v5</value>
+            <store>
+                <option>
+                    <value>v5</value>
+                    <label>v5</label>
+                </option>
+                <option>
+                    <value>v4</value>
+                    <label>v4</label>
+                </option>
+            </store>
+        </element>
         <element scope="shop">
             <name>ffUser</name>
             <label>Username</label>

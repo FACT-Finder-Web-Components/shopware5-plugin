@@ -24,9 +24,9 @@ class TestConnectionService
     /**
      * @throws RequestException
      */
-    public function execute(string $url, string $channel, Credentials $credentials): void
+    public function execute(string $url, string $channel, string $apiVersion, Credentials $credentials): void
     {
-        $endpoint = sprintf('%s/rest/v5/search/%s', rtrim($url, '/'), $channel);
+        $endpoint = sprintf('%s/rest/%s/search/%s', rtrim($url, '/'), $apiVersion, $channel);
         $this->client->get($endpoint . '?' . http_build_query(['query' => $this->apiQuery]), [
             'Accept'        => 'application/json',
             'Authorization' => $credentials->__toString(),

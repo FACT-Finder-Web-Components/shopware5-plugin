@@ -52,7 +52,7 @@ class Shopware_Controllers_Backend_Factfinder extends \Enlight_Controller_Action
         $message        = $this->__('connectionEstablished');
 
         try {
-            $testConnection->execute($params->getServerUrl(), $params->getChannel(), $params->getCredentials());
+            $testConnection->execute($params->getServerUrl(), $params->getChannel(), $params->getApiVersion(), $params->getCredentials());
         } catch (RequestException $e) {
             $message = json_decode((string) $e->getBody(), true)['errorDescription'] ?? $e->getMessage();
         }
