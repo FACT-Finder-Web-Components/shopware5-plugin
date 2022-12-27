@@ -56,4 +56,13 @@ class Configuration
     {
         return (bool) ($this->pluginConfig[$name] ?? false);
     }
+
+    public function getTrackingSettings(): array
+    {
+        return [
+            'addToCart' => [
+                'count' => $this->pluginConfig['ffTrackingAddToCartCount'] ?? 'count_as_one',
+            ]
+        ];
+    }
 }

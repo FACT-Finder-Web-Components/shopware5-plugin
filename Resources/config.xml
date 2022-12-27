@@ -292,5 +292,21 @@
             <label lang="de">Anonymisieren der Benutzer-ID aktivieren?</label>
             <value>false</value>
         </element>
+        <element type="select" scope="shop">
+            <name>ffTrackingAddToCartCount</name>
+            <label>Scenario how to count single click on "Add to cart" button</label>
+            <label lang="de">Scenario how to count single click on "Add to cart" button</label>
+            <value>count_as_one</value>
+            <store>
+                <option>
+                    <value>count_as_one</value>
+                    <label>track single click as one</label>
+                </option>
+                <option>
+                    <value>count_selected_amount</value>
+                    <label>track single click with selected amount</label>
+                </option>
+            </store>
+        </element>
     </elements>
 </config>

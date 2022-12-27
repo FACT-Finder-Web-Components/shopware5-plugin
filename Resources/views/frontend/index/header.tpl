@@ -20,6 +20,7 @@
 
   <script type="text/javascript">
     const activeCurrency = '{$activeCurrencyField}';
+    const ffTrackingSettings = JSON.parse('{$trackingSettings}');
     document.addEventListener('ffReady', function (e) {
       e.factfinder.sdk = 'sw5-v3.1.3';
       e.factfinder.communication.fieldRoles = {$ffFieldRoles|@json_encode};
