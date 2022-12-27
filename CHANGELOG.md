@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## [v3.1.4] - 27.12.2022
 ### Add
 - Add option to switch between Api Version
 - Tracking
@@ -162,6 +162,7 @@
 ## [v1.0.0] - 2021.04.09
 Initial module release. Includes Web Components v4.0.1
 
+[v3.1.4]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.4
 [v3.1.3]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.3
 [v3.1.2]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.2
 [v3.1.1]: https://github.com/FACT-Finder-Web-Components/shopware5-plugin/releases/tag/v3.1.1
