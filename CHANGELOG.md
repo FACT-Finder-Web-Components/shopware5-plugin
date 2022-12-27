@@ -1,4 +1,8 @@
 # Changelog
+## Unreleased
+### Add
+- Add option to switch between Api Version
+
 ## [v3.1.3] - 26.10.2022
 ### Change
 - Upgrade Web Components version to v4.2.2

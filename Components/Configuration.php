@@ -36,6 +36,11 @@ class Configuration
         return $this->pluginConfig['ffChannel'] ?? '';
     }
 
+    public function getApiVersion(): string
+    {
+        return $this->pluginConfig['ffApiVersion'] ?? 'v5';
+    }
+
     public function getFieldRoles(): array
     {
         $default = '{"brand":"Brand","campaignProductNumber":"ProductNumber","deeplink":"Deeplink","description":"Description","displayProductNumber":"ProductNumber","ean":"EAN","imageUrl":"ImageUrl","masterArticleNumber":"Master","price":"Price","productName":"Name","trackingProductNumber":"ProductNumber"}';

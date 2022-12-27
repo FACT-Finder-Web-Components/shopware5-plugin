@@ -58,7 +58,7 @@ class UpdateFieldRolesService
         $shops          = $shopRepository->findAll();
         foreach ($shops as $shop) {
             $scopedConfig = $this->configReader->getByPluginName($this->pluginName, $shop);
-            $endpoint     = $this->getEndpoint($this->configuration->getServerUrl(), $scopedConfig['ffChannel']);
+            $endpoint     = $this->getEndpoint($this->configuration->getServerUrl(), $scopedConfig['ffChannel'], $this->configuration->getApiVersion());
             $response     = $this->client->get(
                 "$endpoint?" . http_build_query(['query' => '*']),
                 [
@@ -77,9 +77,9 @@ class UpdateFieldRolesService
         }
     }
 
-    private function getEndpoint(string $url, string $channel): string
+    private function getEndpoint(string $url, string $channel, string $apiVersion): string
     {
-        return sprintf('%s/rest/v5/search/%s', rtrim($url, '/'), $channel);
+        return sprintf('%s/rest/%s/search/%s', rtrim($url, '/'), $apiVersion, $channel);
     }
 
     private function getPlugin(): Plugin

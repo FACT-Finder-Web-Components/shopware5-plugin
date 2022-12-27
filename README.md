@@ -59,6 +59,8 @@ Please remember that you have to clear the store cache in order the new applied 
 * Server URL - FACT-Finder® instance url   
   **Note:** Server URL should contain a used protocol: (e.g. `https://`) and should end with an endpoint ( `fact-finder` )
 * Channel - Channel you want to serve data from
+* API Version - Used FACT-Finder® api version   
+  **Note:** Module supports FACT-Finder® api version `v4` and `v5`. By selecting the wrong api version you may cause the Web Components to be unable to communicate with FACT-Finder®
 * Username
 * Password  
   **Note:** Module supports FACT-Finder® NG only.
