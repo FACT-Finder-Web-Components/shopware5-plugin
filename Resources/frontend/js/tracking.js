@@ -1,6 +1,4 @@
 ;(function ($) {
-    debugger;
-
     function getRecordId(data)
     {
         const params = new RegExp('[\?&]sAdd=([^&#]*)').exec(data);
