@@ -2,6 +2,8 @@
 ## Unreleased
 ### Add
 - Add option to switch between Api Version
+- Tracking
+  - Add option to select scenario when `Add To Cart button` has been clicked
 
 ## [v3.1.3] - 26.10.2022
 ### Change
