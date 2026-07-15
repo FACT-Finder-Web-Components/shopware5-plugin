@@ -2,6 +2,17 @@
 
 [![Build status](https://github.com/FACT-Finder-Web-Components/shopware5-plugin/workflows/build/badge.svg)](https://github.com/FACT-Finder-Web-Components/shopware5-plugin/actions)
 
+## ⚠️ Deprecation Notice: This SDK is No Longer Supported
+Please note that this FACT-Finder integration plugin for Shopware 5 is officially deprecated and is no longer actively maintained, updated, or supported.
+
+As Shopware 5 is a legacy platform, we strongly recommend migrating your store to Shopware 6 and utilizing our actively developed SDK:
+
+👉 [FACT-Finder Web Components for Shopware 6 SDK](https://github.com/FACT-Finder-Web-Components/shopware6-plugin)
+
+Using the Shopware 6 integration ensures continuous support, optimal performance, and full compatibility with FACT-Finder NG and modern Web Components.
+
+---
+
 This document helps you to integrate the FACT-Finder® Web Components SDK into your Shopware5 Shop. In addition, it gives a
 concise overview of its primary functions. The first chapter *Installation* walks you through the suggested installation
 process. The second chapter *Settings* explains the customisation options in the Shopware5 backend. The
